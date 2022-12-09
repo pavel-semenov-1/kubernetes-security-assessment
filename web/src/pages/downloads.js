@@ -9,7 +9,23 @@ const downloadStyles = {
 
 const Downloads = () => {
     return (
-        <div style={downloadStyles}>Hello, world!</div>
+        <div style={downloadStyles}>
+            <h2 className="text-center">Downloads</h2>
+            <ul>
+                <li>
+                    <a href="">Thesis</a>
+                </li>
+                <li>
+                    <a href="">Demo</a>
+                </li>
+                <li>
+                    <a href="">Executable</a>
+                </li>
+                <li>
+                    <a href="">Source code</a>
+                </li>
+            </ul>
+        </div>
     )
 }
 

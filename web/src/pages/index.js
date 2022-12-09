@@ -67,9 +67,12 @@ const IndexPage = () => {
 
 export default IndexPage
 
-export const Head = () => (
-  <>
-    <title>Master thesis - Kubernetes security assessment</title>
-    <style>{'body { background-color: black; height: 100%; } html, #___gatsby, #gatsby-focus-wrapper { height: 100%; }'}</style>
-  </>
-)
+export const Head = () => {
+  const [mode, setMode] = useState("Dark");
+  return (
+    <>
+      <title>Master thesis - Kubernetes security assessment</title>
+      <style>{`body { background-color: ${mode === "Dark" ? "black" : "white"}; height: 100%; } html, #___gatsby, #gatsby-focus-wrapper { height: 100%; }`}</style>
+    </>
+  )
+}

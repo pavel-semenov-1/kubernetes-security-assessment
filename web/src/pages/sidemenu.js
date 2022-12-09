@@ -1,4 +1,5 @@
 import React from "react"
+import "../style/sidemenu.css"
 
 const menuStyles = {
     fontSize: 30,
