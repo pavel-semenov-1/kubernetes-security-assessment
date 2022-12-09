@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Cozette";   /*Can be any text*/
+    src: local("CozetteVector.ttf"),
+      url("../fonts/CozetteVector.ttf") format("truetype");
+  }
+
+#heading:hover {
+  cursor: pointer;
+}

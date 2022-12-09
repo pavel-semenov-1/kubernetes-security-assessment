@@ -1,0 +1,27 @@
+{
+  "name": "kubernetes-security-assessment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "kubernetes-security-assessment",
+  "author": "Pavel Semenov",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "gatsby": "^5.2.0",
+    "gatsby-plugin-google-analytics": "^5.2.0",
+    "gatsby-source-filesystem": "^5.2.0",
+    "gatsby-transformer-remark": "^6.2.0",
+    "mdb-react-ui-kit": "^5.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
