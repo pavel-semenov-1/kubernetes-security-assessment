@@ -18,9 +18,9 @@ jobs:
     - name: inject secrets
       run: |
         cd web
-        sed "s|%GITHUB_TOKEN%|${{ secrets.GIHUB_TOKEN_PULL_ISSUES }}|g; \
-        s|%GITHUB_API_REPO_URL%|${{ secrets.GITHUB_API_REPO_URL }}|g; \
-        s|%GITHUB_THESIS_LABEL_ID%|${{ secrets.GITHUB_THESIS_LABEL_ID }}|g \
+        sed "s|%GITHUB_TOKEN%|${{ secrets.GIT_TOKEN_PULL_ISSUES }}|g; \
+        s|%GITHUB_API_REPO_URL%|${{ secrets.GIT_API_REPO_URL }}|g; \
+        s|%GITHUB_THESIS_LABEL_ID%|${{ secrets.GIT_THESIS_LABEL_ID }}|g \
         s|%DONLOAD_THESIS_URL%|${{ vars.DOWNLOAD_THESIS_URL }}|g \
         s|%DOWNLOAD_DEMO_URL%|${{ vars.DOWNLOAD_DEMO_URL }}|g \
         s|%DOWNLOAD_EXECUTABLE_URL%|${{ vars.DOWNLOAD_EXECUTABLE_URL }}|g \
