@@ -1,0 +1,57 @@
+name: build & deploy the webpage
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - web
+    - .github/workflows/build-deploy-webpage.yml
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: inject secrets
+      run: |
+        cd web
+        sed "s|%GITHUB_TOKEN%|${{ secrets.GIT_TOKEN_PULL_ISSUES }}|g; \
+        s|%GITHUB_API_REPO_URL%|${{ secrets.GIT_API_REPO_URL }}|g; \
+        s|%GITHUB_THESIS_LABEL_ID%|${{ secrets.GIT_THESIS_LABEL_ID }}|g \
+        s|%DONLOAD_THESIS_URL%|${{ vars.DOWNLOAD_THESIS_URL }}|g \
+        s|%DOWNLOAD_DEMO_URL%|${{ vars.DOWNLOAD_DEMO_URL }}|g \
+        s|%DOWNLOAD_EXECUTABLE_URL%|${{ vars.DOWNLOAD_EXECUTABLE_URL }}|g \
+        s|%DOWNLOAD_SOURCE_CODE_URL%|${{ vars.DOWNLOAD_SOURCE_CODE_URL }}|g" .env.production
+    
+    - name: build
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+    - run: |
+        cd web
+        npm run build
+
+    - uses: actions/upload-pages-artifact@v1
+      with:
+        path: "web/public"
+
+  # Deploy job
+  deploy:
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        id: deployment
+        uses: actions/deploy-pages@v1

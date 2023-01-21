@@ -1,0 +1,9 @@
+p a {
+    color: #005618;
+    text-decoration: underline;
+}
+
+p a:hover {
+    color: #158033;
+    text-decoration: underline;
+}
