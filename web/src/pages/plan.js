@@ -66,7 +66,7 @@ const Plan = () => {
     return loading ? <p>Loading...</p> : 
         error ? <p>Error fetching data</p> : (
         <div style={planStyles} className={'d-flex flex-row justify-content-around'}>
-            <div style={boxStyles}>
+            <div style={boxStyles} className={'done'}>
                 <h2 className="text-center">DONE</h2>
                 <ul style={listStyles}>
                     {
@@ -79,7 +79,7 @@ const Plan = () => {
                     }
                 </ul>
             </div>
-            <div style={boxStyles}>
+            <div style={boxStyles} className={'todo'}>
                 <h2 className="text-center">TODO</h2>
                 <ul style={listStyles}>
                     {

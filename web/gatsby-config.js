@@ -1,10 +1,15 @@
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
+require("dotenv").config({
+  path: `.env`,
+})
+
 module.exports = {
+  pathPrefix: `/kubernetes-security-assessment`,
   siteMetadata: {
     title: `Kubernetes Security Assessment`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://pavel-semenov-1.github.io/kubernetes-security-assessment`
   },
   plugins: [{
     resolve: 'gatsby-plugin-google-analytics',

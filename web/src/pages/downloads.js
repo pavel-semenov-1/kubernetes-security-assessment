@@ -1,4 +1,5 @@
 import React from "react";
+import '../style/downloads.css';
 
 const downloadStyles = {
     borderRadius: 10,
@@ -8,8 +9,12 @@ const downloadStyles = {
 }
 
 const Downloads = () => {
+    const thesisURL = process.env.DOWNLOAD_THESIS_URL;
+    const demoURL = process.env.DOWNLOAD_DEMO_URL;
+    const executableURL = process.env.DOWNLOAD_EXECUTABLE_URL;
+    const sourceCodeURL = process.env.DOWNLOAD_SOURCE_CODE_URL;
     return (
-        <div style={downloadStyles}>
+        <div style={downloadStyles} className={'downloads'}>
             <h2 className="text-center">Downloads</h2>
             <ul>
                 <li>

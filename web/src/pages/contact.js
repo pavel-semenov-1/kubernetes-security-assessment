@@ -11,7 +11,7 @@ const contactStyles = {
 
 const Contact = () => {
     return (
-        <div style={contactStyles}>
+        <div style={contactStyles} className={'contact'}>
             <h2 className="text-center">Contact</h2>
             <ul>
                 <li>
