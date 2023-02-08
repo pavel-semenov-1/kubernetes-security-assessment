@@ -1,3 +1,9 @@
+---
+title: Kube-hunter
+author: Pavel Semenov
+date: February 7, 2023
+geometry: margin=1cm
+---
 # Kube-hunter
 
 *Kube-hunter* is one of the most popular Kubernetes security scanners. This tool allows us to find vulnerabilities in cluster and its resources. There are three ways to run *kube-hunter*:

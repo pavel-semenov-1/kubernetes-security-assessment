@@ -1,3 +1,9 @@
+---
+title: Minikube
+author: Pavel Semenov
+date: February 7, 2023
+geometry: margin=1cm
+---
 # Minikube
 
 I am using probably the most common local Kubernetes implementation called Minikube.
