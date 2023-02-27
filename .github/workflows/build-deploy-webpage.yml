@@ -27,7 +27,7 @@ jobs:
         s|%DOWNLOAD_EXECUTABLE_URL%|${{ vars.DOWNLOAD_EXECUTABLE_URL }}|g; \
         s|%DOWNLOAD_SOURCE_CODE_URL%|${{ vars.DOWNLOAD_SOURCE_CODE_URL }}|g" .env.production
 
-    - name: inject docs
+    - name: inject docs list
       run: |
         echo -en "\nDOCUMENT_LIST=" >> web/.env.production
         for file in ./docs/*; do \
@@ -49,7 +49,8 @@ jobs:
 
     - name: generate docs
       run: |
-        mkdir web/public/docs;
+        mkdir web/public/docs
+        sudo apt update && sudo apt install pandoc
         for file in ./docs/*; do \
             if [ -f "$file" ]; then \
                 filename=$(basename -- "${file}"); \
