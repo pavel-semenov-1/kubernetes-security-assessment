@@ -16,7 +16,7 @@ This installation is well-documented for every supported platform.
 
 Minikube requires container or Virtual Machine environment. I am using the Docker container environment.
 When using Minikube with Docker there are two options: either use the default Docker daemon, which requires root priviliges or install rootless Docker. Since we are considering security issues in this thesis, I have chosen the latter to run Docker as current user. Installing rootless Docker comes down to the following three commands:
-```
+``` {.bash}
 curl -o rootless-install.sh -fsSL https://get.docker.com/rootless
 sh rootless-install.sh
 export PATH=$HOME/bin:$PATH
@@ -25,7 +25,7 @@ export PATH=$HOME/bin:$PATH
 However, Minikube also requires *cgroup v2* to be enabled. If the file `/sys/fs/cgroup/cgroup.controllers` is present on your machine, then you have it enabled. If not, refer to [this document](https://rootlesscontaine.rs/getting-started/common/cgroup2/).
 
 We finish installation by executing these lines:
-```
+``` {.bash}
 dockerd-rootless-setuptool.sh install -f
 docker context use rootless
 ```
@@ -33,12 +33,12 @@ docker context use rootless
 ## Minikube installation
 
 Since I am using Arch linux, and the `minikube` package is available in the community repository, I installed Minikube using the default package manager:
-```
+``` {.bash}
 sudo pacman -S minikube
 ```
 
 Then, assuming the rootless Docker is installed correctly, the cluster can be started via
-```
+``` {.bash}
 minikube start --driver=docker --container-runtime=containerd
 ```
 
@@ -47,48 +47,48 @@ minikube start --driver=docker --container-runtime=containerd
 NOTE: Hereafter we are using alias `k="minikube kubectl -- "` to simplify the cluster management.
 
 First, we have to create a separate namespace for our security tests.
-```
+``` {.bash}
 k create ns security-test
 ```
 
 Then, we change context to use this namespace
-```
+``` {.bash}
 k config set-context --current --namespace=security-test
 ```
 
 For convnience I have added the following function to my *.zshrc*:
-```
+``` {.bash}
 kns() {
     kubectl config set-context --current --namespace=$1
 }
 ```
 This allows us to switch namespace simply by
-```
+``` {.bash}
 kns security-test
 ```
 
 ## Provision deployment
 
 We need some resources to perform the security tests. For now, I am using simple *nginx* server deployment.
-```
+``` {.bash}
 k create deploy --image=nginx nginx
 ```
 This will create the deployment with one replica. You can check if the pod (actual work unit) has started by 
-```
+``` {.bash}
 k get po
 ```
 Pod should be in state **Running**.
 
 Then, we need to expose our pod through the service to be able to connect to it. List the pods again and copy the randomly generated name of the pod.
-```
+``` {.bash}
 k expose <pod-name> --type=NodePort --port=80
 ```
 You can then check the created service by executing
-```
+``` {.bash}
 k get svc
 ```
 Notice the assigned *NodePort*. We can now use it to access our deployment. First run `minikube ip` to get the IP address of our cluster. Then, use this IP and port number in your browser to access nginx server. If this doesn't work for you then use
-```
+``` {.bash}
 minikube service <service-name> -n security-test
 ```
 

@@ -26,6 +26,17 @@ jobs:
         s|%DOWNLOAD_DEMO_URL%|${{ vars.DOWNLOAD_DEMO_URL }}|g; \
         s|%DOWNLOAD_EXECUTABLE_URL%|${{ vars.DOWNLOAD_EXECUTABLE_URL }}|g; \
         s|%DOWNLOAD_SOURCE_CODE_URL%|${{ vars.DOWNLOAD_SOURCE_CODE_URL }}|g" .env.production
+
+    - name: inject docs
+      run: |
+        echo -en "\nDOCUMENT_LIST=" >> web/.env.production
+        for file in ./docs/*; do \
+            if [ -f "$file" ]; then \
+                filename=$(basename -- "${file}"); \
+                title=$(grep "title:" "$file" | sed "s|^title: \(.*\)$|\1|" -); \
+                echo -n "${title}:docs/${filename%.*}.html " >> web/.env.production; \
+            fi \
+        done
     
     - name: build
       uses: actions/setup-node@v2
@@ -35,6 +46,17 @@ jobs:
         cd web
         npm install
         npm run build
+
+    - name: generate docs
+      run: |
+        mkdir web/public/docs;
+        for file in ./docs/*; do \
+            if [ -f "$file" ]; then \
+                filename=$(basename -- "${file}"); \
+                pandoc -t html5 -s -o "web/public/docs/${filename%.*}.html" -c style.css -H ./docs/extensions/header.html "${file}"; \
+            fi \
+        done
+        cp docs/extensions/style.css web/public/docs/style.css
 
     - uses: actions/upload-pages-artifact@v1
       with:

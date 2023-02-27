@@ -1,0 +1,47 @@
+body {
+    max-width: 65em;
+    margin: 0 auto;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    hyphens: auto;
+    overflow-wrap: break-word;
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+}
+
+header {
+    margin-bottom: 4em;
+    text-align: center;
+}
+
+div.sourceCode {
+    background-color: #eee;
+    color: #111;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+pre.sourceCode {
+    position: relative;
+    padding: 5px 0;
+}
+  
+pre.sourceCode button {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid silver;
+    opacity: 0.2;
+    width: 30px;
+    height: 30px;
+}
+
+pre.sourceCode button:hover {
+    cursor: pointer;
+    background-color: #bcbabb;
+    opacity: 1;
+}

@@ -28,6 +28,9 @@ const SideMenu = ({ current, setCurrent }) => {
             <li style={current === "Plan" ? menuActiveElementStyle : menuElementStyle} onClick={() => setCurrent("Plan")}>
                 <a>Plan</a>
             </li>
+            <li style={current === "Documentation" ? menuActiveElementStyle : menuElementStyle} onClick={() => setCurrent("Documentation")}>
+                <a>Documentation</a>
+            </li>
             <li style={current === "Downloads" ? menuActiveElementStyle : menuElementStyle} onClick={() => setCurrent("Downloads")}>
                 <a>Downloads</a>
             </li>

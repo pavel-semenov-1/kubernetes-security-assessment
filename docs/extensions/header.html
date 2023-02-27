@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // use a class selector if available
+    let blocks = document.querySelectorAll("pre");
+
+    blocks.forEach((block) => {
+    // only add button if browser supports Clipboard API
+    if (navigator.clipboard) {
+        let button = document.createElement("button");
+        let icon = document.createElement("i");
+        icon.classList.add("fa-solid");
+        icon.classList.add("fa-clipboard");
+        button.appendChild(icon);
+
+        block.appendChild(button);
+
+        button.addEventListener("click", async () => {
+        await copyCode(block, button, icon);
+        });
+    }
+    });
+
+    async function copyCode(block, button, icon) {
+    let code = block.querySelector("code");
+    let text = code.innerText;
+
+    await navigator.clipboard.writeText(text);
+
+    icon.classList.remove("fa-clipboard");
+    icon.classList.add("fa-check");
+    button.style.borderWidth = "4px";
+    button.style.color = "green";
+    setTimeout(() => {
+        icon.classList.remove("fa-check");
+        icon.classList.add("fa-clipboard");
+        button.style.borderWidth = "1px";
+        button.style.color = "black";
+    }, 1000)
+    }
+});
+</script>

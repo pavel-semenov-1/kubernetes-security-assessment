@@ -4,6 +4,7 @@ import "../fonts/CozetteVector.ttf"
 import SideMenu from "./sidemenu"
 import Home from "./home"
 import Plan from "./plan"
+import Documentation from "./documentation"
 import Downloads from "./downloads"
 import Contact from "./contact"
 import 'mdb-react-ui-kit/dist/css/mdb.min.css'
@@ -57,8 +58,10 @@ const IndexPage = () => {
         { 
           current === "Home" ? <Home></Home> :
           current === "Plan" ? <Plan></Plan> :
+          current === "Documentation" ? <Documentation></Documentation> :
           current === "Downloads" ? <Downloads></Downloads> :
-          current === "Contact" ? <Contact></Contact> : <p>Error</p>
+          current === "Contact" ? <Contact></Contact> :
+          <p>Error</p>
         }
       </div>
     </main>

@@ -15,11 +15,11 @@ geometry: margin=1cm
 ## Preparation
 
 To be able to do the experiments with *kube-hunter* we have to clone its official repository first.
-```
+``` {.bash}
 git clone https://github.com/aquasecurity/kube-hunter.git
 ```
 or
-```
+``` {.bash}
 git clone git@github.com:aquasecurity/kube-hunter.git
 ```
 Then `cd` into the cloned directory.
@@ -31,27 +31,28 @@ Let's now perform a security scan from within a pod on our prepared cluster.
 NOTE: Hereafter we are using alias `k="minikube kubectl -- "` to simplify the cluster management.
 
 First, switch to our test namespace (if not there already).
-```
+``` {.bash}
 k config set-context --current --namespace=security-test
 ```
 
 Then, we create a job, which will use *kube-hunter* to do the security scans.
-```
+``` {.bash}
 k apply -f job.yaml
 ```
 
 We can check state of the job by
-```
+``` {.bash}
 k get po
 ```
 
 When it is in state **Completed**, the results of the scan can be printed using the command below and the job's pod name
-```
+``` {.bash}
 k logs <pod-name>
 ```
 
 In my case the following report was generated:
-```
+
+``` {.txt}
 Nodes
 +-------------+------------+
 | TYPE        | LOCATION   |
@@ -60,6 +61,7 @@ Nodes
 +-------------+------------+
 | Node/Master | 10.96.0.1  |
 +-------------+------------+
+
 
 Detected Services
 +-------------+------------------+----------------------+
@@ -134,24 +136,24 @@ TODO: finish this, need to find a way to access cluster remotely, because Miniku
 ## Running kube-hunter on the cluster machine
 
 To ssh into our "cluster machine" (which is basically a docker container) we can use the predefined minikube command
-```
+``` {.bash}
 minikube ssh
 ```
 First thing to do inside the cluster machine is to update the repository list.
-```
+``` {.bash}
 sudo apt update -y
 ```
 Then we can install *kube-hunter*. **Python3** should be already present on the machine, but there is no **pip** installed. 
-```
+``` {.bash}
 sudo apt install python3-pip
 ```
 Now we can use **pip** to install *kube-hunter*. Do not forget to add the installed binaries to the *PATH*.
-```
+``` {.bash}
 python3 -m pip install kube-hunter
 export PATH=$PATH:$HOME/.local/bin/
 ```
 Running `kube-hunter` command will start the program. When prompted, choose to scan the ports of the local machine (since we are on the machine that runs the Kubernetes cluster). In my case the following report was produced:
-```
+``` {.txt}
 Nodes
 +-------------+--------------+
 | TYPE        | LOCATION     |
@@ -201,4 +203,4 @@ No vulnerabilities were found
 Interestingly, no vulnerabilities were found in contrast to *in-pod* execution.
 
 ## Sources
-- kube-hunter GitHub page https://github.com/aquasecurity/kube-hunter
+- kube-hunter GitHub page [https://github.com/aquasecurity/kube-hunter](https://github.com/aquasecurity/kube-hunter)
