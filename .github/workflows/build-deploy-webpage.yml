@@ -6,6 +6,7 @@ on:
     - master
     paths:
     - web
+    - docs
     - .github/workflows/build-deploy-webpage.yml
   workflow_dispatch:
 

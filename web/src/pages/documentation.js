@@ -13,7 +13,7 @@ const Documentation = () => {
     if (documentList != undefined) {
         documents = documentList.trim().split(" ").map(document => {
             const [title, href] = document.split(":")
-            return <li><a href={href}>{title}</a></li>
+            return <li><a href={href} target="_blank">{title}</a></li>
         })
     }
     
