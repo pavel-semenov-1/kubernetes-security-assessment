@@ -59,6 +59,7 @@ jobs:
             fi \
         done
         cp docs/extensions/style.css web/public/docs/style.css
+        cp -r docs/img web/public/docs/img
 
     - uses: actions/upload-pages-artifact@v1
       with:
