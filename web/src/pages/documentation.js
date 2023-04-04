@@ -11,7 +11,7 @@ const Documentation = () => {
     const documentList = process.env.DOCUMENT_LIST;
     let documents = [];
     if (documentList != undefined) {
-        documents = documentList.trim().split(" ").map(document => {
+        documents = documentList.trim().split("~").map(document => {
             const [title, href] = document.split(":")
             return <li><a href={href} target="_blank">{title}</a></li>
         })
