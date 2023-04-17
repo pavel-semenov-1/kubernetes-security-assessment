@@ -68,7 +68,7 @@ const Plan = () => {
         <div style={planStyles} className={'d-flex flex-row justify-content-around'}>
             <div style={boxStyles} className={'done'}>
                 <h2 className="text-center">DONE</h2>
-                <ul style={listStyles}>
+                <ul style={listStyles} className={'scrollbar scrollbar-success'}>
                     {
                         data
                         .filter(issue => issue.state === "closed")
@@ -81,7 +81,7 @@ const Plan = () => {
             </div>
             <div style={boxStyles} className={'todo'}>
                 <h2 className="text-center">TODO</h2>
-                <ul style={listStyles}>
+                <ul style={listStyles} className={'scrollbar scrollbar-success'}>
                     {
                         data
                         .filter(issue => issue.state === "open")
