@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Values.namespace.name }}
+spec:
+  selector:
+    matchLabels:
+      app: ksa
+  template:
+    metadata:
+      name: {{ .Release.Name }}-pod
+      labels:
+        app: ksa
+    spec:
+      initContainers:
+      - image: aquasec/kube-hunter
+        name: kube-hunter
+        command: ["/bin/sh"]
+        args: ["-c", "kube-hunter --pod >/var/www/kube-hunter.txt"]
+        {{- if eq .Values.deployment.security.default false }}
+        securityContext:
+          {{- if .Values.deployment.security.runAsNonRoot }}
+          runAsUser: {{ .Values.deployment.security.runAsUser }}
+          {{- end }}
+          allowPrivilegeEscalation: {{ .Values.deployment.security.allowPrivilegeEscalation }}
+          capabilities:
+          {{- if .Values.deployment.security.capabilities.drop }}
+            drop: {{ .Values.deployment.security.capabilities.drop }}
+          {{- end }}
+          {{- if .Values.deployment.security.capabilities.add }}
+            add: {{ .Values.deployment.security.capabilities.add }}
+          {{- end }}
+          runAsNonRoot: {{ .Values.deployment.security.runAsNonRoot }}
+          {{- if .Values.deployment.security.seccompProfileType }}
+          seccompProfile:
+            type: {{ .Values.deployment.security.seccompProfileType }}
+          {{- end }}
+        {{- end }}
+        volumeMounts:
+        - name: public-html
+          mountPath: /var/www
+      - image: busybox
+        name: configmap-resolver
+        command: ["cp", "/var/map/index.html", "/var/www/index.html"]
+        {{- if eq .Values.deployment.security.default false }}
+        securityContext:
+          {{- if .Values.deployment.security.runAsNonRoot }}
+          runAsUser: {{ .Values.deployment.security.runAsUser }}
+          {{- end }}
+          allowPrivilegeEscalation: {{ .Values.deployment.security.allowPrivilegeEscalation }}
+          capabilities:
+          {{- if .Values.deployment.security.capabilities.drop }}
+            drop: {{ .Values.deployment.security.capabilities.drop }}
+          {{- end }}
+          {{- if .Values.deployment.security.capabilities.add }}
+            add: {{ .Values.deployment.security.capabilities.add }}
+          {{- end }}
+          runAsNonRoot: {{ .Values.deployment.security.runAsNonRoot }}
+          {{- if .Values.deployment.security.seccompProfileType }}
+          seccompProfile:
+            type: {{ .Values.deployment.security.seccompProfileType }}
+          {{- end }}
+        {{- end }}
+        volumeMounts:
+        - name: public-html
+          mountPath: /var/www
+        - name: index-html
+          mountPath: /var/map
+      containers:
+      - image: {{ .Values.deployment.httpd.image }}
+        imagePullPolicy: IfNotPresent
+        name: httpd
+        {{- if eq .Values.deployment.security.default false }}
+        securityContext:
+          {{- if .Values.deployment.security.runAsNonRoot }}
+          runAsUser: {{ .Values.deployment.security.runAsUser }}
+          {{- end }}
+          allowPrivilegeEscalation: {{ .Values.deployment.security.allowPrivilegeEscalation }}
+          capabilities:
+          {{- if .Values.deployment.security.capabilities.drop }}
+            drop: {{ .Values.deployment.security.capabilities.drop }}
+          {{- end }}
+          {{- if .Values.deployment.security.capabilities.add }}
+            add: {{ .Values.deployment.security.capabilities.add }}
+          {{- end }}
+          runAsNonRoot: {{ .Values.deployment.security.runAsNonRoot }}
+          {{- if .Values.deployment.security.seccompProfileType }}
+          seccompProfile:
+            type: {{ .Values.deployment.security.seccompProfileType }}
+          {{- end }}
+        {{- end }}
+        volumeMounts:
+        - name: public-html
+          mountPath: /usr/local/apache2/htdocs
+      volumes:
+      - name: public-html
+        emptyDir: {}
+      - name: index-html
+        configMap:
+          name: {{ .Values.configmap.name }}
