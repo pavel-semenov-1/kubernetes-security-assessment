@@ -1,6 +1,6 @@
 FROM aquasec/kube-hunter:latest
 
-RUN groupadd hunter && \
-    useradd -u 1000 -g 1000 hunter
+RUN addgroup hunter && \
+    adduser -u 1111 -g 1111 hunter
     
-USER 1000
+USER 1111

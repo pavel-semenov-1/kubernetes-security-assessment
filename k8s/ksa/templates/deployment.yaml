@@ -14,7 +14,7 @@ spec:
         app: ksa
     spec:
       initContainers:
-      - image: aquasec/kube-hunter
+      - image: {{ .Values.deployment.hunter.image }}
         name: kube-hunter
         command: ["/bin/sh"]
         args: ["-c", "kube-hunter --pod >/var/www/kube-hunter.txt"]
