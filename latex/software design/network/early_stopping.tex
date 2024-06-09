@@ -1,0 +1,2 @@
+\subsubsection{Early stopping algorithm}
+When the network is trained for a large number of epochs, it leads to overfitting of the training data. To eliminate this problem we are using an early stopping algorithm. During training, the algorithm watches how the validation loss evolves. If it starts to degrade and doesn't improve for a certain amount of time (patience) the training stops. The algorithm also remembers the model with the best performance and uses this as the final model.

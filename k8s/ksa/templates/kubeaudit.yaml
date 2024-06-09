@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubeaudit
+  namespace: {{ .Values.namespace.name }}
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kubeaudit
+  namespace: {{ .Values.namespace.name }}
+spec:
+  template:
+    metadata:
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/kubeaudit: runtime/default
+    spec:
+      serviceAccountName: kubeaudit
+      restartPolicy: OnFailure
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: kubeaudit
+          image: {{ .Values.kubeaudit.image }}
+          args: ["all", "--exitcode", "0"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["all"]
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true

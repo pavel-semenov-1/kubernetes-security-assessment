@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{Objects}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{enable}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{True}
+\PYG{+w}{  }\PYG{n+nt}{count}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{min}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{1}
+\PYG{+w}{    }\PYG{n+nt}{max}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{5}
+\PYG{+w}{    }\PYG{n+nt}{random}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{uniform}
+\PYG{+w}{  }\PYG{n+nt}{brightness}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{min}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{5000}
+\PYG{+w}{    }\PYG{n+nt}{max}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{20000}
+\PYG{+w}{    }\PYG{n+nt}{random}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{uniform}
+\PYG{+w}{  }\PYG{n+nt}{fwhm}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{min}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{3.5}
+\PYG{+w}{    }\PYG{n+nt}{max}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{4}
+\PYG{+w}{    }\PYG{n+nt}{random}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{uniform}
+\end{Verbatim}

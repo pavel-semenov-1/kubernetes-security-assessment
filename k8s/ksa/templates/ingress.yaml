@@ -1,0 +1,23 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ksa-ingress
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "{{ .Release.Name }}.{{ .Values.ingress.host }}"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ksa-svc
+            port:
+              number: 8080
+{{- end }}

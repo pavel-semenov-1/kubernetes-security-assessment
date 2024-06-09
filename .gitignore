@@ -3,3 +3,4 @@ web/.cache/
 web/public
 web/.env.development
 node_modules
+notes*

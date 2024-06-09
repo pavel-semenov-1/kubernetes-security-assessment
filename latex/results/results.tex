@@ -1,0 +1,21 @@
+\chapter{Results} \label{chap:results}
+
+In this chapter, we will test the selected models on the testing dataset, which contains 300 real images acquired by AGO70. First, we will test the model trained on the synthetic data from the Section \ref{subsec:finalmodel}. Next, we will test the models that were fine-tuned using real data in the training process. We proposed two approaches and have therefore two different models (Sections \ref{subsec:mergedmodel}, \ref{subsec:fcmodel}), which will be both tested separately. Finally, we will compare the performance of our models to the pre-trained ResNet-18 model. 
+
+To measure the performance of our model we are using the following metrics: 
+\begin{equation}
+    Accuracy = \frac{TP + TN}{TP + FP + TN + FN}
+\end{equation} 
+\begin{equation}
+    Recall = \frac{TP}{TP + FN}
+\end{equation}
+\begin{equation}
+    Precision = \frac{TP}{TP + FP}
+\end{equation}
+where TP are true positives, FP are false positives, TN are true negatives and FN are false negatives. 
+
+\input{results/synmodel}
+\input{results/mergedmodel}
+\input{results/fcmodel}
+\input{results/summary}
+\input{results/resnet}

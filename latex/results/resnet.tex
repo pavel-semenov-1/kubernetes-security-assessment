@@ -1,0 +1,13 @@
+\section{ResNet}
+
+To compare the performance of our model to state-of-the-art models, we have deployed ResNet-18 with following parameters: 
+\begin{itemize}
+    \item optimizer ADAM with the settings of $beta_1$ = 0.9 and $beta_2$ = 0.99
+    \item learning rate of $1e^{-3}$
+    \item L2 regularization with $\lambda$ of $1e^{-5}$
+\end{itemize}
+
+
+Training with only synthetic data, the ResNet-18 has achieved an accuracy of 69.33 \% on the testing dataset. Comparing this to our model, we have higher accuracy. However, this could be caused by the fact, that we have spent a lot of time tuning the hyperparameters on our network, but we haven't done the same with the ResNet. 
+
+With incorporated real images into the training dataset, the ResNet has achieved an accuracy of 96 \%. In this case, the ResNet has surpassed our model, which is probably caused by the deeper architecture.  

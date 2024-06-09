@@ -1,0 +1,63 @@
+This is BibTeX, Version 0.99d (TeX Live 2024/Arch Linux)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: plain.bst
+Database file #1: references.bib
+Warning--to sort, need author or key in articleCcdOnline
+Warning--to sort, need author or key in standford
+Warning--to sort, need author or key in pytorchoptim
+Warning--empty publisher in inbookCosmics
+Warning--empty booktitle in soi2022
+Warning--empty journal in articleStreaks
+Warning--empty journal in irafArticle
+Warning--empty journal in articleCCDartifacts
+Warning--empty journal in imageProc
+Warning--empty journal in ESAarticle2
+Warning--empty year in ESAarticle2
+Warning--empty journal in ESAarticle3
+Warning--empty year in ESAarticle3
+Warning--empty journal in ESAarticle
+Warning--empty year in ESAarticle
+Warning--empty booktitle in ago702018
+You've used 35 entries,
+            2118 wiz_defined-function locations,
+            706 strings with 9662 characters,
+and the built_in function-call counts, 10759 in all, are:
+= -- 973
+> -- 627
+< -- 3
++ -- 255
+- -- 218
+* -- 757
+:= -- 1872
+add.period$ -- 105
+call.type$ -- 35
+change.case$ -- 208
+chr.to.int$ -- 0
+cite$ -- 51
+duplicate$ -- 372
+empty$ -- 787
+format.name$ -- 218
+if$ -- 2171
+int.to.chr$ -- 0
+int.to.str$ -- 35
+missing$ -- 32
+newline$ -- 177
+num.names$ -- 64
+pop$ -- 267
+preamble$ -- 1
+purify$ -- 178
+quote$ -- 0
+skip$ -- 259
+stack$ -- 0
+substring$ -- 430
+swap$ -- 43
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 130
+warning$ -- 16
+while$ -- 79
+width$ -- 37
+write$ -- 356
+(There were 16 warnings)

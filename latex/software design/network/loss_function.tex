@@ -1,0 +1,31 @@
+\subsubsection{Loss function}
+
+The goal of training is to adjust the weights of the network so that during the forward pass the network achieves the highest accuracy on data. The update of weights is performed during backpropagation and is based on the value of the loss function. The loss function penalizes the poor performance of our network classification and weight configuration. It has the following form: 
+\begin{equation}
+    L = \frac{1}{N} \sum_{i=1}^{N} L_{i} + \lambda R(W)
+\end{equation}
+where the first part of the expression is data loss, and the second part is regularization loss. Data loss is calculated as the average loss over all samples in the batch, where the batch size is denoted as $N$. Regularization loss is computed from a set of weights $W$ and parameter $\lambda$ is a hyperparameter that represents the contribution of regularization loss $R(W)$ to the loss function $L$ \cite{standford}.
+
+In our work, we use cross-entropy loss to calculate the data loss component. It is used to calculate the loss of the prediction when the output is a probability value ranging from 0 to 1. Using softmax activation in the last fully-connected layer transforms our class scores into probability values. The cross-entropy loss works in a way that it increases as the predicted value deviates from the actual class label and decreases when the value is closer to the truth. In our case, we are classifying into multiple classes and cross-entropy is therefore calculated for each class separately using the following formula: 
+
+\begin{equation}
+    L_i = - \sum_{c=1}^{M} y_c log(p_c)
+\end{equation}
+
+where $M$ is number of classes, $y_c$ is binary indicator that expresses if the class $c$ is correct classification for example $i$ and $p_c$ is predicted probability value that example $i$ is of class $c$ \cite{standford}.
+
+However, even if we find the configuration of weights that can classify each example, various sets of weights can achieve the same result. To eliminate the ambiguity we want the network to have a preference for certain weights. This is achieved through regularization loss which penalizes certain types of weights. 
+
+One of the most common types of regularization losses and the one we are using in our thesis is L2 regularization. It penalizes large weights as it is believed that smaller weights mean a simpler model. And keeping the model simple prevents overfitting on training data and generalizes better for unseen data. L2 regularization has the following form: 
+
+\begin{equation}
+    R(W) = \sum_{i}^N W_i ^ 2 
+\end{equation}
+where set of weight $W$ is defined as $W = w_1, w_2, ... w_N$ \cite{standford}.
+
+
+
+
+
+
+

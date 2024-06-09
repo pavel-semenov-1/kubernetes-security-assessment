@@ -1,0 +1,41 @@
+info:
+  securityLevel: baseline
+  color: orange
+
+kubeaudit:
+  image: shopify/kubeaudit:v0.11
+
+namespace:
+  name: baseline
+  labels:
+    enforce: baseline
+    enforceVersion: latest
+
+deployment:
+  busybox:
+    image: busybox:latest
+  httpd:
+    image: httpd:latest
+  hunter:
+    image: aquasec/kube-hunter
+  security:
+    default: true
+    runAsUser:
+    allowPrivilegeEscalation:
+    capabilities:
+      add:
+      drop:
+    runAsNonRoot:
+    seccompProfileType:
+
+service:
+  name: ksa-svc
+  type: LoadBalancer
+  port: 8080
+  targetPort: 80
+
+ingress:
+  enabled: false
+
+configmap:
+  name: public-html-cm

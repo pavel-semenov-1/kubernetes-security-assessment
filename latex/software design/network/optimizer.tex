@@ -1,0 +1,45 @@
+\subsubsection{Optimizer}
+
+We mentioned that the loss function is used to measure the performance of our model to adjust the weights accordingly. The tool that provides this update is an optimizer, which uses the output of the loss function to determine how to update the weights. More specifically it uses the gradient of the loss function to predict the direction of the steepest slope to find local minima of the loss function. How much we move in that direction is determined by the parameter learning rate, which is essential in optimization and very hard to determine. 
+There are several types of optimizers and each uses a different method to optimize the weights. In our work we are implementing the following optimizers:
+\begin{itemize}
+    \item Stochastic Gradient Descend (SGD) with momentum 
+    \item Root Mean Square Prop (RMSProp)
+    \item Adaptive Moment Estimation (ADAM) 
+\end{itemize}
+
+SGD with momentum is one of the simpler optimizers. It uses the negative direction of the gradient as well as an accumulated gradient over past iterations, which imitates velocity. It has the following form: 
+
+\begin{equation}
+\begin{split}
+    v_t = \beta \cdot v_{t-1} + g_t \\
+    W_t = W_{t-1} + LR \cdot v_t
+\end{split}
+\end{equation}
+
+where $v_t$ is weighted average of previous gradients, $\beta$ is hyper paramater called momentum which controls how much the previous gradients $v_{t-1}$ contribute to current $v_t$, $g_t$ is gradient, $W$ is weight vector and $LR$ is hyper parameter learning rate \cite{pytorchoptim}.
+
+Another popular approach in optimizers is to use second order derivative of loss function instead of just using gradient. One of them is RMSProp which is defined as:
+
+\begin{equation}
+\begin{split}
+    v_t = \alpha \cdot v_{t-1} + (1 - \alpha) \cdot g_t^2 \\
+    W_t = W_{t-1} - LR \cdot g_t / (\sqrt{v_t} + \epsilon) 
+\end{split}
+\end{equation}
+
+where $v$ is a weighted average of previous squares of gradients, $\alpha$ is a hyperparameter that controls how $v_t$ contributes to $v_{t+1}$, and $\epsilon$ is a small constant value that prevents division by zero. Similar to SGD with momentum, $g$ is the gradient, $W$ is the weight vector and $LR$ is the learning rate \cite{pytorchoptim}.
+
+One of the most popular optimizers and one that is the most complex is ADAM. It utilizes ideas from both RMSProp and SGD with momentum. The update of weights looks as follows: 
+
+\begin{equation}
+\begin{split}
+    m_t = \beta_1 \cdot m_{t-1} + (1 - \beta_1) \cdot g_t \\
+    v_t = \beta_2 \cdot v_{t-1} + (1 - \beta_2) \cdot g_t^2 \\
+    \hat{m_t} = m_t / (1 - \beta_1^t) \\
+    \hat{v_t} = v_t / (1 - \beta_2^t) \\
+    W_t = W_{t-1} - LR \cdot \hat{m_t} / (\sqrt{\hat{v_t}} + \epsilon) 
+\end{split}
+\end{equation}
+
+where $m_t$ is weighted average of previous gradients, $v_t$ is weighted average of previous squares of gradients, $\beta_1$ and $\beta_2$ are hyper parameters and $\hat{m_t}$, $\hat{v_t}$ are corrected values to prevent bias towards zero. Other parameters are same as in the previous formulas \cite{pytorchoptim}.

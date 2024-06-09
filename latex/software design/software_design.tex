@@ -1,0 +1,29 @@
+\chapter{Software design} \label{chap:softwaredesign}
+
+In our work, we are implementing a system that can recognize the following astronomical objects present in the image: 
+
+\begin{itemize}
+    \item point source
+    \item streak source
+    \item streak source that is cut due to being on the edge of the image
+    \item elliptical galaxy
+    \item cosmic ray
+    \item hot pixel
+\end{itemize}
+
+As mentioned before, the task of object recognition includes object localization and classification. Because we are using types of astronomical objects, that were not discussed in approaches in \ref{sec:spacerecognition}, we first want to access the possibility of using a neural network to correctly classify our objects into classes. For this reason, we omitted the object localization task. 
+
+The designed network is thoroughly trained on a large amount of synthetic data. Data from real observations are later used to fine-tune the model. The performance of our network is also compared to the state-of-the-art ResNet-18 model. 
+
+
+\input{software design/input_data}
+\input{software design/network}
+\input{software design/generator}
+
+
+
+
+
+%%% useful webpages
+% https://ml-cheatsheet.readthedocs.io/en/latest/regularization.html#data-augmentation
+% https://d2l.ai/chapter_computational-performance/index.html

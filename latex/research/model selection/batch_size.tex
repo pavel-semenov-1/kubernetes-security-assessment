@@ -1,0 +1,26 @@
+\subsection{Batch size}
+
+We mentioned that the images fed to the network come in mini-batches to increase the speed of the training. The size of the batch is determined by the parameter batch size. It is a common practice the use powers of 2 for the size which is why we have decided to do the same. 
+
+Again we chose the baseline model to train and used different sizes of mini-batches. Results on the validation set are shown in the Table \ref{tab:batchsizetab}. 
+
+{\renewcommand{\arraystretch}{1.3}
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|cc|cc|}
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Batch size}}} & \multicolumn{2}{c|}{\textbf{Validation loss}} & \multicolumn{2}{c|}{\textbf{Validation accuracy (\%)}} \\ \cline{2-5} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{real data} & synthetic data & \multicolumn{1}{c|}{real data} & synthetic data \\ \hline
+\textit{8} & \multicolumn{1}{c|}{4.830184} & 0.005608 & \multicolumn{1}{c|}{76.66} & 99.48 \\ \hline
+\textit{16} & \multicolumn{1}{c|}{2.562120} & 0.005470 & \multicolumn{1}{c|}{80.00} & 99.50 \\ \hline
+\textit{32} & \multicolumn{1}{c|}{1.017293} & 0.006852 & \multicolumn{1}{c|}{79.33} & 99.31 \\ \hline
+\textit{64} & \multicolumn{1}{c|}{0.958888} & 0.005262 & \multicolumn{1}{c|}{80.00} & 99.53 \\ \hline
+\textit{128} & \multicolumn{1}{c|}{1.181076} & 0.009092 & \multicolumn{1}{c|}{70.33} & 99.10 \\ \hline
+\textit{256} & \multicolumn{1}{c|}{0.802080} & 0.008569 & \multicolumn{1}{c|}{75.33} & 99.19 \\ \hline
+\end{tabular}
+\caption{Validation loss and accuracy on multiple models with different batch sizes. }
+\label{tab:batchsizetab}
+\end{table}
+}
+
+Sizes 16, 32 and 64 performed the best with only a slight difference between each other. As we were increasing the size, the performance started to degrade. As the best configuration, we have decided to use the batch size of 64, since it has the best accuracy and the training takes less time than with a batch size of 16. 
