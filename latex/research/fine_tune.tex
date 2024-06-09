@@ -1,0 +1,7 @@
+\section{Fine-tuning the model}
+
+We have achieved decent performance of the model using only synthetic images during training. However, the performance could be improved since the synthetic data can't cover all the possible real case scenarios. In this section, we talk about using real images to fine-tune our model. We propose two approaches. The first idea is that we will merge real images with synthetic in the training dataset and train the model from scratch again. The second approach is to use real data to only fine-tune fully-connected layers responsible for the classification. 
+
+\input{research/finetune/data}
+\input{research/finetune/merged}
+\input{research/finetune/fc}

@@ -1,0 +1,8 @@
+\subsubsection{Data augmentation }
+One of the ways to improve the performance of the network is to have more data. In the real world, it is usually hard to obtain more labeled data for the training of the network. This problem is solved by data augmentation which essentially just uses the data we already have but modifies them in some way. With image data, augmentation usually involves rotation, flipping, scaling, cropping, color jitter, or adding noise. 
+In our case data augmentation is not needed since we are generating synthetic images and have an unlimited amount of data. However, after training the network on synthetic data we are using real images to fine-tune the model. All the real images used in this thesis were hand-cropped by us and it took a significant amount of time. To increase the amount of data and in much less time, we are using some augmentation techniques. However, our data are prone to damage using some of the mentioned techniques. If we rotate the image, we may lose the astronomical object that was on the edge of the image. The same goes for cropping or scaling. Color jittering and noise addition are not suitable options as well as this would compromise the strictly defined profile of astronomical objects. For this reason, we are using only the following techniques: 
+
+\begin{itemize}
+    \item rotation by 90, 180, 270 degrees
+    \item flipping vertically and horizontally
+\end{itemize}

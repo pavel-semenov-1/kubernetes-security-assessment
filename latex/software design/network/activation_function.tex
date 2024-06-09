@@ -1,0 +1,30 @@
+\subsubsection{Activation function}
+
+Activation function is used for non-linearity in forward pass of the network. Function takes one number and performs defined mathematical operation on it. In our work we will be testing following activation functions:
+\begin{itemize}
+    \item \textit{Sigmoid activation}
+        \begin{equation}
+            \sigma (x) = \frac{1}{1 + e^{-x}}
+        \end{equation}
+        
+    \item \textit{Hyperbolic tangent activation (tanh)}
+        \begin{equation}
+            tanh(x) = \frac{2}{1+e^{-2x}} - 1
+        \end{equation}
+    
+    \item \textit{Rectified Linear Unit (RELU) activation}
+        \begin{equation}
+            f(x) = max(0,x)
+        \end{equation}
+        
+    \item \textit{Leaky RELU activation}
+        \begin{equation}
+            f(x) = 
+            \begin{cases}
+                x,& \text{if } x\geq 0\\
+                \alpha x ,& \text{otherwise}
+            \end{cases}
+        \end{equation}
+\end{itemize}
+
+Each activation has its advantages and disadvantages. Sigmoid was a very popular choice in the past as it was the closest approximation to the firing of the neuron in a biological sense. However, large negative and positive numbers get saturated, which results in a gradient close to zero. During backpropagation, this will kill the flow of the gradient and the network won't be able to learn. Another undesirable feature of the sigmoid is that it is not zero-centered which makes the gradient updates follow a zig-zag pattern. On the other hand tanh activation outputs zero-centered values but similar to sigmoid, large values get saturated. Nowadays, the most used activation is RELU activation. Positive numbers don't get saturated as they follow a linear path. Yet large gradient update of weights could cause the input values to RELU neurons to be always negative. This way the neuron always outputs zero, doesn't contribute to the learning process of the network and essentially "dies". One way to fix the problem is introduced by Leaky RELU. Instead of outputting zero when negative inputs come, the function multiplies the negative value with a small constant $\alpha$ \cite{standford}.

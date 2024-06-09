@@ -1,0 +1,209 @@
+\begin{thebibliography}{10}
+
+\bibitem{standford}
+Convolutional neural network for visual recognition.
+\newblock \url{https://cs231n.github.io/convolutional-networks/}.
+\newblock Accessed: 25.04.2022.
+
+\bibitem{articleCcdOnline}
+Introduction to ccd imaging.
+\newblock \url{https://www.gxccd.com/art?id=303&lang=409}.
+\newblock Accessed: 01.08.2021.
+
+\bibitem{pytorchoptim}
+Pytorch documentation.
+\newblock \url{https://pytorch.org/docs/stable/index.html}.
+\newblock Accessed: 25.04.2022.
+
+\bibitem{Andreon2000}
+S.~Andreon, G.~Gargiulo, G.~Longo, R.~Tagliaferri, and N.~Capuano.
+\newblock {Wide field imaging — I. Applications of neural networks to object
+  detection and star/galaxy classification}.
+\newblock {\em Monthly Notices of the Royal Astronomical Society},
+  319(3):700--716, 12 2000.
+
+\bibitem{cosmicrayimageall}
+Olaf Bar, Łukasz Bibrzycki, Michał Niedźwiecki, Marcin Piekarczyk, Krzysztof
+  Rzecki, Tomasz Sośnicki, Sławomir Stuglik, Michał Frontczak, Piotr Homola,
+  David~E. Alvarez-Castillo, Thomas Andersen, and Arman Tursunov.
+\newblock Zernike moment based classification of cosmic ray candidate hits from
+  cmos sensors.
+\newblock {\em Sensors}, 21(22), 2021.
+
+\bibitem{sextractor}
+{Bertin, E.} and {Arnouts, S.}
+\newblock Sextractor: Software for source extraction.
+\newblock {\em Astron. Astrophys. Suppl. Ser.}, 117(2):393--404, 1996.
+
+\bibitem{bolte15}
+Dr.~Michael Bolte.
+\newblock Modern observational techniques: Signal-to-noise in optical
+  astronomy, 2015.
+
+\bibitem{matfyzpress01}
+Šolc Brož.
+\newblock {\em Fyzika sluneční soustavy}, pages 127--133.
+\newblock MatfyzPress, 2013.
+
+\bibitem{Burke2019}
+Colin~J Burke, Patrick~D Aleo, Yu-Ching Chen, Xin Liu, John~R Peterson, Glenn~H
+  Sembroski, and Joshua Yao-Yu Lin.
+\newblock Deblending and classifying astronomical sources with mask r-cnn deep
+  learning.
+\newblock {\em Monthly Notices of the Royal Astronomical Society},
+  490(3):3952–3965, Oct 2019.
+
+\bibitem{phy217}
+Stuart~Littlefair Dr.
+\newblock Astronomical techniques, 2015.
+
+\bibitem{Goodfellow-et-al-2016}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
+\newblock {\em Deep Learning}.
+\newblock MIT Press, 2016.
+\newblock \url{http://www.deeplearningbook.org}.
+
+\bibitem{inbookCosmics}
+Don Groom.
+\newblock {\em Cosmic Rays and Other Nonsense in Astronomical CCD Imagers},
+  volume~14, pages 81--94.
+\newblock 01 2004.
+
+\bibitem{maskrcnn2017}
+Kaiming He, Georgia Gkioxari, Piotr Dollár, and Ross Girshick.
+\newblock Mask {R-CNN}.
+\newblock {\em CoRR}, abs/1703.06870, 2017.
+
+\bibitem{resnet2015}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition, 2015.
+\newblock \url{https://arxiv.org/abs/1512.03385}.
+
+\bibitem{hubble}
+E.P. Hubble.
+\newblock {\em The Realm of the Nebulae}.
+\newblock The Silliman Memorial Lectures Series. Yale University Press, 1982.
+
+\bibitem{1992ApJS}
+L.~{Infante} and C.~J. {Pritchet}.
+\newblock {The CFHT North Galactic Pole Faint Galaxy Survey}.
+\newblock {\em \apjs}, 83:237, December 1992.
+
+\bibitem{klinkrad2006space}
+Heiner Klinkrad.
+\newblock {\em Space debris: models and risk analysis}.
+\newblock Springer Science \& Business Media, 2006.
+
+\bibitem{soi2022}
+D.~Kyselica, L.~Jurkasová, J.~Šilha, and R.~Ďurikovič.
+\newblock Space objects identification through convolutional neural network
+  algorithms.
+\newblock 04 2022.
+
+\bibitem{thesisKyselica}
+Daniel Kyselica.
+\newblock Advanced algorithms for segmentation of space debris astronomical
+  images.
+\newblock Master's thesis, Comenius University, FMPI, 2021.
+
+\bibitem{lenet5}
+Yann Lecun, Leon Bottou, Y.~Bengio, and Patrick Haffner.
+\newblock Gradient-based learning applied to document recognition.
+\newblock {\em Proceedings of the IEEE}, 86:2278 -- 2324, 12 1998.
+
+\bibitem{articleStreaks}
+Martin Levesque.
+\newblock Detection of artificial satellites in images acquired in track rate
+  mode.
+\newblock 09 2011.
+
+\bibitem{irafArticle}
+David J.~Bell Lisa A.~Wells.
+\newblock Cleaning images of bad pixels and cosmic rays using iraf.
+\newblock 09 1994.
+
+\bibitem{thesisNagy}
+Viktor Nagy.
+\newblock Algorithm development for the segmentation of astronomical images
+  with unique features.
+\newblock Master's thesis, Comenius University, FMPI, 2019.
+
+\bibitem{articleCCDartifacts}
+O.Hainaut.
+\newblock Basic image processing.
+\newblock 12 1996.
+
+\bibitem{imageProc}
+O.Hainaut.
+\newblock Retouching of astronomical data for the production of outreach
+  images.
+\newblock 05 2009.
+
+\bibitem{articleParimucha}
+Stefan Parimucha and M.~Vaňko.
+\newblock Photometry of the variable stars using ccd detectors. i. photometric
+  reduction.
+\newblock {\em Contributions of the Astronomical Observatory Skalnate Pleso},
+  35:35--44, 01 2005.
+
+\bibitem{fits}
+{Pence, W. D.}, {Chiappetti, L.}, {Page, C. G.}, {Shaw, R. A.}, and {Stobie,
+  E.}
+\newblock Definition of the flexible image transport system (fits), version
+  3.0.
+\newblock {\em A\&A}, 524:A42, 2010.
+
+\bibitem{REZA2021100492}
+Moonzarin Reza.
+\newblock Galaxy morphology classification using automated machine learning.
+\newblock {\em Astronomy and Computing}, 37:100492, 2021.
+
+\bibitem{romanishin2006introduction}
+W~Romanishin.
+\newblock An introduction to astronomical photometry using ccds.
+\newblock {\em University of Oklahoma}, 17, 2006.
+
+\bibitem{ILSVRC}
+Olga Russakovsky, Jia Deng, Hao Su, Jonathan Krause, Sanjeev Satheesh, Sean Ma,
+  Zhiheng Huang, Andrej Karpathy, Aditya Khosla, Michael Bernstein, et~al.
+\newblock Imagenet large scale visual recognition challenge.
+\newblock {\em International journal of computer vision}, 115(3):211--252,
+  2015.
+
+\bibitem{ESAarticle2}
+The~Europe space~agency (ESA).
+\newblock About space debris.
+\newblock
+  \url{https://www.esa.int/Safety_Security/Space_Debris/About_space_debris},
+  Accessed: 20.3.2022.
+
+\bibitem{ESAarticle3}
+The~Europe space~agency (ESA).
+\newblock Space debris by the numbers.
+\newblock
+  \url{https://www.esa.int/Safety_Security/Space_Debris/Space_debris_by_the_numbers},
+  Accessed: 20.3.2022.
+
+\bibitem{ESAarticle}
+The~Europe space~agency (ESA).
+\newblock Types of orbits.
+\newblock
+  \url{https://www.esa.int/Enabling_Support/Space_Transportation/Types_of_orbits},
+  Accessed: 20.3.2022.
+
+\bibitem{SPILLER2020478}
+Dario Spiller, Edoardo Magionami, Vincenzo Schiattarella, Fabio Curti, Claudia
+  Facchinetti, Luigi Ansalone, and Alberto Tuozzi.
+\newblock On-orbit recognition of resident space objects by using star
+  trackers.
+\newblock {\em Acta Astronautica}, 177:478--496, 2020.
+
+\bibitem{ago702018}
+J.~Šilha, S.~Krajčovic, J.~Tóth, L.~Kornoš, J.~Világi, P.~Zigo, J.~Šimon,
+  D.~Kalmančok, M.~Hamara, D.~Žilková, L.~Novák, M.~Zigo, F.~Ďuriš,
+  V.~Nagy, R.~Ďurikovič, T.~Schildknecht, E.~Cordelli, A.~Vananti, Ch.
+  Paccolat, and T.~Flohrer.
+\newblock Slovakian optical sensor for hamr objects cataloguing and research.
+\newblock 10 2018.
+
+\end{thebibliography}

@@ -1,0 +1,42 @@
+info:
+  securityLevel: restricted
+  color: green
+
+kubeaudit:
+  image: shopify/kubeaudit:v0.11
+
+namespace:
+  name: restricted
+  labels:
+    enforce: restricted
+    enforceVersion: latest
+
+deployment:
+  busybox:
+    image: busybox:latest
+  httpd:
+    image: httpd:custom
+  hunter:
+    image: aquasec/kube-hunter
+  security:
+    default: false
+    runAsUer: 1000
+    allowPrivilegeEscalation: false
+    capabilities:
+      add:
+      drop: ["ALL"]
+    runAsNonRoot: true
+    seccompProfileType: "RuntimeDefault"
+
+service:
+  name: ksa-svc
+  type: LoadBalancer
+  port: 8080
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  host: 1ca8d863779f4194b5a9.westeurope.aksapp.io
+
+configmap:
+  name: public-html-cm

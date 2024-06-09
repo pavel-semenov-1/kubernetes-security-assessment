@@ -1,0 +1,11 @@
+\section{Data preprocessing}
+
+Generated images have pixel values ranging from 0 to 65 535 to emulate the real case. Before they are fed to the network, they need to be normalized into the interval <0,1> using the following formula:
+
+\begin{equation}
+    I_{normalized} = \frac{I - I_{min}}{I_{max} - I_{min}}
+\end{equation}
+where $I$ is the input image, $I_{min}$ is the minimum pixel value of the image $I$ and $I_{max}$ is the maximum pixel value of $I$. 
+
+The normalization is local and is performed on each input image separately. We also tried to perform global normalization by dividing pixel values by the number 65 535. This showed to be ineffective since the objects with low brightness vanished in the noise. 
+Normalizing images allowed us to also input images that have 8 bits per pixel, whose values range from 0 to 255. It also proved to increase the performance of our model. 
