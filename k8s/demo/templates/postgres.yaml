@@ -9,6 +9,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.database.sts.name }}
+  serviceName: {{ .Values.database.service.name }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
