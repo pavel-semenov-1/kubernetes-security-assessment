@@ -28,11 +28,7 @@ public class DemoController {
     @GetMapping("/{id}")
     public ResponseEntity<Subject> getSubjectById(@PathVariable Long id) {
         Optional<Subject> subject = subjectService.findSubjectById(id);
-        if (subject.isPresent()) {
-            return ResponseEntity.ok(subject.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return subject.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -53,6 +49,19 @@ public class DemoController {
 
     @GetMapping("/{id}/students")
     public ResponseEntity<List<Student>> getStudentsBySubjectId(@PathVariable Long id) {
-        return null;
+        List<Student> students = studentService.findStudentsBySubjectId(id);
+        if (students.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Student>> getStudentsByUserId(@PathVariable Long userId) {
+        List<Student> students = studentService.findStudentsByUserId(userId);
+        if (students.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(students);
     }
 }

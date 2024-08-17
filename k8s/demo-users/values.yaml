@@ -33,6 +33,10 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+subjects:
+  host: demo-backend.demo-subjects.svc.cluster.local
+  port: 8088
+
 backend:
   init:
     image: busybox

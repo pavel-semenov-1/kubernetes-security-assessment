@@ -18,7 +18,7 @@ public class Student {
 
     @Data
     @NoArgsConstructor
-    static class StudentId implements Serializable {
+    public static class StudentId implements Serializable {
         private Long subjectId;
         private Long userId;
     }

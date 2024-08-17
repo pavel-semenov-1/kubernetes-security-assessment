@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
-    const response = await fetch(`${process.env.API_BASE_URL}/api/users`);
+    const response = await fetch(`${process.env.USERS_API_BASE_URL}/api/users`);
     if (!response.ok) {
       throw new Error('Failed to fetch users');
     }
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const response = await fetch(`${process.env.API_BASE_URL}/api/users`, {
+    const response = await fetch(`${process.env.USERS_API_BASE_URL}/api/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

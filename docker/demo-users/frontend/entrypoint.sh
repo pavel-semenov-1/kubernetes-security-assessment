@@ -1,5 +1,6 @@
 #!/bin/sh
 
-sed -i "s|API_BASE_URL=.*$|API_BASE_URL=${API_BASE_URL}|g" .env
+sed -i "s|USERS_API_BASE_URL=.*$|USERS_API_BASE_URL=${USERS_API_BASE_URL}|g" .env
+sed -i "s|SUBJECTS_API_BASE_URL=.*$|SUBJECTS_API_BASE_URL=${SUBJECTS_API_BASE_URL}|g" .env
 
 HOSTNAME="0.0.0.0" PORT=3000 npm run start
