@@ -10,7 +10,7 @@ Switch to the newly created namespace
 
 Build the backend
 
-     docker build docker/demo-subjects/backend -t demo-subjects/backend
+    docker build docker/demo-subjects/backend -t demo-subjects/backend
 
 Build the frontend
 

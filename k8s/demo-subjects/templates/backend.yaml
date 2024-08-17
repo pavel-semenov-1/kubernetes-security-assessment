@@ -33,6 +33,7 @@ spec:
       initContainers:
         - name: {{ .Values.backend.init.name }}
           image: {{ .Values.backend.init.image }}
+          imagePullPolicy: IfNotPresent
           command: 
           - "sh"
           - "-c"

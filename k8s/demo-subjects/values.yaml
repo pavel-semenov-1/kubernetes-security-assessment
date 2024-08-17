@@ -35,7 +35,7 @@ securityContext: {}
 
 users:
   host: demo-backend.demo-users.svc.cluster.local
-  port: 3000
+  port: 8080
 
 backend:
   init:

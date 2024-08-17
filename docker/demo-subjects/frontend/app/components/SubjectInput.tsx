@@ -1,38 +1,117 @@
-'use client'
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import { Subject } from '../types/Subject';
+import { User } from '../types/User';
 
-const SubjectInput  = ({ onFormSubmit }: { onFormSubmit: () => void}) => {
-  const [subject, setSubject] = useState<Subject>({id: 0, name: ''})
+const SubjectInput = ({ onFormSubmit }: { onFormSubmit: () => void }) => {
+  const [subject, setSubject] = useState<Subject>({ id: 0, name: '' });
+  const [users, setUsers] = useState<User[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const [students, setStudents] = useState<User[]>([]);
+  
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('/api/users');
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.error('Failed to fetch users:', error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  const handleAddUser = () => {
+    if (selectedUserId !== null) {
+      const userToAdd = users.find((user: User) => user.id === selectedUserId);
+      if (userToAdd && !students.some((user: User) => user.id === userToAdd.id)) {
+        setStudents((prev: User[]) => [...prev, userToAdd]);
+      }
+    }
+  };
+
   const action = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
         if (subject.name.trim().length > 0) {
-            await fetch(`/api/subjects`, {
+            const subjectResponse = await fetch('/api/subjects', {
                 method: 'post',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify(subject)
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: subject.name }),
             });
+            const createdSubject = await subjectResponse.json();
+
+            for (const user of students) {
+                await fetch(`/api/students`, {
+                    method: 'post',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        subjectId: createdSubject.id,
+                        userId: user.id,
+                    }),
+                });
+            }
+
             onFormSubmit();
         }
     } catch (error) {
-        console.error(error);
+        console.error('Error during submission:', error);
     }
-  }
+  };
 
   return (
     <form className="form" onSubmit={action}>
-        <label className="my-2 block text-sm font-medium text-gray-700 dark:text-gray-100">
+      <label className="my-2 block text-sm font-medium text-gray-700 dark:text-gray-100">
         Name
-            <div className="relative mt-1">
-                <input type="text" id="input-6" className="block w-full h-10 pl-8 pr-3 mt-1 text-sm text-gray-700 border focus:outline-none rounded shadow-sm focus:border-blue-500" placeholder="John Doe" name="name" value={subject.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSubject({id: subject.id, name: e.target.value})}/>
-                <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 text-blue-400 pointer-events-none">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM6 20a6 6 0 0112 0H6z"></path>
-                </svg>
-                </span>
-            </div>      
-        </label>
-        <input className="my-2 px-6 py-1 min-w-[100px] w-full text-center text-white bg-violet-600 border border-violet-600 rounded active:text-violet-500 hover:bg-transparent hover:text-violet-600 focus:outline-none focus:ring" type="submit" value="Submit" />
+        <div className="relative mt-1">
+          <input
+            type="text"
+            className="block w-full h-10 pl-8 pr-3 mt-1 text-sm text-gray-700 border focus:outline-none rounded shadow-sm focus:border-blue-500"
+            placeholder="Subject Name"
+            value={subject.name}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSubject({ ...subject, name: e.target.value })}
+          />
+        </div>
+      </label>
+      <label className="my-2 block text-sm font-medium text-gray-700 dark:text-gray-100">
+        Students
+        <div className="relative mt-1">
+          <select
+            className="block w-full h-10 pl-3 pr-8 mt-1 text-sm text-gray-700 border focus:outline-none rounded shadow-sm focus:border-blue-500"
+            value={selectedUserId || ''}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedUserId(parseInt(e.target.value))}
+          >
+            <option value="" disabled>Select a user</option>
+            {users.map((user: User) => (
+              <option key={user.id} value={user.id}>
+                {user.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            className="my-2 px-4 py-1 min-w-[100px] w-full text-center text-white bg-green-600 border border-green-600 rounded active:text-green-500 hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring"
+            onClick={handleAddUser}
+          >
+            Add
+          </button>
+        </div>
+        <div className="mt-2">
+          {students.length > 0 && (
+            <ul className="list-disc pl-5">
+              {students.map((student: User) => (
+                <li key={student.id}>{student.name}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </label>
+      <input
+        className="my-2 px-6 py-1 min-w-[100px] w-full text-center text-white bg-violet-600 border border-violet-600 rounded active:text-violet-500 hover:bg-transparent hover:text-violet-600 focus:outline-none focus:ring"
+        type="submit"
+        value="Submit"
+      />
     </form>
   );
 };

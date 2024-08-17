@@ -2,6 +2,7 @@ package com.ibm.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -16,7 +17,8 @@ public class Student {
     private Long userId;
 
     @Data
-    class StudentId implements Serializable {
+    @NoArgsConstructor
+    static class StudentId implements Serializable {
         private Long subjectId;
         private Long userId;
     }
