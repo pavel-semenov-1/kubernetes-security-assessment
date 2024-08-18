@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: restrict-db-access
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.database.sts.name }}
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+  # 1.3. Network Policies
+    - podSelector: {}
