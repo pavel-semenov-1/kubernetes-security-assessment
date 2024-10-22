@@ -25,13 +25,14 @@ podLabels: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
+# 6.1 and 6.2
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+  capabilities:
+    add:
+    - ALL # Grants all capabilities to the container
+  readOnlyRootFilesystem: false # Allows the root filesystem to be writable
+  runAsNonRoot: false # Allows the container to run as root
+  runAsUser: 0 # Runs the container as the root user
 
 subjects:
   host: demo-backend.demo-subjects.svc.cluster.local
