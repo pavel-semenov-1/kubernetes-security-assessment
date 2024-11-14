@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.22)  10 NOV 2024 17:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.22)  14 NOV 2024 10:48
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -577,338 +577,6 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 )
 runsystem(mkdir -p _minted-main)...executed.
 
-
-(/usr/local/texlive/2024/texmf-dist/tex/latex/todonotes/todonotes.sty
-Package: todonotes 2024/01/05 v1.1.7 Todonotes source and documentation.
-Package: todonotes 2024/01/05
-
-(/usr/local/texlive/2024/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks32
-\XKV@tempa@toks=\toks33
-)
-\XKV@depth=\count341
-File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
-))
-(/usr/local/texlive/2024/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
-
-(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package xcolor Info: Driver file: pdftex.def on input line 274.
-LaTeX Info: Redefining \color on input line 758.
-
-(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx)
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
-Package xcolor Info: Model `RGB' extended on input line 1366.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
-x
-\pgfutil@everybye=\toks34
-\pgfutil@tempdima=\dimen267
-\pgfutil@tempdimb=\dimen268
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box64
-) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
-))
-Package: pgf 2023-01-15 v3.1.10 (3.1.10)
-
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
-Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks35
-\pgfkeys@temptoks=\toks36
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfil
-tered.code.tex
-\pgfkeys@tmptoks=\toks37
-))
-\pgf@x=\dimen269
-\pgf@y=\dimen270
-\pgf@xa=\dimen271
-\pgf@ya=\dimen272
-\pgf@xb=\dimen273
-\pgf@yb=\dimen274
-\pgf@xc=\dimen275
-\pgf@yc=\dimen276
-\pgf@xd=\dimen277
-\pgf@yd=\dimen278
-\w@pgf@writea=\write5
-\r@pgf@reada=\read5
-\c@pgf@counta=\count342
-\c@pgf@countb=\count343
-\c@pgf@countc=\count344
-\c@pgf@countd=\count345
-\t@pgf@toka=\toks38
-\t@pgf@tokb=\toks39
-\t@pgf@tokc=\toks40
-\pgf@sys@id@count=\count346
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
-File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
-)
-Driver file for pgf: pgfsys-pdftex.def
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
-ef
-File: pgfsys-pdftex.def 2023-01-15 v3.1.10 (3.1.10)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
-df.def
-File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
-)))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
-code.tex
-File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfsyssoftpath@smallbuffer@items=\count347
-\pgfsyssoftpath@bigbuffer@items=\count348
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
-code.tex
-File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
-))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
-Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen279
-\pgfmath@count=\count349
-\pgfmath@box=\box65
-\pgfmath@toks=\toks41
-\pgfmath@stack@operand=\toks42
-\pgfmath@stack@operation=\toks43
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
-tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
-.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
-nometric.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
-m.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
-rison.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
-code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
-.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
-code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
-erarithmetics.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count350
-)) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
-de.tex
-File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@picminx=\dimen280
-\pgf@picmaxx=\dimen281
-\pgf@picminy=\dimen282
-\pgf@picmaxy=\dimen283
-\pgf@pathminx=\dimen284
-\pgf@pathmaxx=\dimen285
-\pgf@pathminy=\dimen286
-\pgf@pathmaxy=\dimen287
-\pgf@xx=\dimen288
-\pgf@xy=\dimen289
-\pgf@yx=\dimen290
-\pgf@yy=\dimen291
-\pgf@zx=\dimen292
-\pgf@zy=\dimen293
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
-ruct.code.tex
-File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@path@lastx=\dimen294
-\pgf@path@lasty=\dimen295
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
-.code.tex
-File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@shorten@end@additional=\dimen296
-\pgf@shorten@start@additional=\dimen297
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
-de.tex
-File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfpic=\box66
-\pgf@hbox=\box67
-\pgf@layerbox@main=\box68
-\pgf@picture@serial@count=\count351
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
-ate.code.tex
-File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgflinewidth=\dimen298
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
-ations.code.tex
-File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@pt@x=\dimen299
-\pgf@pt@y=\dimen300
-\pgf@pt@temp=\dimen301
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
-e.tex
-File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
-ode.tex
-File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
-ssing.code.tex
-File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
-de.tex
-File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowsep=\dimen302
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
-e.tex
-File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@max=\dimen303
-\pgf@sys@shading@range@num=\count352
-\pgf@shadingcount=\count353
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
-e.tex
-File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
-code.tex
-File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfexternal@startupbox=\box69
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
-de.tex
-File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
-ncy.code.tex
-File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
-code.tex
-File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
-tex
-File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
-e.tex
-File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodeparttextbox=\box70
-)
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
-tex
-File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
--0-65.sty
-Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
-\pgf@nodesepstart=\dimen304
-\pgf@nodesepend=\dimen305
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
--1-18.sty
-Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
-))
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
-(/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
-) (/usr/local/texlive/2024/texmf-dist/tex/latex/pgf/math/pgfmath.sty
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
-Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen306
-\pgffor@skip=\dimen307
-\pgffor@stack=\toks44
-\pgffor@toks=\toks45
-))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
-e.tex
-Package: tikz 2023-01-15 v3.1.10 (3.1.10)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
-dlers.code.tex
-File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count354
-\pgfplotmarksize=\dimen308
-)
-\tikz@lastx=\dimen309
-\tikz@lasty=\dimen310
-\tikz@lastxsaved=\dimen311
-\tikz@lastysaved=\dimen312
-\tikz@lastmovetox=\dimen313
-\tikz@lastmovetoy=\dimen314
-\tikzleveldistance=\dimen315
-\tikzsiblingdistance=\dimen316
-\tikz@figbox=\box71
-\tikz@figbox@bg=\box72
-\tikz@tempbox=\box73
-\tikz@tempbox@bg=\box74
-\tikztreelevel=\count355
-\tikznumberofchildren=\count356
-\tikznumberofcurrentchild=\count357
-\tikz@fig@count=\count358
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
-e.tex
-File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count359
-\pgfmatrixcurrentcolumn=\count360
-\pgf@matrix@numberofcolumns=\count361
-)
-\tikz@expandcount=\count362
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
-s/tikzlibrarytopaths.code.tex
-File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
-s/tikzlibrarypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count363
-\calc@Bcount=\count364
-\calc@Adimen=\dimen317
-\calc@Bdimen=\dimen318
-\calc@Askip=\skip64
-\calc@Bskip=\skip65
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count365
-\calc@Cskip=\skip66
-)
-\c@@todonotes@numberoftodonotes=\count366
-)
 runsystem(command -v pygmentize && touch main.aex)...executed.
 
 runsystem(rm main.aex)...executed.
@@ -916,30 +584,30 @@ runsystem(rm main.aex)...executed.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count367
-\l__pdf_internal_box=\box75
+\l__color_backend_stack_int=\count341
+\l__pdf_internal_box=\box64
 )
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -977,49 +645,43 @@ LaTeX Font Info:    ... okay on input line 70.
 
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count368
-\scratchdimen=\dimen319
-\scratchbox=\box76
-\nofMPsegments=\count369
-\nofMParguments=\count370
-\everyMPshowfont=\toks46
-\MPscratchCnt=\count371
-\MPscratchDim=\dimen320
-\MPnumerator=\count372
-\makeMPintoPDFobject=\count373
-\everyMPtoPDFconversion=\toks47
+\scratchcounter=\count342
+\scratchdimen=\dimen267
+\scratchbox=\box65
+\nofMPsegments=\count343
+\nofMParguments=\count344
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count345
+\MPscratchDim=\dimen268
+\MPnumerator=\count346
+\makeMPintoPDFobject=\count347
+\everyMPtoPDFconversion=\toks33
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 70.
+Package hyperref Info: Link coloring OFF on input line 69.
  (./main.out) (./main.out)
-\@outlinefile=\write6
-\openout6 = `main.out'.
+\@outlinefile=\write5
+\openout5 = `main.out'.
 
+LaTeX Font Info:    Trying to load font information for U+msa on input line 84.
 
-
-Package todonotes Warning: The length marginparwidth is less than 2cm and will 
-most likely cause issues with the appearance of inserted todonotes. The issue c
-an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to 
-loading the todonotes package. on input line 70.
-
-LaTeX Font Info:    Trying to load font information for U+msa on input line 85.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 85.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 84.
 
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<images/FMFI_logo_BP.png, id=47, 284.7438pt x 284.7438pt>
+<images/FMFI_logo_BP.png, id=72, 284.7438pt x 284.7438pt>
 File: images/FMFI_logo_BP.png Graphic file (type png)
 <use images/FMFI_logo_BP.png>
-Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 90.
+Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 89.
 (pdftex.def)             Requested size: 176.40439pt x 176.40898pt.
  [1
 
@@ -1029,46 +691,46 @@ al/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./images/
 FMFI_logo_BP.png>]
 File: images/FMFI_logo_BP.png Graphic file (type png)
 <use images/FMFI_logo_BP.png>
-Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 122.
+Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 121.
 (pdftex.def)             Requested size: 176.40439pt x 176.40898pt.
  [2
 
 ]
-<assignment_en.PDF, id=64, page=1, 597.50731pt x 845.04607pt>
+<assignment_en.PDF, id=89, page=1, 597.50731pt x 845.04607pt>
 File: assignment_en.PDF Graphic file (type pdf)
 <use assignment_en.PDF, page 1>
-Package pdftex.def Info: assignment_en.PDF , page1 used on input line 161.
+Package pdftex.def Info: assignment_en.PDF , page1 used on input line 160.
 (pdftex.def)             Requested size: 485.1222pt x 686.09537pt.
 
-Overfull \hbox (4.82378pt too wide) in paragraph at lines 161--162
+Overfull \hbox (4.82378pt too wide) in paragraph at lines 160--161
 [] [] 
  []
 
 [3
 
  <./assignment_en.PDF>]
-<assignment_sk.PDF, id=93, page=2, 597.50731pt x 845.04607pt>
+<assignment_sk.PDF, id=118, page=2, 597.50731pt x 845.04607pt>
 File: assignment_sk.PDF Graphic file (type pdf)
 <use assignment_sk.PDF, page 2>
-Package pdftex.def Info: assignment_sk.PDF , page2 used on input line 165.
+Package pdftex.def Info: assignment_sk.PDF , page2 used on input line 164.
 (pdftex.def)             Requested size: 485.1222pt x 686.09537pt.
 
-Overfull \hbox (4.82378pt too wide) in paragraph at lines 165--166
+Overfull \hbox (4.82378pt too wide) in paragraph at lines 164--165
 [] [] 
  []
 
 [4 <./assignment_sk.PDF>]
-Underfull \hbox (badness 10000) in paragraph at lines 180--182
+Underfull \hbox (badness 10000) in paragraph at lines 179--181
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 180--182
+Underfull \hbox (badness 10000) in paragraph at lines 179--181
 
  []
 
 
-Overfull \hbox (5.22096pt too wide) in paragraph at lines 176--183
+Overfull \hbox (5.22096pt too wide) in paragraph at lines 175--182
 $[]$  $[]$ 
  []
 
@@ -1078,7 +740,7 @@ $[]$  $[]$
 ] (./abstract.tex) [7
 
 ] (./abstrakt.tex)
-Overfull \hbox (19.66112pt too wide) in paragraph at lines 1--221
+Overfull \hbox (19.66112pt too wide) in paragraph at lines 1--220
 \T1/cmr/m/n/12 Kubernetes v posled-ných rokoch rýchlo získava na pop-u-lar-ite,
  pre-toºe £o-raz viac spolo£ností
  []
@@ -1086,73 +748,180 @@ Overfull \hbox (19.66112pt too wide) in paragraph at lines 1--221
 [8
 
 ] (./main.toc)
-\tf@toc=\write7
-\openout7 = `main.toc'.
+\tf@toc=\write6
+\openout6 = `main.toc'.
 
  [9
 
 ] (./main.lof)
-\tf@lof=\write8
-\openout8 = `main.lof'.
+\tf@lof=\write7
+\openout7 = `main.lof'.
 
  [10
 
 ] (./main.lot)
-\tf@lot=\write9
-\openout9 = `main.lot'.
+\tf@lot=\write8
+\openout8 = `main.lot'.
 
  (./terminology.tex [11
 
 ]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 3.
-)
 [12
 
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
- (./motivation.tex) (./introduction/introduction.tex [1
+) [13] (./motivation.tex) (./introduction/introduction.tex [1
 
 
 ]
 Chapter 1.
 (./introduction/kubernetes.tex [2
 
-] [3]
-<images/cloud-security.png, id=211, 776.9025pt x 448.074pt>
+]
+<images/containers-vs-virtual-machines.jpg, id=252, 1927.2pt x 975.645pt>
+File: images/containers-vs-virtual-machines.jpg Graphic file (type jpg)
+<use images/containers-vs-virtual-machines.jpg>
+Package pdftex.def Info: images/containers-vs-virtual-machines.jpg  used on inp
+ut line 24.
+(pdftex.def)             Requested size: 330.76329pt x 167.43549pt.
+ [3 <./images/containers-vs-virtual-machines.jpg>] [4] [5]
+<images/components-of-kubernetes.pdf, id=270, 942.66823pt x 440.42018pt>
+File: images/components-of-kubernetes.pdf Graphic file (type pdf)
+<use images/components-of-kubernetes.pdf>
+Package pdftex.def Info: images/components-of-kubernetes.pdf  used on input lin
+e 103.
+(pdftex.def)             Requested size: 374.86775pt x 175.13675pt.
+ [6] [7 <./images/components-of-kubernetes.pdf>]
+
+LaTeX Warning: Reference `sec:infrastructure-security-automation' on page 8 und
+efined on input line 133.
+
+<images/cloud-security.png, id=310, 776.9025pt x 448.074pt>
 File: images/cloud-security.png Graphic file (type png)
 <use images/cloud-security.png>
-Package pdftex.def Info: images/cloud-security.png  used on input line 56.
-(pdftex.def)             Requested size: 176.40439pt x 101.73529pt.
- [4 <./images/cloud-security.png (PNG copy)>] [5]
-Underfull \hbox (badness 7667) in paragraph at lines 109--109
-[]|\T1/cmr/m/n/12 Container Vul-ner-a-bil-ity Scan-ning
+Package pdftex.def Info: images/cloud-security.png  used on input line 143.
+(pdftex.def)             Requested size: 330.76329pt x 190.76735pt.
+
+Underfull \hbox (badness 1629) in paragraph at lines 160--160
+[]|\T1/cmr/bx/n/12 Area of Con-
  []
 
 
-Underfull \hbox (badness 1248) in paragraph at lines 109--110
-[]|\T1/cmr/m/n/12 As part of an im-age build step,
+Underfull \hbox (badness 3769) in paragraph at lines 160--160
+\T1/cmr/bx/n/12 cern for Ku-
  []
 
 
-Underfull \hbox (badness 1394) in paragraph at lines 132--133
-\T1/cmr/m/n/12 for any po-ten-tially un-safe cod-ing
+Underfull \hbox (badness 10000) in paragraph at lines 160--160
+\T1/cmr/bx/n/12 ber-netes In-
  []
 
-[6]
-Overfull \vbox (19.01678pt too high) has occurred while \output is active []
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--162
+[]|\T1/cmr/m/n/12 Network ac-cess
+ []
 
 
-[7])) (./main.bbl
+Underfull \hbox (badness 8056) in paragraph at lines 162--162
+\T1/cmr/m/n/12 to API Server
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--164
+[]|\T1/cmr/m/n/12 Network ac-cess
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--166
+[]|\T1/cmr/m/n/12 Kubernetes ac-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--166
+\T1/cmr/m/n/12 cess to Cloud
+ []
+
+
+Overfull \hbox (25.19997pt too wide) in paragraph at lines 158--173
+ [] 
+ []
+
+[8] [9 <./images/cloud-security.png (PNG copy)>]
+Underfull \hbox (badness 1629) in paragraph at lines 199--199
+[]|\T1/cmr/bx/n/12 Area of Con-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--201
+[]|\T1/cmr/m/n/12 Container Vul-
+ []
+
+
+Underfull \hbox (badness 5119) in paragraph at lines 201--201
+\T1/cmr/m/n/12 ner-a-bil-ity Scan-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--201
+\T1/cmr/m/n/12 ning and OS
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--201
+\T1/cmr/m/n/12 De-pen-dency
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--203
+[]|\T1/cmr/m/n/12 Image Sign-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--205
+[]|\T1/cmr/m/n/12 Disallow priv-i-
+ []
+
+
+Overfull \hbox (25.19997pt too wide) in paragraph at lines 197--208
+ [] 
+ []
+
+[10]
+Underfull \hbox (badness 1629) in paragraph at lines 220--220
+[]|\T1/cmr/bx/n/12 Area of Con-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--224
+[]|\T1/cmr/m/n/12 Limiting port
+ []
+
+
+Underfull \hbox (badness 4013) in paragraph at lines 224--224
+\T1/cmr/m/n/12 ranges of com-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 228--228
+[]|\T1/cmr/m/n/12 Static Code
+ []
+
+
+Overfull \hbox (25.19997pt too wide) in paragraph at lines 218--233
+ [] 
+ []
+
+) (./introduction/security_automation.tex [11] [12])) [13] (./main.bbl
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 6
 .
- (/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 ))
 
 Package caption Warning: Unused \captionsetup[sub] on input line 34.
 See the caption package documentation for explanation.
 
-[8
+[14
 
 
 ] (./main.aux)
@@ -1160,27 +929,31 @@ See the caption package documentation for explanation.
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 7CDBC61A8CC9EF729A257F23D5DCEC92;1454.
+(rerunfilecheck)             Checksum: D45A7F6F46BD63BF122FC1D856F15580;2214.
  ) 
 Here is how much of TeX's memory you used:
- 28090 strings out of 474116
- 529326 string characters out of 5743681
- 1941187 words of memory out of 5000000
- 49875 multiletter control sequences out of 15000+600000
+ 17094 strings out of 474116
+ 291457 string characters out of 5743681
+ 1937187 words of memory out of 5000000
+ 39081 multiletter control sequences out of 15000+600000
  569538 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,9n,101p,785b,926s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 77i,10n,79p,1463b,622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></
 usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></us
 r/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/
 local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/lo
 cal/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (20 pages, 899620 bytes).
+Output written on main.pdf (27 pages, 1303350 bytes).
 PDF statistics:
- 289 PDF objects out of 1000 (max. 8388607)
- 227 compressed objects within 3 object streams
- 53 named destinations out of 1000 (max. 500000)
- 113 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 408 PDF objects out of 1000 (max. 8388607)
+ 328 compressed objects within 4 object streams
+ 79 named destinations out of 1000 (max. 500000)
+ 167 words of extra memory for PDF output out of 10000 (max. 10000000)
 

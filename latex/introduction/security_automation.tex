@@ -1,0 +1,38 @@
+\section{Kubernetes security automation}
+\label{sec:kubernetes-security-automation}
+
+This section introduces the reader to the topic of the security automation inside the Kubernetes cluster. We discuss different security tools, their place in the Cloud Infrastructure and examine their usage patterns. Additionally, we explain why were the specific tools chosen for our research.
+
+\subsection{Overview}
+
+\subsection{Selection criteria}
+
+To perform our assessment we have chosen from variety of Kubernetes security scanners. Though the area is still relatively new, there is a variety of tools with different purposes available on the market. We made our choice based on the following criteria:
+\begin{itemize}
+\item \textbf{free-to-use} \\
+We do include some proprietary tool testing further in our research as an additional comparison, however, for the main part we only use free tools. Kubernetes itself is distributed under Apache License 2.0, which means it is inherently free to use. The ability to adopt these tools without financial constraints enables wider adoption, thus, contributing to the community-driven innovations.
+\item \textbf{open-source} \\
+Again, we are sticking to the open-source nature of the Kubernetes. By selecting open-source tools, this research ensures that each tool's codebase is transparent and can be reviewed by security experts. This transparency increases trust in the tools' effectiveness, as the community can spot, disclose, and even patch any vulnerabilities in the software. Another advantage is the customization of the open-source software as the companies can adapt the tools to their specific Kubernetes security needs.
+\item \textbf{designed specifically for Kubernetes} \\
+Designed to be used in the Kubernetes environment specifically, these tools should offer features like scanning container images for vulnerabilities, but also monitoring network policies, securing Kubernetes configuration files, and identifying misconfigurations within clusters. Tools built specifically for Kubernetes are more efficient, as they are optimized to address the distinct aspects of the platform, making security management more effective.
+\item \textbf{has an active community support} \\
+Tools with active communities tend to have more frequent updates, faster response times for bug fixes, and a wide range of contributors who bring diverse insights to improve functionality and security. The world of the software security is changing rapidly and an active community means that the tool is up-to-date with the most recent events. A thriving community also means that users can easily access support on the community forums.
+\end{itemize}
+
+Based on the aforementioned criteria we ended up choosing and testing the following tools:
+\begin{itemize}
+\item Trivy
+\item kube-bench
+\item kube-hunter
+\item Kubescape
+\end{itemize}
+
+In the next chapters we closely examine each selected tool and explain how it is matches our selection criteria. Additionally, we compare them to each other and highlight their strong and weak sides.
+
+\subsection{Trivy}
+
+\subsection{Kube-bench}
+
+\subsection{Kube-hunter}
+
+\subsection{Kubescape}

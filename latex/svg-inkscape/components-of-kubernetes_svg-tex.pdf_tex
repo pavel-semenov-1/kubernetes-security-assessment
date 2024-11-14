@@ -1,0 +1,136 @@
+%% Creator: Inkscape 1.4 (e7c3feb1, 2024-10-09), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'components-of-kubernetes_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{907.0923236bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.45871632)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.69127735,0.06976438){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}k-proxy\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.69233567,0.14631852){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}kubelet\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.21623569,0.12632713){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}sched\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.22437148,0.11976228){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}sched\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.23176314,0.11422267){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}sched\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.16668648,0.06975189){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Control Plane}\end{tabular}}}}%
+    \put(0.44147056,0.2436147){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Node}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.08151478,0.13889875){\color[rgb]{1,1,1}\rotatebox{-1.90003256}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}etcd\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.38447145,0.43233054){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Kubernetes cluster}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.22778951,0.25050128){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}api\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.23502407,0.24263834){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}api\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.24225864,0.23477539){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}api\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.23084787,0.369123){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}c-c-m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.23836686,0.36235971){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}c-c-m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.2458875,0.35559683){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}c-c-m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.06806675,0.37475811){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}c-m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.07488378,0.3659526){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}c-m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.08170082,0.3571471){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}c-m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.57433053,0.24469098){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Node}\end{tabular}}}}%
+    \put(0.70719039,0.24537893){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Node}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.42551648,0.06976438){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}k-proxy\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.42660787,0.14631852){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}kubelet\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.55945937,0.14631852){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}kubelet\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.55841759,0.06976438){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}k-proxy\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.93706291,0.05724339){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Control plane}\end{tabular}}}}%
+    \put(0.93670169,0.09346417){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Scheduler}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.96222414,0.08700212){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}sched\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.93670169,0.3835165){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{Cloud controller}\textbf{manager}\textbf{\textit{(optional)}}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.96119766,0.35454487){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}c-c-m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.93670169,0.31734608){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Controller}\textbf{manage}\textbf{r}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.9646349,0.30192091){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}c-m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.93616283,0.2008401){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{\textit{kubelet}}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.95808833,0.19332958){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}kubelet\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.93587276,0.14854952){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{\textit{kube-proxy}}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.95956417,0.14045324){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}k-proxy\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.83257093,0.24946235){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}(persistence store)\end{tabular}}}}%
+    \put(0.91165715,0.2626172){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}etcd\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.96360736,0.24903851){\color[rgb]{1,1,1}\rotatebox{-1.90003256}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}etcd\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.93706291,0.01583761){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Node}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.87753738,0.41542518){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{API server}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{components-of-kubernetes_svg-tex.pdf}}%
+    \put(0.96629875,0.40887147){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}api\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{components-of-kubernetes_svg-tex.pdf}}%
+  \end{picture}%
+\endgroup%

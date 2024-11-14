@@ -1,8 +1,8 @@
 \section{Kubernetes}
 
-In this section, we will dive into the topic of Kubernetes. We will define containerization and compare it to the traditional means of application deployment. We will expand on the Kubernetes resources, their kinds and their role in the target application environment. Finally, we will go through the official Kubernetes security recommendations.
+In this section we will dive into the topic of Kubernetes. We will define containerization and compare it to the traditional means of application deployment. We will expand on the Kubernetes resources, their kinds and their role in the target application environment. Finally, we will consider the security of Kubernetes.
 
-\subsection{Definition}
+\subsection{Overview}
 
 Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications. \cite{kubernetes}.
 IBM defines Kubernetes as an open source \textbf{container orchestration platform} for scheduling and automating the deployment, management and scaling of containerized applications. \cite{ibm-kubernetes}.
@@ -13,9 +13,19 @@ When talking about the Kubernetes it is essential to define the term containeriz
 
 Although containers are built to be infrastructure-agnostic, there are still certain compatibility considerations to keep in mind. One significant factor is processor architecture. Containers built for a specific architecture family (e.g., arm64, amd64, or x86) are generally not cross-compatible with infrastructures based on different architectures. However, it is possible to build multi-architecture containers that support multiple processor architectures in a single image, enhancing the flexibility and portability of the containerized applications across diverse environments.
 
-\subsection{Containerization vs Virtualization}
+\subsubsection*{Containerization vs Virtualization}
 
 Let us discuss why containerization is rapidly growing in popularity nowadays and why do software arhitects tend to choose it over traditional virtualization solutions.
+
+Figure~\ref{img:containers-vs-virtual-machines} provides a side-by-side comparison of a Virutal Machine and a Cloud infrastructure, each with three application deployed. We can see that each application on the container side is missing a "Guest OS" layer. Here lies the main advantage of the containers. Absence of the Guest Operating System provides a lot of advantages, which we discuss further below.
+
+\begin{figure}[!hbt]
+	\begin{center}
+		\includegraphics[width=0.75\textwidth]{images/containers-vs-virtual-machines.jpg}
+        \caption{Side-by-side comparison of VM and container infrastructures.}
+		\label{img:containers-vs-virtual-machines}
+	\end{center}
+\end{figure}
 
 I would say the most important advantage of the containers is their resource efficiency. Containers only include the application code and its dependencies, which makes them very small compared to the Virtual Machines, which tend to be very bulky and grow in size as development progresses. Containers share the host operating system kernel, so they consume significantly less CPU, memory, and storage than virtual machines, which require a full OS for each instance. This lightweight nature allows more containers to run on a single host, maximizing resource utilization and reducing overhead. Better resource efficiency means also lower costs for the user.
 
@@ -27,7 +37,7 @@ Lastly, containers also lead when it comes to automation and CI/CD pipelines. Co
 
 These are some of the most significant advantages of containerization. For large-scale development, test and production environment containerization is an obvious choice over the virtualization. While costing less money and providing a lot more flexibility, they become essential for successful enterprise software development.
 
-\subsection{Kubernetes resources}
+\subsection{Kubernetes Resources}
 
 Kubernetes resources are fundamental components that define various entities within a Kubernetes cluster. Resources are objects that represent the desired state and configuration of the infrastructure, applications, and services running on the cluster. Kubernetes provides a range of resources that enable developers and operators to define, manage, and scale containerized applications, network policies, storage requirements, and more. These resources are defined declaratively in YAML or JSON files, which makes infrastructure setup consistent and reproducible.
 
@@ -47,13 +57,90 @@ Among key Kuberntes resoucres are:
 
 Above are the most commonly used resources, which we also leverage in the practical part of the paper. Therefore, it is important that the reader understands the position and the purpose of each resource in the cluster infrastructure.
 
-\subsection{Kubernetes security recommendations}
+\subsubsection*{Workloads}
 
-This section gathers the official security recommendations provided by the Kubernetes. They provide a list of concerns for each level of the cloud infrastructure. Cloud infrastructure can be viewed as a composition of four layers.
+Minimal computing units in Kubernetes are Containers, which are running in Pods. However, to simplify the management of Pods, Kubernetes has workload resources, which manage the set of Pods. They make sure the desired number of Pods of right kind are running to match the declaration.
+
+Deployments and ReplicaSets are a good fit for stateless applications. Each pod in the Deployment is interchangebeable. Deployments are easily scalable and have built-in versioning and rollout mechanisms.
+
+StatefulSet allows to create sets of stateful applications. They might share the same PersistentVolume and replicate data between each other.
+
+DaemonSet defines Pods that provide node-local facilities. These might be fundamental to the operation of your cluster, such as a networking helper tool, or be part of an add-on.
+
+Job and CronJob define tasks that run to completion and then stop. Jobs represent one-off tasks, whereas CronJobs recur according to a schedule.
+
+\subsubsection*{Networking}
+
+Kubernetes networking model makes Pods look like VMs in the networking aspect. Pods on any nodes can communicate with each other without NAT. Containers inside the same Pod share its network meaning that they can reach each other using localhost.
+
+Kubernetes networking addresses four concerns:
+\begin{itemize}
+\item Containers within a Pod use networking to communicate via loopback.
+\item Cluster networking provides communication between different Pods.
+\item The Service API lets you expose an application running in Pods to be reachable from outside your cluster.
+\item Ingress provides extra functionality specifically for exposing HTTP applications, websites and APIs.
+\item You can also use Services to publish services only for consumption inside your cluster.
+\end{itemize}
+
+\subsubsection*{Storage}
+
+Kubernetes does not ship a particular implementation of storage. However, it provides a range of resources that define the storage concept and supports different types of volumes. A Pod can use any number of volume types simultaneously. Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes; however, Kubernetes does not destroy persistent volumes. For any kind of volume in a given pod, data is preserved across container restarts.
+
+At its core, a volume is a directory, possibly with some data in it, which is accessible to the containers in a pod. How that directory comes to be, the medium that backs it, and the contents of it are determined by the particular volume type used.
+
+PersistentVolumes and PersistentVolumeClaims are the resources kinds most important to understand here.
+\begin{itemize}
+\item A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual Pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+\item A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory). Claims can request specific size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany or ReadWriteMany). Once and Many here refer to a number of Pods that can perform the read or write simultaneously.
+\end{itemize}
+
+\subsection{Kubernetes Architecture}
+
+While Kubernetes requires at least three nodes to run, there are some implementation designed for the local use, which emulate this concept. The master node is called control plane. The control plane manages the worker nodes and the Pods in the cluster. In production environments, the control plane usually runs across multiple computers and a cluster usually runs multiple nodes, providing fault-tolerance and high availability. Worker nodes host the actual workload inside the cluster. Figure~\ref{img:kubernetes-architecture} provides a simple high-level overview of a typical Kubernetes cluster with a Control Plane and three worker nodes.
 
 \begin{figure}[!hbt]
 	\begin{center}
-		\includegraphics[width=0.4\textwidth]{images/cloud-security.png}
+		\includegraphics[width=0.85\textwidth]{images/components-of-kubernetes.pdf}
+        \caption{Kubernetes cluster architecure overview with its main components.}
+		\label{img:kubernetes-architecture}
+	\end{center}
+\end{figure}
+
+\subsubsection*{Control Plane overview}
+
+Control plane runs the following components: 
+\begin{itemize}
+\item \textbf{kube-apiserver} \\
+Kube-apiserver exposes the Kubernetes API, which is acting as a frontend for the Kubernetes control plane.
+\item \textbf{etcd} \\
+Etcd is a key-value store, where all of the cluster data is stored.
+\item \textbf{kube-scheduler} \\
+Each time a new pod is created, it is passed to the kube-scheduler, which assigns the pod to the specific node to run on (based on individual and collective resource requirements, hardware/software/policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines).
+\item \textbf{kube-controller-manager} \\
+Each Kubernetes resource has its own controller (e.g. NodeController, JobController, ServiceAccountController); all of them are compiled as one binary called kube-controller-manager.
+\item \textbf{cloud-controller-manager} \\
+Cloud-controller-manager embeds cloud-specific control logic. It differs depending on the cloud provider or can be absent completely, when running Kubernetes locally.
+\end{itemize}
+
+\subsubsection*{Worker Node overview}
+
+Each worker node has a kubelet and kube-proxy installed. Kubelet is an agent that manages runnning pods and containers. Kube-proxy is a network proxy that implements parts of the Kubernetes service concept. It maintains network rules on nodes, making in- outside-cluster communitcation possible.
+
+Then, of course, each worker node has a set of running pods. A typical use would involve multiple running applications. Depending on the size of the node and the application resoucre consumption it can accomodate on average from one to a few dozens applications with various business purposes.
+
+\subsection{Infrastructure Security}
+
+When we are talking about the infrastructure security, we must consider multiple layers. Going from the top to the bottom, we start with the security measurements taken on the Cloud provider side. In most cases this is not something we can affect and the security of different Cloud providers varies significantly. Unfortunately, this is out of scope of this paper, but all of the "big five" Cloud providers (AWS, Azure, Google Cloud, Alibaba and IBM) maintain high security standarts and security risks generally should not be a concern for their end users. Then, we get to the cluster itself. On the cluster level we must consider the security of the nodes, security of the cluster components and their configuration. At this layer we have already some space for the misconfigurations to appear. Here we can evaluate the security of the single components using some of the security scanners presented in \nameref{sec:infrastructure-security-automation}. Lastly, we get to the application level, where the security of the application code, Kubernetes resoucre configuration, libraries, dependencies and base images is the main concern. Again, this is the layer, where the developers have the most access to, thus, providing a lot of space for the possibility of a human error. In this paper we mostly work on this level when we do our research.
+
+Officially, The Linux Foundation provides only some security guidelines for each of the layers. However, bundled with Kuberntes we get a few means to keep the security under control. Below we present an overview of the Kubernetes security recommendations, RBAC and Data security inside Kubernetes.
+
+\subsubsection*{Kubernetes security recommendations}
+
+This section gathers the official security recommendations provided by the Kubernetes. They provide a list of concerns for each level of the cloud infrastructure. Cloud infrastructure can be viewed as a composition of four layers as displayed by the Figure~\ref{img:cloud-security}.
+
+\begin{figure}[!hbt]
+	\begin{center}
+		\includegraphics[width=0.75\textwidth]{images/cloud-security.png}
         \caption{Four layers of the cloud infrastructure.}
 		\label{img:cloud-security}
 	\end{center}
@@ -64,28 +151,32 @@ Each layer is built upon the previous one and its security depends on the securi
 \begin{enumerate}
 
 \item \textbf{Cloud} \\
-Each cloud provider has its own security policies and guidelines. There are, however, some general infrastructure-level security best advice:
+Each cloud provider has its own security policies and guidelines. There are, however, some general infrastructure-level security best advice described by in the Table~\ref{tab:cloud-security-recommendations}.
 
-\begin{center}
-    \begin{tabular}{ | m{16em} | m{16em} | } 
-     \hline
-     \textbf{Area of Concern for Kubernetes Infrastructure} & \textbf{Recommendation} \\ 
-     \hline
-     Network access to API Server (Control plane) & All access to the Kubernetes control plane is not allowed publicly on the internet and is controlled by network access control lists restricted to the set of IP addresses needed to administer the cluster. \\ 
-     \hline
-     Network access to Nodes (nodes)  & Nodes should be configured to only accept connections (via network access control lists) from the control plane on the specified ports, and accept connections for services in Kubernetes of type NodePort and LoadBalancer. If possible, these nodes should not be exposed on the public internet entirely. \\ 
-     \hline
-     Kubernetes access to Cloud Provider API & Each cloud provider needs to grant a different set of permissions to the Kubernetes control plane and nodes. It is best to provide the cluster with cloud provider access that follows the principle of least privilege for the resources it needs to administer. \\
-     \hline
-     Access to etcd & Access to etcd (the datastore of Kubernetes) should be limited to the control plane only. Depending on your configuration, you should attempt to use etcd over TLS. \\
-     \hline
-     etcd Encryption & Wherever possible it's a good practice to encrypt all storage at rest, and since etcd holds the state of the entire cluster (including Secrets) its disk should especially be encrypted at rest. \\
-     \hline
-    \end{tabular}
-\end{center}
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{ | p{.20\textwidth} | p{.80\textwidth} | } 
+         \hline
+         \textbf{Area of Concern for Kubernetes Infrastructure} & \textbf{Recommendation} \\ 
+         \hline
+         Network access to API Server (Control plane) & All access to the Kubernetes control plane is not allowed publicly on the internet and is controlled by network access control lists restricted to the set of IP addresses needed to administer the cluster. \\ 
+         \hline
+         Network access to Nodes (nodes)  & Nodes should be configured to only accept connections (via network access control lists) from the control plane on the specified ports, and accept connections for services in Kubernetes of type NodePort and LoadBalancer. If possible, these nodes should not be exposed on the public internet entirely. \\ 
+         \hline
+         Kubernetes access to Cloud Provider API & Each cloud provider needs to grant a different set of permissions to the Kubernetes control plane and nodes. It is best to provide the cluster with cloud provider access that follows the principle of least privilege for the resources it needs to administer. \\
+         \hline
+         Access to etcd & Access to etcd (the datastore of Kubernetes) should be limited to the control plane only. Depending on your configuration, you should attempt to use etcd over TLS. \\
+         \hline
+         etcd Encryption & Wherever possible it's a good practice to encrypt all storage at rest, and since etcd holds the state of the entire cluster (including Secrets) its disk should especially be encrypted at rest. \\
+         \hline
+        \end{tabular}
+    \end{center}
+    \caption{Security recommendations for the Cloud layer.}
+    \label{tab:cloud-security-recommendations}
+\end{table}
 
 \item \textbf{Cluster} \\
-There are two cluster security concerns that could be addressed: securing the configurable cluster components and securing the applications running in the cluster. Security of cluster components is described in **Cluster security** chapter.
+There are two cluster security concerns that could be addressed: securing the configurable cluster components and securing the applications running in the cluster.
 
 There are a few things to consider regarding the application security:
 \begin{itemize}
@@ -99,41 +190,53 @@ There are a few things to consider regarding the application security:
 \end{itemize}
 
 \item \textbf{Container} \\
-Securing containers is a vast topic, which deserves its own chapter. There are, nevertheless, a few general recommendation provided by the Kubernetes: 
+Securing containers is a vast topic, which deserves its own chapter. There are, nevertheless, a few general recommendation provided by the Kubernetes, which you can find in the Table~\ref{tab:container-security-recommendations}.
 
-\begin{center}
-    \begin{tabular}{ | m{16em} | m{16em} | } 
-     \hline
-     \textbf{Area of Concern for Containers} & \textbf{Recommendation} \\ 
-     \hline
-     Container Vulnerability Scanning and OS Dependency Security & As part of an image build step, you should scan your containers for known vulnerabilities. \\ 
-     \hline
-     Image Signing and Enforcement & Sign container images to maintain a system of trust for the content of your containers. \\ 
-     \hline
-     Disallow privileged users & When constructing containers, create users inside of the containers that have the least level of operating system privilege necessary in order to carry out the goal of the container. \\
-     \hline
-    \end{tabular}
-\end{center}
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{ | p{.20\textwidth} | p{.80\textwidth} | } 
+        \hline
+        \textbf{Area of Concern for Containers} & \textbf{Recommendation} \\ 
+        \hline
+        Container Vulnerability Scanning and OS Dependency Security & As part of an image build step, you should scan your containers for known vulnerabilities. \\ 
+        \hline
+        Image Signing and Enforcement & Sign container images to maintain a system of trust for the content of your containers. \\ 
+        \hline
+        Disallow privileged users & When constructing containers, create users inside of the containers that have the least level of operating system privilege necessary in order to carry out the goal of the container. \\
+        \hline
+        \end{tabular}
+    \end{center}
+    \caption{Security recommendations for the Container layer.}
+    \label{tab:container-security-recommendations}
+\end{table}
 
 \item \textbf{Code} \\
-When it comes to code, the developers have the most flexibility to design secure applications. There are a lot of issues to address, which may vary significantly from application to application depending on its purpose, architecture and framework base. Kubernetes documentation gives a handful of recommendations regarding this topic.
+When it comes to code, the developers have the most flexibility to design secure applications. There are a lot of issues to address, which may vary significantly from application to application depending on its purpose, architecture and framework base. Kubernetes documentation gives a handful of recommendations regarding this topic, which are displayed below in the Table~\ref{tab:code-security-recommendations}.
 
-\begin{center}
-    \begin{tabular}{ | m{16em} | m{16em} | } 
-     \hline
-     \textbf{Area of Concern for Code} & \textbf{Recommendation} \\ 
-     \hline
-     Access over TLS only & If your code needs to communicate by TCP, perform a TLS handshake with the client ahead of time. With the exception of a few cases, encrypt everything in transit. Going one step further, it's a good idea to encrypt network traffic between services. This can be done through a process known as mutual TLS authentication or mTLS which performs a two sided verification of communication between two certificate holding services. \\ 
-     \hline
-     Limiting port ranges of communication & This recommendation may be a bit self-explanatory, but wherever possible you should only expose the ports on your service that are absolutely essential for communication or metric gathering. \\ 
-     \hline
-     3rd Party Dependency Security & It is a good practice to regularly scan your application's third party libraries for known security vulnerabilities. Each programming language has a tool for performing this check automatically. \\
-     \hline
-     Static Code Analysis & Most languages provide a way for a snippet of code to be analyzed for any potentially unsafe coding practices. Whenever possible you should perform checks using automated tooling that can scan codebases for common security errors. \\
-     \hline
-     Dynamic probing attacks & There are a few automated tools that you can run against your service to try some of the well known service attacks. These include SQL injection, CSRF, and XSS. One of the most popular dynamic analysis tools is the OWASP Zed Attack proxy tool. \\
-     \hline
-    \end{tabular}
-\end{center}   
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{ | p{.20\textwidth} | p{.80\textwidth} | } 
+        \hline
+        \textbf{Area of Concern for Code} & \textbf{Recommendation} \\ 
+        \hline
+        Access over TLS only & If your code needs to communicate by TCP, perform a TLS handshake with the client ahead of time. With the exception of a few cases, encrypt everything in transit. Going one step further, it's a good idea to encrypt network traffic between services. This can be done through a process known as mutual TLS authentication or mTLS which performs a two sided verification of communication between two certificate holding services. \\ 
+        \hline
+        Limiting port ranges of communication & This recommendation may be a bit self-explanatory, but wherever possible you should only expose the ports on your service that are absolutely essential for communication or metric gathering. \\ 
+        \hline
+        3rd Party Dependency Security & It is a good practice to regularly scan your application's third party libraries for known security vulnerabilities. Each programming language has a tool for performing this check automatically. \\
+        \hline
+        Static Code Analysis & Most languages provide a way for a snippet of code to be analyzed for any potentially unsafe coding practices. Whenever possible you should perform checks using automated tooling that can scan codebases for common security errors. \\
+        \hline
+        Dynamic probing attacks & There are a few automated tools that you can run against your service to try some of the well known service attacks. These include SQL injection, CSRF, and XSS. One of the most popular dynamic analysis tools is the OWASP Zed Attack proxy tool. \\
+        \hline
+        \end{tabular}
+    \end{center}
+    \caption{Security recommendations for the Code layer.}
+    \label{tab:code-security-recommendations}
+\end{table}
                       
 \end{enumerate}
+
+\subsubsection*{Role Based Access Control}
+
+\subsubsection*{Data security}
