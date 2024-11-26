@@ -1,57 +1,64 @@
 \section{Kubernetes}
 
-In this section we will dive into the topic of Kubernetes. We will define containerization and compare it to the traditional means of application deployment. We will expand on the Kubernetes resources, their kinds and their role in the target application environment. Finally, we will consider the security of Kubernetes.
+In this section we will dive into the topic of Kubernetes. We start by shortly overviewing the Kubernetes architecure. Then we expand on the Kubernetes resources, their kinds and their role in the target application environment. Finally, we consider the security of Kubernetes.
 
 \subsection{Overview}
 
-Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications. \cite{kubernetes}.
-IBM defines Kubernetes as an open source \textbf{container orchestration platform} for scheduling and automating the deployment, management and scaling of containerized applications. \cite{ibm-kubernetes}.
+Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon 15 years of experience of running production workloads at Google, combined with best-of-breed ideas and practices from the community. \cite{kubernetes}.
 
-\subsection{Containerization}
+IBM defines Kubernetes as an open source \textbf{container orchestration platform} for scheduling and automating the deployment, management and scaling of containerized applications. Today, Kubernetes and the broader ecosystem of container-related technologies have merged to form the building blocks of modern cloud infrastructure. This ecosystem enables organizations to deliver a highly productive hybrid multicloud computing environment to perform complex tasks surrounding infrastructure and operations. It also supports cloud-native development by enabling a build-once-and-deploy-anywhere approach to building applications. \cite{ibm-kubernetes}.
 
-When talking about the Kubernetes it is essential to define the term containerization. Containerization is the packaging of software code with just the operating system libraries and dependencies required to run the code to create a single lightweight executable—called a container—that runs consistently on any infrastructure. \cite{ibm-containerization}.
+It is important to emphasize that the Kubernetes abstracts the actual machines (nodes) from the user. Nodes can be physical on-premises servers, or VMs that reside either on-premises or at a cloud provider. Kubernetes takes on the responsibilty of figuring out the deployment target for a particular application. That is, user only defines the desired state of the infrastructure using YAML or JSON configuration files. Kubernetes then creates all the workloads based on the applied configuration.
 
-Although containers are built to be infrastructure-agnostic, there are still certain compatibility considerations to keep in mind. One significant factor is processor architecture. Containers built for a specific architecture family (e.g., arm64, amd64, or x86) are generally not cross-compatible with infrastructures based on different architectures. However, it is possible to build multi-architecture containers that support multiple processor architectures in a single image, enhancing the flexibility and portability of the containerized applications across diverse environments.
+\subsection{Kubernetes Architecture}
 
-\subsubsection*{Containerization vs Virtualization}
-
-Let us discuss why containerization is rapidly growing in popularity nowadays and why do software arhitects tend to choose it over traditional virtualization solutions.
-
-Figure~\ref{img:containers-vs-virtual-machines} provides a side-by-side comparison of a Virutal Machine and a Cloud infrastructure, each with three application deployed. We can see that each application on the container side is missing a "Guest OS" layer. Here lies the main advantage of the containers. Absence of the Guest Operating System provides a lot of advantages, which we discuss further below.
+While Kubernetes requires at least three nodes to run, there are some implementation designed for the local use, which emulate this concept (see Subsection~\ref{sec:other-kubernetes-implementations}). The master node is called control plane. The control plane manages the worker nodes and the Pods in the cluster. In production environments, the control plane usually runs across multiple computers and a cluster usually runs multiple nodes, providing fault-tolerance and high availability. Worker nodes host the actual workload inside the cluster. Figure~\ref{img:kubernetes-architecture} provides a simple high-level overview of a typical Kubernetes cluster with a Control Plane and three worker nodes.
 
 \begin{figure}[!hbt]
 	\begin{center}
-		\includegraphics[width=0.75\textwidth]{images/containers-vs-virtual-machines.jpg}
-        \caption{Side-by-side comparison of VM and container infrastructures.}
-		\label{img:containers-vs-virtual-machines}
+		\includegraphics[width=0.85\textwidth]{images/components-of-kubernetes.pdf}
+        \caption{Kubernetes cluster architecure overview with its main components.}
+		\label{img:kubernetes-architecture}
 	\end{center}
 \end{figure}
 
-I would say the most important advantage of the containers is their resource efficiency. Containers only include the application code and its dependencies, which makes them very small compared to the Virtual Machines, which tend to be very bulky and grow in size as development progresses. Containers share the host operating system kernel, so they consume significantly less CPU, memory, and storage than virtual machines, which require a full OS for each instance. This lightweight nature allows more containers to run on a single host, maximizing resource utilization and reducing overhead. Better resource efficiency means also lower costs for the user.
+\subsubsection*{Control Plane overview}
 
-Then, startup speeds are significantly lower for the containers as they do not need to initialize the whole OS boot sequence. This feature also enables the scaling capabilities for the containers, allowing applications to respond quickly to changes in demand.
+Control plane runs the following components: 
+\begin{itemize}
+\item \textbf{kube-apiserver} \\
+Kube-apiserver exposes the Kubernetes API, which is acting as a frontend for the Kubernetes control plane.
+\item \textbf{etcd} \\
+Etcd is a key-value store, where all of the cluster data is stored.
+\item \textbf{kube-scheduler} \\
+Each time a new pod is created, it is passed to the kube-scheduler, which assigns the pod to the specific node to run on (based on individual and collective resource requirements, hardware/software/policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines).
+\item \textbf{kube-controller-manager} \\
+Each Kubernetes resource has its own controller (e.g. NodeController, JobController, ServiceAccountController); all of them are compiled as one binary called kube-controller-manager.
+\item \textbf{cloud-controller-manager} \\
+Cloud-controller-manager embeds cloud-specific control logic. It differs depending on the cloud provider or can be absent completely, when running Kubernetes locally.
+\end{itemize}
 
-Additionally, the containers are more consistent than virtual machines. Packed with the required dependencies, they behave in the same way across different environments. As they are isolated from the OS, containers are almost immune to the compatibility issues. This gives them a strong portability advantage. They provide an abstraction that makes it easier to move workloads across various platforms.
+\subsubsection*{Worker Node overview}
 
-Lastly, containers also lead when it comes to automation and CI/CD pipelines. Containers can be easily versioned, updated, and rolled back, allowing for smooth integration into CI/CD pipelines. This streamlines deployment, testing, and rollback processes, leading to faster development cycles. VMs can also be updated and rolled back, but the process is usually slower and more complex.
+Each worker node has a kubelet and kube-proxy installed. Kubelet is an agent that manages runnning pods and containers. Kube-proxy is a network proxy that implements parts of the Kubernetes service concept. It maintains network rules on nodes, making in- outside-cluster communitcation possible.
 
-These are some of the most significant advantages of containerization. For large-scale development, test and production environment containerization is an obvious choice over the virtualization. While costing less money and providing a lot more flexibility, they become essential for successful enterprise software development.
+Then, of course, each worker node has a set of running pods. A typical use would involve multiple running applications. Depending on the size of the node and the application resoucre consumption it can accomodate on average from one to a few dozens applications with various business purposes.
 
 \subsection{Kubernetes Resources}
 
 Kubernetes resources are fundamental components that define various entities within a Kubernetes cluster. Resources are objects that represent the desired state and configuration of the infrastructure, applications, and services running on the cluster. Kubernetes provides a range of resources that enable developers and operators to define, manage, and scale containerized applications, network policies, storage requirements, and more. These resources are defined declaratively in YAML or JSON files, which makes infrastructure setup consistent and reproducible.
 
-Among key Kuberntes resoucres are:
+Among key Kubernetes resoucres are:
 \begin{itemize}
-    \item Pods
-        Pod is the atomic workload unit in the Kuberntes cluster. It encapsulates one or more containers that share the same network. It represents a single instance of a running application.
-    \item Deployments
+    \item \textbf{Pods} \\
+        Pod is the atomic workload unit in the Kubernetes cluster. It encapsulates one or more containers that share the same network. It represents a single instance of a running application.
+    \item \textbf{Deployments} \\
         Deployments are a higher level of abstraction for the Pods. They allow to define replica count and rollout/rollback strategy for the updates, which can be used to ensure availability for the application.
-    \item Services
+    \item \textbf{Services} \\
         Services provide a communication layer for the pods inside one cluster. Being an abstraction over the pods' network, they provide reliable access to the selected workloads, while serving as a Load Balancer. 
-    \item ConfigMaps and Secrets
+    \item \textbf{ConfigMaps} and \textbf{Secrets} \\
         ConfigMaps and Secrets allow users to store data outside the workload. ConfigMaps are usually used to store non-sensitive information like environment and application configuration parameters. Secrets are a more secure resource designed for API keys, passwords and other sensitive data.
-    \item PersistentVolumes and PersistentVolumeClaims
+    \item \textbf{PersistentVolumes} and \textbf{PersistentVolumeClaims} \\
         These resources enable stateful applications to request and mount durable storage within a cluster, allowing data to persist independently of the Pod lifecycle.
 \end{itemize}
 
@@ -94,45 +101,11 @@ PersistentVolumes and PersistentVolumeClaims are the resources kinds most import
 \item A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory). Claims can request specific size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany or ReadWriteMany). Once and Many here refer to a number of Pods that can perform the read or write simultaneously.
 \end{itemize}
 
-\subsection{Kubernetes Architecture}
-
-While Kubernetes requires at least three nodes to run, there are some implementation designed for the local use, which emulate this concept. The master node is called control plane. The control plane manages the worker nodes and the Pods in the cluster. In production environments, the control plane usually runs across multiple computers and a cluster usually runs multiple nodes, providing fault-tolerance and high availability. Worker nodes host the actual workload inside the cluster. Figure~\ref{img:kubernetes-architecture} provides a simple high-level overview of a typical Kubernetes cluster with a Control Plane and three worker nodes.
-
-\begin{figure}[!hbt]
-	\begin{center}
-		\includegraphics[width=0.85\textwidth]{images/components-of-kubernetes.pdf}
-        \caption{Kubernetes cluster architecure overview with its main components.}
-		\label{img:kubernetes-architecture}
-	\end{center}
-\end{figure}
-
-\subsubsection*{Control Plane overview}
-
-Control plane runs the following components: 
-\begin{itemize}
-\item \textbf{kube-apiserver} \\
-Kube-apiserver exposes the Kubernetes API, which is acting as a frontend for the Kubernetes control plane.
-\item \textbf{etcd} \\
-Etcd is a key-value store, where all of the cluster data is stored.
-\item \textbf{kube-scheduler} \\
-Each time a new pod is created, it is passed to the kube-scheduler, which assigns the pod to the specific node to run on (based on individual and collective resource requirements, hardware/software/policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines).
-\item \textbf{kube-controller-manager} \\
-Each Kubernetes resource has its own controller (e.g. NodeController, JobController, ServiceAccountController); all of them are compiled as one binary called kube-controller-manager.
-\item \textbf{cloud-controller-manager} \\
-Cloud-controller-manager embeds cloud-specific control logic. It differs depending on the cloud provider or can be absent completely, when running Kubernetes locally.
-\end{itemize}
-
-\subsubsection*{Worker Node overview}
-
-Each worker node has a kubelet and kube-proxy installed. Kubelet is an agent that manages runnning pods and containers. Kube-proxy is a network proxy that implements parts of the Kubernetes service concept. It maintains network rules on nodes, making in- outside-cluster communitcation possible.
-
-Then, of course, each worker node has a set of running pods. A typical use would involve multiple running applications. Depending on the size of the node and the application resoucre consumption it can accomodate on average from one to a few dozens applications with various business purposes.
-
 \subsection{Infrastructure Security}
 
-When we are talking about the infrastructure security, we must consider multiple layers. Going from the top to the bottom, we start with the security measurements taken on the Cloud provider side. In most cases this is not something we can affect and the security of different Cloud providers varies significantly. Unfortunately, this is out of scope of this paper, but all of the "big five" Cloud providers (AWS, Azure, Google Cloud, Alibaba and IBM) maintain high security standarts and security risks generally should not be a concern for their end users. Then, we get to the cluster itself. On the cluster level we must consider the security of the nodes, security of the cluster components and their configuration. At this layer we have already some space for the misconfigurations to appear. Here we can evaluate the security of the single components using some of the security scanners presented in \nameref{sec:infrastructure-security-automation}. Lastly, we get to the application level, where the security of the application code, Kubernetes resoucre configuration, libraries, dependencies and base images is the main concern. Again, this is the layer, where the developers have the most access to, thus, providing a lot of space for the possibility of a human error. In this paper we mostly work on this level when we do our research.
+When we are talking about the infrastructure security, we must consider multiple layers. Going from the top to the bottom, we start with the security measurements taken on the Cloud provider side. In most cases this is not something we can affect and the security of different Cloud providers varies significantly. Unfortunately, this is out of scope of this paper, but all of the "big five" Cloud providers (AWS, Azure, Google Cloud, Alibaba and IBM) maintain high security standarts and security risks generally should not be a concern for their end users. Then, we get to the cluster itself. On the cluster level we must consider the security of the nodes, security of the cluster components and their configuration. At this layer we have already some space for the misconfigurations to appear. Here we can evaluate the security of the single components using some of the security scanners presented in \nameref{sec:kubernetes-security-automation}. Lastly, we get to the application level, where the security of the application code, Kubernetes resoucre configuration, libraries, dependencies and base images is the main concern. Again, this is the layer, where the developers have the most access to, thus, providing a lot of space for the possibility of a human error. In this paper we mostly work on this level when we do our research.
 
-Officially, The Linux Foundation provides only some security guidelines for each of the layers. However, bundled with Kuberntes we get a few means to keep the security under control. Below we present an overview of the Kubernetes security recommendations, RBAC and Data security inside Kubernetes.
+Officially, The Linux Foundation provides only some security guidelines for each of the layers. However, bundled with Kubernetes we get a few means to keep the security under control. Below we present an overview of the Kubernetes security recommendations, RBAC and Data security inside Kubernetes.
 
 \subsubsection*{Kubernetes security recommendations}
 
@@ -240,3 +213,10 @@ When it comes to code, the developers have the most flexibility to design secure
 \subsubsection*{Role Based Access Control}
 
 \subsubsection*{Data security}
+
+\subsection{Other Kubernetes Implementations}
+\label{sec:other-kubernetes-implementations}
+
+\subsubsection*{Openshift}
+
+\subsubsection*{Rancher Desktop}

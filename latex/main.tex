@@ -38,6 +38,22 @@
 %\usepackage[thinlines]{easytable}
 \usepackage{amsmath}
 \usepackage{array}
+\usepackage{listings}
+
+\definecolor{darkorange}{rgb}{0.7, 0.3, 0}
+
+\lstdefinelanguage{Dockerfile}{
+  keywords={FROM, RUN, CMD, EXPOSE, ENV, ADD, COPY, ENTRYPOINT, USER, WORKDIR, ARG},
+}
+
+\lstset{
+  language=Dockerfile,
+  captionpos=b,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{darkorange}\bfseries,
+  commentstyle=\color{gray},
+  stringstyle=\color{green!60!black},
+}
 
 %\captionsetup[subfigure]{font=large}
 
