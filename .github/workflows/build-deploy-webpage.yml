@@ -60,6 +60,12 @@ jobs:
         done
         cp docs/extensions/style.css web/public/docs/style.css
         cp -r docs/img web/public/docs/img
+       
+    - name: copy thesis artifacts
+      run: |
+        mkdir web/public/artifacts
+        cp latex/main.pdf web/public/artifacts/main.pdf
+        cp artifacts/project_seminar.pptx web/public/artifacts/project_seminar.pptx
 
     - uses: actions/upload-pages-artifact@v1
       with:
