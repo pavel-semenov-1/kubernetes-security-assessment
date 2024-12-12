@@ -17,13 +17,13 @@ const Downloads = () => {
             <h2 className="text-center">Downloads</h2>
             <ul>
                 <li>
-                    <a href={{thesisURL}}>Thesis</a>
+                    <a href={thesisURL}>Thesis</a>
                 </li>
                 <li>
-                    <a href={{demoURL}}>Demo</a>
+                    <a href={demoURL}>Demo</a>
                 </li>
                 <li>
-                    <a href={{seminarPresentationURL}}>Project Seminar 2 presentation</a>
+                    <a href={seminarPresentationURL}>Project Seminar 2 presentation</a>
                 </li>
             </ul>
         </div>

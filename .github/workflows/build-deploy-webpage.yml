@@ -24,9 +24,8 @@ jobs:
         s|%GITHUB_API_REPO_URL%|${{ secrets.API_REPO_URL }}|g; \
         s|%GITHUB_THESIS_LABEL_ID%|${{ secrets.THESIS_LABEL_ID }}|g; \
         s|%DONLOAD_THESIS_URL%|${{ vars.DOWNLOAD_THESIS_URL }}|g; \
-        s|%DOWNLOAD_DEMO_URL%|${{ vars.DOWNLOAD_DEMO_URL }}|g; \
-        s|%DOWNLOAD_EXECUTABLE_URL%|${{ vars.DOWNLOAD_EXECUTABLE_URL }}|g; \
-        s|%DOWNLOAD_SOURCE_CODE_URL%|${{ vars.DOWNLOAD_SOURCE_CODE_URL }}|g" .env.production
+        s|%DOWNLOAD_DEMO_URL%|${{ vars.DOWNLOAD_SEMINAR_PRESENTATION_URL }}|g; \
+        s|%DOWNLOAD_SOURCE_CODE_URL%|${{ vars.DOWNLOAD_DEMO_URL }}|g" .env.production
 
     - name: inject docs list
       run: |
