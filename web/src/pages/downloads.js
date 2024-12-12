@@ -23,7 +23,7 @@ const Downloads = () => {
                     <a href={{demoURL}}>Demo</a>
                 </li>
                 <li>
-                    <a href={{executableURL}}>Project Seminar 2 presentation</a>
+                    <a href={{seminarPresentationURL}}>Project Seminar 2 presentation</a>
                 </li>
             </ul>
         </div>
