@@ -9,9 +9,9 @@ const downloadStyles = {
 }
 
 const Downloads = () => {
-    const thesisURL = process.env.DOWNLOAD_THESIS_URL;
-    const demoURL = process.env.DOWNLOAD_DEMO_URL;
-    const seminarPresentationURL = process.env.DOWNLOAD_SEMINAR_PRESENTATION_URL;
+    const thesisURL = process.env.DOWNLOAD_THESIS_URL || "https://pavel-semenov-1.github.io/kubernetes-security-assessment/artifacts/main.pdf";
+    const demoURL = process.env.DOWNLOAD_DEMO_URL || "https://pavel-semenov-1.github.io/kubernetes-security-assessment";
+    const seminarPresentationURL = process.env.DOWNLOAD_SEMINAR_PRESENTATION_URL || "https://pavel-semenov-1.github.io/kubernetes-security-assessment/artifacts/project_seminar.pptx";
     return (
         <div style={downloadStyles} className={'downloads'}>
             <h2 className="text-center">Downloads</h2>
