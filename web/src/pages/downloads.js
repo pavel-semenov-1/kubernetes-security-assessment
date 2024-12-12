@@ -11,7 +11,7 @@ const downloadStyles = {
 const Downloads = () => {
     const thesisURL = process.env.DOWNLOAD_THESIS_URL;
     const demoURL = process.env.DOWNLOAD_DEMO_URL;
-    const seminarPresentationURL = process.env.SEMINAR_PRESENTATION_URL;
+    const seminarPresentationURL = process.env.DOWNLOAD_SEMINAR_PRESENTATION_URL;
     return (
         <div style={downloadStyles} className={'downloads'}>
             <h2 className="text-center">Downloads</h2>
