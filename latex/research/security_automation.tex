@@ -5,6 +5,12 @@ This section introduces the reader to the topic of the security automation insid
 
 \subsection{Overview}
 
+Kubernetes security scanners and operators provide an array of defensive capabilties. Most of them act in the form of informator. That is, they do not perform any remediatory actions, but only provide user with information about the cluster security status. Nevertheless, there are some solutions on the market that are capable of resolving some of the security issues automatically. This, on the other hand, introduces another layer of concern: can we really trust a third-party system to introduce modifications to our infrastructure? That the former type is the most abundant and is the focus of this paper. Automatic remediation can be then implemented as a part of CI/CD pipeline based on the scan results. This ensures that it is compliant with the company's policies and is tailored to the company's needs.
+
+One of the ways to classify Kubernetes security scanners is by the scan target. Here we can roughly divide them into three groups: configuration file scanners, cluster scanners and container image scanners. Most of the tools, however, can be put into multiple different groups. Cluster scanners usually are able to perform container image scanning as well and it is a part of the full cluster scan. Cluster scanners detect misconfigurations in the cluster infrastructure and its essential components. They look for, among other things, containers running with extensive privilages, exposed sensitive workloads and plaintext secrets. Container image scanners look for known vulnerabilities inside the images. Configuration file scanners perform a scan of the cluster configuration files. For large infrastructure with a number of applications deployed there might be over several tens of thousands lines of configuration and such scanners aim to detect any known misconfigurations by going through theese lines.
+
+Cluster security scanners can be further classified by the execution point. Again, there is usually more than one way to run a scan, but here are a few options: run a scanner tool as a container, run it from a remote machine connected to the cluster, run it is an operator, which can perform scan automatically on a regular basis. To always keep cluster up-to-date with the most recent security patches the best solution would be to either install an operator or integrate a security scanner tool into your CI/CD pipeline.
+
 \subsection{Selection criteria}
 
 To perform our assessment we have chosen from a variety of Kubernetes security scanners. Though the area is still relatively new, there is a variety of tools with different purposes available on the market. We made our choice based on the following criteria:
@@ -32,7 +38,5 @@ In the next chapters we closely examine each selected tool and explain how it is
 \subsection{Trivy}
 
 \subsection{Kube-bench}
-
-\subsection{Kube-hunter}
 
 \subsection{Kubescape}

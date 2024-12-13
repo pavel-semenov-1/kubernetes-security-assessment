@@ -5,6 +5,17 @@ The~Linux Foundation.
 \newblock Kubernetes official web.
 \newblock \url{https://kubernetes.io/}, Accessed: 4.11.2024.
 
+\bibitem{rancher-desktop}
+SUSE Rancher~Engineering group.
+\newblock Rancher desktop by suse.
+\newblock \url{https://rancherdesktop.io/}, Accessed: 2.12.2024.
+
+\bibitem{kubernetes-in-action}
+Marko Lukša.
+\newblock {\em Kubernetes in Action}.
+\newblock Manning Publications Co., 20 Baldwin Road, PO Box 761, Shelter
+  Island, NY 11964, 2018.
+
 \bibitem{ibm-containerization}
 Ian Smalley~(IBM) Stephanie Susnjara~(IBM).
 \newblock What is containerization?

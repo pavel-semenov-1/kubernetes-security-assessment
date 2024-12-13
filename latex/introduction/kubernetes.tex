@@ -4,9 +4,9 @@ In this section we will dive into the topic of Kubernetes. We start by shortly o
 
 \subsection{Overview}
 
-Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon 15 years of experience of running production workloads at Google, combined with best-of-breed ideas and practices from the community. \cite{kubernetes}.
+Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon 15 years of experience of running production workloads at Google, combined with best-of-breed ideas and practices from the community. \cite{kubernetes}
 
-IBM defines Kubernetes as an open source \textbf{container orchestration platform} for scheduling and automating the deployment, management and scaling of containerized applications. Today, Kubernetes and the broader ecosystem of container-related technologies have merged to form the building blocks of modern cloud infrastructure. This ecosystem enables organizations to deliver a highly productive hybrid multicloud computing environment to perform complex tasks surrounding infrastructure and operations. It also supports cloud-native development by enabling a build-once-and-deploy-anywhere approach to building applications. \cite{ibm-kubernetes}.
+IBM defines Kubernetes as an open source \textbf{container orchestration platform} for scheduling and automating the deployment, management and scaling of containerized applications. Today, Kubernetes and the broader ecosystem of container-related technologies have merged to form the building blocks of modern cloud infrastructure. This ecosystem enables organizations to deliver a highly productive hybrid multicloud computing environment to perform complex tasks surrounding infrastructure and operations. It also supports cloud-native development by enabling a build-once-and-deploy-anywhere approach to building applications. \cite{ibm-kubernetes}
 
 It is important to emphasize that the Kubernetes abstracts the actual machines (nodes) from the user. Nodes can be physical on-premises servers, or VMs that reside either on-premises or at a cloud provider. Kubernetes takes on the responsibilty of figuring out the deployment target for a particular application. That is, user only defines the desired state of the infrastructure using YAML or JSON configuration files. Kubernetes then creates all the workloads based on the applied configuration.
 
@@ -103,7 +103,7 @@ PersistentVolumes and PersistentVolumeClaims are the resources kinds most import
 
 \subsection{Infrastructure Security}
 
-When we are talking about the infrastructure security, we must consider multiple layers. Going from the top to the bottom, we start with the security measurements taken on the Cloud provider side. In most cases this is not something we can affect and the security of different Cloud providers varies significantly. Unfortunately, this is out of scope of this paper, but all of the "big five" Cloud providers (AWS, Azure, Google Cloud, Alibaba and IBM) maintain high security standarts and security risks generally should not be a concern for their end users. Then, we get to the cluster itself. On the cluster level we must consider the security of the nodes, security of the cluster components and their configuration. At this layer we have already some space for the misconfigurations to appear. Here we can evaluate the security of the single components using some of the security scanners presented in \nameref{sec:kubernetes-security-automation}. Lastly, we get to the application level, where the security of the application code, Kubernetes resoucre configuration, libraries, dependencies and base images is the main concern. Again, this is the layer, where the developers have the most access to, thus, providing a lot of space for the possibility of a human error. In this paper we mostly work on this level when we do our research.
+When we are talking about the infrastructure security, we must consider multiple layers. Going from the top to the bottom, we start with the security measurements taken on the Cloud provider side. In most cases this is not something we can affect and the security of different Cloud providers varies significantly. Unfortunately, this is out of scope of this paper, but all of the "big five" Cloud providers (AWS, Azure, Google Cloud, Alibaba and IBM) maintain high security standarts and security risks generally should not be a concern for their end users. Then, we get to the cluster itself. On the cluster level we must consider the security of the nodes, security of the cluster components and their configuration. At this layer we have already some space for the misconfigurations to appear. Here we can evaluate the security of the single components using some of the security scanners presented in \nameref{sec:kubernetes-security-automation}. But it should be noted that the cluster can only be as secured as its nodes. Therefore, attention should be given to the node security first. Host operating system should be regularly patched with the most recent security patches. Lastly, we get to the application level, where the security of the application code, Kubernetes resoucre configuration, libraries, dependencies and base images is the main concern. Again, this is the layer, where the developers have the most access to, thus, providing a lot of space for the possibility of a human error. In this paper we mostly work on this level when we do our research.
 
 Officially, The Linux Foundation provides only some security guidelines for each of the layers. However, bundled with Kubernetes we get a few means to keep the security under control. Below we present an overview of the Kubernetes security recommendations, RBAC and Data security inside Kubernetes.
 
@@ -212,11 +212,85 @@ When it comes to code, the developers have the most flexibility to design secure
 
 \subsubsection*{Role Based Access Control}
 
+Role-Based Access Control, \textbf{RBAC} in short, is a fundamental security mechanism in Kubernetes that governs access to resources within a cluster. It enables administrators to define policies that restrict or allow actions based on the roles assigned to users, groups, or service accounts. Proper configuration of RBAC is critical to ensuring a secure Kubernetes environment.
+
+There are a few components of RBAC that allow us to create users and define their access permissions and restrictions.
+
+\begin{itemize}
+    \item \textbf{Roles} \\
+    A Role defines a set of permissions within a specific namespace. It is used to control access to resources like Pods, ConfigMaps, or Deployments in that namespace.
+    \item \textbf{ClusterRoles} \\
+    A ClusterRole, on the other hand, is a cluster-wide version of a Role. It applies to resources that span the entire cluster, such as nodes or PersistentVolumes, or to resources in all namespaces.
+    \item \textbf{RoleBindings} \\
+    A RoleBinding associates a Role with one or more subjects (users, groups, or service accounts) within a specific namespace.
+    \item \textbf{ClusterRoleBinding} \\
+    A ClusterRoleBinding extends this association to ClusterRoles and applies it cluster-wide.
+\end{itemize}
+
+RBAC policies are defined using YAML manifests. The primary fields in an RBAC policy include:
+
+\begin{itemize}
+    \item \textbf{APIGroups}: Specifies the API group of the resources.
+    \item \textbf{Resources}: Indicates the type of resources, such as Pods, Services, or Deployments.
+    \item \textbf{Verbs}: Lists the actions allowed, such as get, list, create, or delete.
+\end{itemize}
+
+The symbol '*' is a wildcard that might be used to represent "all" for specific fields. However, its use should generally be avoided in compliance with least privilege principle.
+Listing~\ref{lst:k8s-role} defines a \lstinline{pod-reader} \textbf{Role} inside the \lstinline{my-namespace} namespace.
+
+\begin{lstlisting}[language=YAML, caption={An example of a Kubernetes Role definition.}, label={lst:k8s-role}]
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+    metadata:
+      namespace: my-namespace
+      name: pod-reader
+    rules:
+    - apiGroups: [""]
+      resources: ["pods"]
+      verbs: ["get", "list", "watch"]
+\end{lstlisting}
+
 \subsubsection*{Data security}
+
+Kubernetes provides only one kind of resource to manage sensitive data. A Kubernetes Secret is designed to store sensitive data in a way that prevents it from being exposed unnecessarily. API tokens, database credentials or encryption keys can be stored as Secrets. By default, Secrets are stored unencrypted in etcd. Enabling encryption at rest is crucial to secure their contents. For a more secure solution external tools such as HashiCorp Vault, AWS Secrets Manager, or Azure Key Vault should be considered as an alternative to the Kubernetes Secrets to securely manage and rotate sensitive information.
+
+On the topic of the filesystem security of the pods, Kubernetes itself does not handle encryption at the storage layer but relies on the underlying storage system to provide it. Appropiate namespace isolation coupled with a well-defined RBAC rules make Secrets and PVCs sufficiently secure for a common use case.
 
 \subsection{Other Kubernetes Implementations}
 \label{sec:other-kubernetes-implementations}
 
 \subsubsection*{Openshift}
 
+Openshift is another container orchestration platform built on top of Kubernetes by Red Hat. Openshift extends the basic Kubernetes functionality and emphasizes on security and automation. It ships with a lot of additional enterprise-level features like image registry, pipeline operators and OpenShift Web Console.
+
+OpenShift emphasizes security with stricter security defaults, such as non-root containers by default and integrated role-based access control. It also provides Security Context Constraints for fine-grained control over workloads. They control the actions that a pod can perform and what it has the ability to access. Imagine we have a ServiceAccount \lstinline{mysvcacct} inside \lstinline{default} namespace (or project, as they called in Openshift). Then if we would like to grant a pod inside the \lstinline{default} namespace running under \lstinline{mysvcacct} ServiceAccount, we could do so using this command: \lstinline{oc adm policy add-scc-to-user privileged system:serviceaccount:myproject:mysvcacct}.
+
+The OpenShift dashboard, part of the OpenShift Web Console, provides a graphical user interface for managing and monitoring Kubernetes resources within an OpenShift cluster. It simplifies cluster management and enables users to perform tasks without extensive use of the command line. Overview page of the dashboard can be seen on Figure~\ref{img:openshift-dashboard}.
+
+\begin{figure}[!hbt]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{images/openshift-dashboard.png}
+        \caption{Openshift dashboard. Overview page.}
+		\label{img:openshift-dashboard}
+	\end{center}
+\end{figure}
+
 \subsubsection*{Rancher Desktop}
+
+Rancher Desktop is "an open-source application that provides all the essentials to work with containers and Kubernetes on the desktop". \cite{rancher-desktop}
+
+Basically, it provides a local Kubernetes cluster with convenient GUI and a dashboard by default. It is widely used by developers to test their application in Cloud environments without commiting the changes. 
+
+Big advantage of Rancher Desktop is its simple installation process. Rancher Desktop is available for Windows, Linux and MacOS and is also bundled with all the necessary CLI tools like docker, nerdctl, kubectl, helm, and others.
+
+Rancher Desktop allows to choose from dockerd or containerd as a container backend. Additionally, users can switch between Kubernetes versions easily to ensure compatibility with various environments. GUI allows to inspect containers and images, troubleshoot the cluster and forward container ports to the local machine. Figure~\ref{img:rancher-desktop} captures a "Port Forwarding" page of Rancher Desktop app.
+
+Being free and easy to setup, Rancher Desktop became our main tool for local experiments. Most of our research was done on a Rancher local cluster. 
+
+\begin{figure}[!hbt]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{images/rancher-desktop.png}
+        \caption{Rancher Desktop GUI.}
+		\label{img:rancher-desktop}
+	\end{center}
+\end{figure}

@@ -41,18 +41,27 @@
 \usepackage{listings}
 
 \definecolor{darkorange}{rgb}{0.7, 0.3, 0}
+\definecolor{darkgreen}{rgb}{0.0, 0.4, 0.0}
 
 \lstdefinelanguage{Dockerfile}{
   keywords={FROM, RUN, CMD, EXPOSE, ENV, ADD, COPY, ENTRYPOINT, USER, WORKDIR, ARG},
 }
 
+\lstdefinelanguage{YAML}{
+    morekeywords={true, false, null, yes, no, on, off}, % Booleans
+    keywordstyle=\color{blue}\bfseries,
+    sensitive=true,
+    morecomment=[l]{\#},
+    morestring=[b]',
+    morestring=[b]"
+}
+
 \lstset{
-  language=Dockerfile,
   captionpos=b,
   basicstyle=\ttfamily\small,
   keywordstyle=\color{darkorange}\bfseries,
   commentstyle=\color{gray},
-  stringstyle=\color{green!60!black},
+  stringstyle=\color{darkgreen},
 }
 
 %\captionsetup[subfigure]{font=large}
@@ -264,14 +273,14 @@ First, I would like to express my gratitude to Mgr. Ľubomír Firment for his gu
 
 \input{motivation}
 \input{introduction/introduction}
-% \input{data/astronomical_data}
+\input{research/research}
 % \input{proposed methods/proposed_methods}
 % \input{software design/software_design}
 % \input{implementation/implementation}
 % \input{data_generation/data_generation}
 % \input{research/research}
-% \input{results/results}
-% \input{conclusion}
+\input{results/results}
+\input{conclusion}
 
 
 %main content 
