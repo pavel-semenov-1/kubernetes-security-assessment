@@ -1,5 +1,16 @@
 \begin{thebibliography}{1}
 
+\bibitem{ibm-containerization}
+Stephanie~Susnjara \and Ian~Smalley.
+\newblock What is containerization?
+\newblock \url{https://www.ibm.com/topics/containerization}, Accessed:
+  4.11.2024.
+
+\bibitem{ibm-kubernetes}
+Stephanie~Susnjara \and Ian~Smalley.
+\newblock What is kubernetes?
+\newblock \url{https://www.ibm.com/topics/kubernetes}, Accessed: 4.11.2024.
+
 \bibitem{kubernetes}
 The~Linux Foundation.
 \newblock Kubernetes official web.
@@ -15,16 +26,5 @@ Marko Lukša.
 \newblock {\em Kubernetes in Action}.
 \newblock Manning Publications Co., 20 Baldwin Road, PO Box 761, Shelter
   Island, NY 11964, 2018.
-
-\bibitem{ibm-containerization}
-Ian Smalley~(IBM) Stephanie Susnjara~(IBM).
-\newblock What is containerization?
-\newblock \url{https://www.ibm.com/topics/containerization}, Accessed:
-  4.11.2024.
-
-\bibitem{ibm-kubernetes}
-Ian Smalley~(IBM) Stephanie Susnjara~(IBM).
-\newblock What is kubernetes?
-\newblock \url{https://www.ibm.com/topics/kubernetes}, Accessed: 4.11.2024.
 
 \end{thebibliography}

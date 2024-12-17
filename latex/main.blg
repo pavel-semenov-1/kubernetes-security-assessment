@@ -3,17 +3,17 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plain.bst
 Database file #1: references.bib
-Warning--empty journal in kubernetes
-Warning--empty year in kubernetes
-Warning--empty journal in rancher-desktop
-Warning--empty year in rancher-desktop
 Warning--empty journal in ibm-containerization
 Warning--empty year in ibm-containerization
 Warning--empty journal in ibm-kubernetes
 Warning--empty year in ibm-kubernetes
+Warning--empty journal in kubernetes
+Warning--empty year in kubernetes
+Warning--empty journal in rancher-desktop
+Warning--empty year in rancher-desktop
 You've used 5 entries,
             2118 wiz_defined-function locations,
-            518 strings with 4602 characters,
+            518 strings with 4594 characters,
 and the built_in function-call counts, 1071 in all, are:
 = -- 96
 > -- 35
