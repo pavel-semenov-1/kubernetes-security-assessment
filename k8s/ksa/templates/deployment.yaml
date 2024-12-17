@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
-  namespace: {{ .Values.namespace.name }}
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:
@@ -14,54 +14,9 @@ spec:
         app: ksa
     spec:
       initContainers:
-      - image: {{ .Values.deployment.hunter.image }}
-        name: kube-hunter
-        command: ["/bin/sh"]
-        args: ["-c", "kube-hunter --pod >/var/www/kube-hunter.txt"]
-        {{- if eq .Values.deployment.security.default false }}
-        securityContext:
-          {{- if .Values.deployment.security.runAsNonRoot }}
-          runAsUser: {{ .Values.deployment.security.runAsUser }}
-          {{- end }}
-          allowPrivilegeEscalation: {{ .Values.deployment.security.allowPrivilegeEscalation }}
-          capabilities:
-          {{- if .Values.deployment.security.capabilities.drop }}
-            drop: {{ .Values.deployment.security.capabilities.drop }}
-          {{- end }}
-          {{- if .Values.deployment.security.capabilities.add }}
-            add: {{ .Values.deployment.security.capabilities.add }}
-          {{- end }}
-          runAsNonRoot: {{ .Values.deployment.security.runAsNonRoot }}
-          {{- if .Values.deployment.security.seccompProfileType }}
-          seccompProfile:
-            type: {{ .Values.deployment.security.seccompProfileType }}
-          {{- end }}
-        {{- end }}
-        volumeMounts:
-        - name: public-html
-          mountPath: /var/www
       - image: busybox
         name: configmap-resolver
         command: ["cp", "/var/map/index.html", "/var/www/index.html"]
-        {{- if eq .Values.deployment.security.default false }}
-        securityContext:
-          {{- if .Values.deployment.security.runAsNonRoot }}
-          runAsUser: {{ .Values.deployment.security.runAsUser }}
-          {{- end }}
-          allowPrivilegeEscalation: {{ .Values.deployment.security.allowPrivilegeEscalation }}
-          capabilities:
-          {{- if .Values.deployment.security.capabilities.drop }}
-            drop: {{ .Values.deployment.security.capabilities.drop }}
-          {{- end }}
-          {{- if .Values.deployment.security.capabilities.add }}
-            add: {{ .Values.deployment.security.capabilities.add }}
-          {{- end }}
-          runAsNonRoot: {{ .Values.deployment.security.runAsNonRoot }}
-          {{- if .Values.deployment.security.seccompProfileType }}
-          seccompProfile:
-            type: {{ .Values.deployment.security.seccompProfileType }}
-          {{- end }}
-        {{- end }}
         volumeMounts:
         - name: public-html
           mountPath: /var/www
@@ -71,29 +26,22 @@ spec:
       - image: {{ .Values.deployment.httpd.image }}
         imagePullPolicy: IfNotPresent
         name: httpd
-        {{- if eq .Values.deployment.security.default false }}
-        securityContext:
-          {{- if .Values.deployment.security.runAsNonRoot }}
-          runAsUser: {{ .Values.deployment.security.runAsUser }}
-          {{- end }}
-          allowPrivilegeEscalation: {{ .Values.deployment.security.allowPrivilegeEscalation }}
-          capabilities:
-          {{- if .Values.deployment.security.capabilities.drop }}
-            drop: {{ .Values.deployment.security.capabilities.drop }}
-          {{- end }}
-          {{- if .Values.deployment.security.capabilities.add }}
-            add: {{ .Values.deployment.security.capabilities.add }}
-          {{- end }}
-          runAsNonRoot: {{ .Values.deployment.security.runAsNonRoot }}
-          {{- if .Values.deployment.security.seccompProfileType }}
-          seccompProfile:
-            type: {{ .Values.deployment.security.seccompProfileType }}
-          {{- end }}
-        {{- end }}
         volumeMounts:
         - name: public-html
           mountPath: /usr/local/apache2/htdocs
+        - name: trivy-scan-results
+          mountPath: /usr/local/apache2/htdocs/trivy-scan-results
+          readOnly: true
+        - name: kube-bench-scan-results
+          mountPath: /usr/local/apache2/htdocs/kube-bench-scan-results
+          readOnly: true
       volumes:
+      - name: trivy-scan-results
+        persistentVolumeClaim:
+          claimName: trivy-scan-results
+      - name: kube-bench-scan-results
+        persistentVolumeClaim:
+          claimName: kube-bench-scan-results
       - name: public-html
         emptyDir: {}
       - name: index-html

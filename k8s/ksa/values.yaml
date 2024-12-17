@@ -2,22 +2,25 @@ info:
   securityLevel: baseline
   color: orange
 
-kubeaudit:
-  image: shopify/kubeaudit:v0.11
+trivy:
+  image: aquasec/trivy:latest
+  init:
+    image: alpine/k8s@sha256:fea4057e9e8a0d363ac4f67e55cf6ab8a6e44a057e0e0315ca7b5068927c5fdc
+  storage:
+    name: trivy-scan-results
+    size: 200Mi
 
-namespace:
-  name: baseline
-  labels:
-    enforce: baseline
-    enforceVersion: latest
+kubebench:
+  image: docker.io/aquasec/kube-bench:v0.9.3
+  storage:
+    name: kube-bench-scan-results
+    size: 200Mi
 
 deployment:
   busybox:
     image: busybox:latest
   httpd:
     image: httpd:latest
-  hunter:
-    image: aquasec/kube-hunter
   security:
     default: true
     runAsUser:
@@ -31,7 +34,7 @@ deployment:
 service:
   name: ksa-svc
   type: LoadBalancer
-  port: 8080
+  port: 8888
   targetPort: 80
 
 ingress:

@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ksa-ingress
-  namespace: {{ .Values.namespace.name }}
+  namespace: {{ .Release.Namespace }}
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     kubernetes.io/ingress.class: addon-http-application-routing
@@ -17,7 +17,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: ksa-svc
+            name: {{ .Values.service.name }}
             port:
-              number: 8080
+              number: {{ .Values.service.port }}
 {{- end }}
