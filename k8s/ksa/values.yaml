@@ -1,8 +1,5 @@
-info:
-  securityLevel: baseline
-  color: orange
-
 trivy:
+  deploy: false
   image: aquasec/trivy:latest
   init:
     image: alpine/k8s@sha256:fea4057e9e8a0d363ac4f67e55cf6ab8a6e44a057e0e0315ca7b5068927c5fdc
@@ -11,16 +8,14 @@ trivy:
     size: 200Mi
 
 kubebench:
+  deploy: false
   image: docker.io/aquasec/kube-bench:v0.9.3
   storage:
     name: kube-bench-scan-results
     size: 200Mi
 
-deployment:
-  busybox:
-    image: busybox:latest
-  httpd:
-    image: httpd:latest
+dashboard:
+  image: ksa/dashboard:latest
   security:
     default: true
     runAsUser:
@@ -30,15 +25,31 @@ deployment:
       drop:
     runAsNonRoot:
     seccompProfileType:
+  service:
+    name: dashboard
+    type: LoadBalancer
+    port: 3123
+    targetPort: 3000
 
-service:
-  name: ksa-svc
-  type: LoadBalancer
-  port: 8888
-  targetPort: 80
+parser:
+  image: ksa/parser:latest
+  service:
+    name: parser
+    type: LoadBalancer
+    port: 8123
+    targetPort: 8000
+  volumes:
+    trivy:
+      name: trivy-data
+      path: /opt/trivy-data
+    kubebench:
+      name: kubebench-data
+      path: /opt/kubebench-data
 
-ingress:
-  enabled: false
-
-configmap:
-  name: public-html-cm
+aggregator:
+  image: ksa/aggregator:latest
+  service:
+    name: aggregator
+    type: LoadBalancer
+    port: 8124
+    targetPort: 8000

@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ksa-parser
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: ksa-parser
+  template:
+    metadata:
+      name: ksa-parser
+      labels:
+        app: ksa-parser
+    spec:
+      containers:
+      - image: {{ .Values.parser.image }}
+        imagePullPolicy: IfNotPresent
+        name: ksa-parser
+        env:
+        - name: PORT
+          value: "{{ .Values.parser.service.targetPort }}"
+        - name: TRIVY_DATA_LOCATION
+          value: {{ .Values.parser.volumes.trivy.path }}
+        - name: KUBE_BENCH_DATA_LOCATION
+          value: {{ .Values.parser.volumes.kubebench.path }}
+        volumeMounts:
+        - name: {{ .Values.parser.volumes.trivy.name }}
+          mountPath: {{ .Values.parser.volumes.trivy.path }}
+          readOnly: true
+        - name: {{ .Values.parser.volumes.kubebench.name }}
+          mountPath: {{ .Values.parser.volumes.kubebench.path }}
+          readOnly: true
+      volumes:
+      - name: {{ .Values.parser.volumes.trivy.name }}
+        persistentVolumeClaim:
+          claimName: trivy-scan-results
+      - name: {{ .Values.parser.volumes.kubebench.name }}
+        persistentVolumeClaim:
+          claimName: kube-bench-scan-results
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: {{ .Values.parser.service.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: {{ .Values.parser.service.type }}
+  ports:
+  - port: {{ .Values.parser.service.port }}
+    protocol: TCP
+    targetPort: {{ .Values.parser.service.targetPort }}
+  selector:
+    app: ksa-parser

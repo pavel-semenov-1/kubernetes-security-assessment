@@ -58,6 +58,21 @@ func (p *TrivyParser) Parse(filePath string) error {
 		return fmt.Errorf("error unmarshaling JSON: %v", err)
 	}
 
+	for resourceIndex, res := range result.Resources {
+		for resultIndex, rslt := range res.Results {
+			idExtractorVuln := func(v Vulnerability) string { return v.VulnerabilityID }
+			result.Resources[resourceIndex].Results[resultIndex].Vulnerabilities = RemoveDuplicates(rslt.Vulnerabilities, idExtractorVuln)
+			idExtractorMisc := func(m Misconfiguration) string { return m.ID }
+			result.Resources[resourceIndex].Results[resultIndex].Misconfigurations = RemoveDuplicates(rslt.Misconfigurations, idExtractorMisc)
+			for vulnIndex, _ := range result.Resources[resourceIndex].Results[resultIndex].Vulnerabilities {
+				result.Resources[resourceIndex].Results[resultIndex].Vulnerabilities[vulnIndex].Target = rslt.Target
+			}
+			for misconfIndex, _ := range result.Resources[resourceIndex].Results[resultIndex].Misconfigurations {
+				result.Resources[resourceIndex].Results[resultIndex].Misconfigurations[misconfIndex].Target = rslt.Target
+			}
+		}
+	}
+
 	p.data = result
 	return nil
 }

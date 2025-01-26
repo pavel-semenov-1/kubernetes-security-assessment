@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ksa-aggregator
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: ksa-aggregator
+  template:
+    metadata:
+      name: ksa-aggregator
+      labels:
+        app: ksa-aggregator
+    spec:
+      serviceAccountName: aggregator
+      containers:
+      - image: {{ .Values.aggregator.image }}
+        imagePullPolicy: IfNotPresent
+        name: ksa-aggregator
+        env:
+        - name: NAMESPACE
+          value: {{ .Release.Namespace }}
+        - name: PORT
+          value: "{{ .Values.aggregator.service.targetPort }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: {{ .Values.aggregator.service.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: {{ .Values.aggregator.service.type }}
+  ports:
+  - port: {{ .Values.aggregator.service.port }}
+    protocol: TCP
+    targetPort: {{ .Values.aggregator.service.targetPort }}
+  selector:
+    app: ksa-aggregator
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: aggregator
+  namespace: {{ .Release.Namespace }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - pods
+  - pods/log
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: aggregator
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: aggregator
+subjects:
+- kind: ServiceAccount
+  name: aggregator
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: aggregator
+  namespace: {{ .Release.Namespace }}

@@ -112,7 +112,7 @@ spec:
       storage: {{ .Values.trivy.storage.size }}
 
 ---
-
+{{- if eq .Values.trivy.deploy true }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -215,3 +215,4 @@ spec:
         - hostPath:
             path: /opt/cni/bin/
           name: opt-cni-bin
+{{- end }}

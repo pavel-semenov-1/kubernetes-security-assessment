@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"ksa-parser/parser"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -13,9 +14,17 @@ func main() {
 	kubeBenchParser := parser.NewKubeBenchParser()
 
 	// Parse data once during startup
-	if err := trivyParser.Parse("/Users/pavel/Diploma/kubernetes-security-assessment/artifacts/trivy-scan.json"); err != nil {
+	trivyDataLocation := os.Getenv("TRIVY_DATA_LOCATION")
+	if trivyDataLocation == "" {
+		panic("TRIVY_DATA_LOCATION environment variable not set")
+	}
+	if err := trivyParser.Parse(trivyDataLocation); err != nil {
 		fmt.Println("Error parsing Trivy data:", err)
 		return
+	}
+	kubeBenchDataLocation := os.Getenv("KUBE_BENCH_DATA_LOCATION")
+	if kubeBenchDataLocation == "" {
+		panic("KUBE_BENCH_DATA_LOCATION environment variable not set")
 	}
 	if err := kubeBenchParser.Parse("/Users/pavel/Diploma/kubernetes-security-assessment/artifacts/kube-bench-scan.json"); err != nil {
 		fmt.Println("Error parsing Kube-bench data:", err)
@@ -23,8 +32,8 @@ func main() {
 	}
 
 	parsers := map[string]parser.Parser{
-		"trivy":      trivyParser,
-		"kube-bench": kubeBenchParser,
+		"Trivy":      trivyParser,
+		"Kube-bench": kubeBenchParser,
 	}
 
 	// HTTP handler to query results
@@ -72,10 +81,12 @@ func main() {
 		json.NewEncoder(w).Encode(results)
 	})
 
-	// Start the server
-	port := ":8123"
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	fmt.Println("Server running on port", port)
-	err := http.ListenAndServe(port, nil)
+	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		fmt.Println("Error starting server:", err)
 	}

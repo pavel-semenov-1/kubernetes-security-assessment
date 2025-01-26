@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  margin-right: 8px; /* Space between triangle and text */
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid black; /* Triangle color */
+  transition: transform 0.3s ease; /* Smooth animation */
+}
+
+.triangle.open {
+  transform: rotate(90deg); /* Rotate to point down */
+}

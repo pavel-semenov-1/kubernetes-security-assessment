@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ksa-dashboard
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: ksa-dashboard
+  template:
+    metadata:
+      name: ksa-dashboard
+      labels:
+        app: ksa-dashboard
+    spec:
+      containers:
+      - image: {{ .Values.dashboard.image }}
+        imagePullPolicy: IfNotPresent
+        name: ksa-dashboard
+        env:
+        - name: PORT
+          value: "{{ .Values.dashboard.service.targetPort }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: {{ .Values.dashboard.service.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: {{ .Values.dashboard.service.type }}
+  ports:
+  - port: {{ .Values.dashboard.service.port }}
+    protocol: TCP
+    targetPort: {{ .Values.dashboard.service.targetPort }}
+  selector:
+    app: ksa-dashboard
