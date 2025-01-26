@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.22)  13 DEC 2024 08:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.22)  24 JAN 2025 14:23
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -799,7 +799,12 @@ Overfull \hbox (19.66112pt too wide) in paragraph at lines 1--245
 ] [13
 
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-) [14] (./motivation.tex) (./introduction/introduction.tex [1
+) [14] (./motivation.tex
+
+LaTeX Warning: Reference `chap:conclusion' on page 1 undefined on input line 9.
+
+
+) (./introduction/introduction.tex [1
 
 
 ]
@@ -818,7 +823,7 @@ nput line 23.
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 24.
  [3]
-<images/containers-vs-virtual-machines.jpg, id=323, 1927.2pt x 975.645pt>
+<images/containers-vs-virtual-machines.jpg, id=331, 1927.2pt x 975.645pt>
 File: images/containers-vs-virtual-machines.jpg Graphic file (type jpg)
 <use images/containers-vs-virtual-machines.jpg>
 Package pdftex.def Info: images/containers-vs-virtual-machines.jpg  used on inp
@@ -827,14 +832,14 @@ ut line 45.
  [4 <./images/containers-vs-virtual-machines.jpg>] [5]) (./introduction/kuberne
 tes.tex
 [6]
-<images/components-of-kubernetes.pdf, id=345, 942.66823pt x 440.42018pt>
+<images/components-of-kubernetes.pdf, id=353, 942.66823pt x 440.42018pt>
 File: images/components-of-kubernetes.pdf Graphic file (type pdf)
 <use images/components-of-kubernetes.pdf>
 Package pdftex.def Info: images/components-of-kubernetes.pdf  used on input lin
 e 19.
 (pdftex.def)             Requested size: 374.86775pt x 175.13675pt.
  [7 <./images/components-of-kubernetes.pdf>] [8] [9] [10]
-<images/cloud-security.png, id=395, 776.9025pt x 448.074pt>
+<images/cloud-security.png, id=403, 776.9025pt x 448.074pt>
 File: images/cloud-security.png Graphic file (type png)
 <use images/cloud-security.png>
 Package pdftex.def Info: images/cloud-security.png  used on input line 116.
@@ -954,14 +959,14 @@ Overfull \hbox (26.23177pt too wide) in paragraph at lines 266--267
 [][][][][][][][][][][][][][][][][][][][][][][][][]\T1/cmr/m/n/12 . 
  []
 
-<images/openshift-dashboard.png, id=439, 3011.25pt x 2541.495pt>
+<images/openshift-dashboard.png, id=447, 3011.25pt x 2541.495pt>
 File: images/openshift-dashboard.png Graphic file (type png)
 <use images/openshift-dashboard.png>
 Package pdftex.def Info: images/openshift-dashboard.png  used on input line 272
 .
 (pdftex.def)             Requested size: 374.86775pt x 316.36757pt.
 [16]
-<images/rancher-desktop.png, id=450, 960.58875pt x 540.51938pt>
+<images/rancher-desktop.png, id=458, 960.58875pt x 540.51938pt>
 File: images/rancher-desktop.png Graphic file (type png)
 <use images/rancher-desktop.png>
 Package pdftex.def Info: images/rancher-desktop.png  used on input line 292.
@@ -980,26 +985,51 @@ Chapter 3.
 ]) [23
 
 ] (./main.bbl
-! Misplaced \crcr.
-\endarray ->\crcr 
-                  \egroup \egroup \@arrayright \gdef \@preamble {}
-l.4 Stephanie~Susnjara \and
-                            Ian~Smalley.
-? 
-! Emergency stop.
-\endarray ->\crcr 
-                  \egroup \egroup \@arrayright \gdef \@preamble {}
-l.4 Stephanie~Susnjara \and
-                            Ian~Smalley.
-End of file on the terminal!
+Underfull \hbox (badness 1320) in paragraph at lines 30--33
+[]\T1/cmr/m/n/12 SUSE Rancher En-gi-neer-ing group.  Rancher desk-top by suse. 
+ []$\T1/cmtt/m/n/12 https : / /
+ []
 
- 
+)
+
+Package caption Warning: Unused \captionsetup[sub] on input line 34.
+See the caption package documentation for explanation.
+
+[24
+
+
+] (./main.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-02-20>
+ ***********
+
+
+LaTeX Warning: There were undefined references.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 13362407DEE3DDB3213A5A172B076C18;3675.
+ ) 
 Here is how much of TeX's memory you used:
- 18906 strings out of 474116
- 316674 string characters out of 5743681
+ 18944 strings out of 474116
+ 317394 string characters out of 5743681
  1945187 words of memory out of 5000000
- 40817 multiletter control sequences out of 15000+600000
- 569852 words of font info for 65 fonts, out of 8000000 for 9000
+ 40847 multiletter control sequences out of 15000+600000
+ 570536 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  77i,10n,79p,1686b,1170s stack positions out of 10000i,1000n,20000p,200000b,200000s
-!  ==> Fatal error occurred, no output PDF file produced!
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb>
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></
+usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></us
+r/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/
+local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/lo
+cal/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/loca
+l/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/
+texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on main.pdf (38 pages, 2062470 bytes).
+PDF statistics:
+ 575 PDF objects out of 1000 (max. 8388607)
+ 475 compressed objects within 5 object streams
+ 129 named destinations out of 1000 (max. 500000)
+ 257 words of extra memory for PDF output out of 10000 (max. 10000000)
+

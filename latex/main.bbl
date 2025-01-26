@@ -1,19 +1,29 @@
 \begin{thebibliography}{1}
 
-\bibitem{ibm-containerization}
-Stephanie~Susnjara \and Ian~Smalley.
-\newblock What is containerization?
-\newblock \url{https://www.ibm.com/topics/containerization}, Accessed:
-  4.11.2024.
+\bibitem{defects}
+D.~B. Bose, A.~Rahman, and S.~I. Shamim.
+\newblock `under-reported' security defects in kubernetes manifests.
+\newblock In {\em 2021 IEEE/ACM 2nd International Workshop on Engineering and
+  Cybersecurity of Critical Systems (EnCyCriS)}. IEEE, 2021.
 
-\bibitem{ibm-kubernetes}
-Stephanie~Susnjara \and Ian~Smalley.
-\newblock What is kubernetes?
-\newblock \url{https://www.ibm.com/topics/kubernetes}, Accessed: 4.11.2024.
+\bibitem{machines}
+Clinton Cao, Agathe Blaise, Sicco Verwer, and Filippo Rebecchi.
+\newblock Learning state machines to monitor and detect anomalies on a
+  kubernetes cluster.
+\newblock In {\em 17th International Conference on Availability, Reliability
+  and Security (ARES '22)}, New York, NY, USA, 2022. Association for Computing
+  Machinery.
+
+\bibitem{evaluation}
+D.~A. Castillo~Rivas and D.~Guamán.
+\newblock Performance and security evaluation in microservices architecture
+  using open source containers.
+\newblock In {\em Communications in Computer and Information Science}, volume
+  1388. Springer, 2021.
 
 \bibitem{kubernetes}
 The~Linux Foundation.
-\newblock Kubernetes official web.
+\newblock Kubernetes official webpage.
 \newblock \url{https://kubernetes.io/}, Accessed: 4.11.2024.
 
 \bibitem{rancher-desktop}
@@ -26,5 +36,23 @@ Marko Lukša.
 \newblock {\em Kubernetes in Action}.
 \newblock Manning Publications Co., 20 Baldwin Road, PO Box 761, Shelter
   Island, NY 11964, 2018.
+
+\bibitem{detection}
+V.~B. Mahajan and S.~B. Mane.
+\newblock Detection, analysis and countermeasures for container based
+  misconfiguration using docker and kubernetes.
+\newblock In {\em 2022 International Conference on Computing, Communication,
+  Security and Intelligent Systems (IC3SIS)}. IEEE, 2022.
+
+\bibitem{ibm-containerization}
+Stephanie Susnjara and Ian Smalley.
+\newblock What is containerization?
+\newblock \url{https://www.ibm.com/topics/containerization}, Accessed:
+  4.11.2024.
+
+\bibitem{ibm-kubernetes}
+Stephanie Susnjara and Ian Smalley.
+\newblock What is kubernetes?
+\newblock \url{https://www.ibm.com/topics/kubernetes}, Accessed: 4.11.2024.
 
 \end{thebibliography}

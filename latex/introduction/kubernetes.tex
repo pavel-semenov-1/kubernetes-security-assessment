@@ -109,7 +109,7 @@ Officially, The Linux Foundation provides only some security guidelines for each
 
 \subsubsection*{Kubernetes security recommendations}
 
-This section gathers the official security recommendations provided by the Kubernetes. They provide a list of concerns for each level of the cloud infrastructure. Cloud infrastructure can be viewed as a composition of four layers as displayed by the Figure~\ref{img:cloud-security}.
+This section gathers the official security recommendations provided by the Kubernetes. They provide a list of concerns for each level of the cloud infrastructure. Cloud infrastructure can be viewed as a composition of four layers as displayed by the Fig~\ref{img:cloud-security}.
 
 \begin{figure}[!hbt]
 	\begin{center}
@@ -124,7 +124,7 @@ Each layer is built upon the previous one and its security depends on the securi
 \begin{enumerate}
 
 \item \textbf{Cloud} \\
-Each cloud provider has its own security policies and guidelines. There are, however, some general infrastructure-level security best advice described by in the Table~\ref{tab:cloud-security-recommendations}.
+Each cloud provider has its own security policies and guidelines. There are, however, some general infrastructure-level security best advice described by in the Tab~\ref{tab:cloud-security-recommendations}.
 
 \begin{table}[H]
     \begin{center}
@@ -163,7 +163,7 @@ There are a few things to consider regarding the application security:
 \end{itemize}
 
 \item \textbf{Container} \\
-Securing containers is a vast topic, which deserves its own chapter. There are, nevertheless, a few general recommendation provided by the Kubernetes, which you can find in the Table~\ref{tab:container-security-recommendations}.
+Securing containers is a vast topic, which deserves its own chapter. There are, nevertheless, a few general recommendation provided by the Kubernetes, which you can find in the Tab~\ref{tab:container-security-recommendations}.
 
 \begin{table}[H]
     \begin{center}
@@ -184,7 +184,7 @@ Securing containers is a vast topic, which deserves its own chapter. There are, 
 \end{table}
 
 \item \textbf{Code} \\
-When it comes to code, the developers have the most flexibility to design secure applications. There are a lot of issues to address, which may vary significantly from application to application depending on its purpose, architecture and framework base. Kubernetes documentation gives a handful of recommendations regarding this topic, which are displayed below in the Table~\ref{tab:code-security-recommendations}.
+When it comes to code, the developers have the most flexibility to design secure applications. There are a lot of issues to address, which may vary significantly from application to application depending on its purpose, architecture and framework base. Kubernetes documentation gives a handful of recommendations regarding this topic, which are displayed below in the Tab~\ref{tab:code-security-recommendations}.
 
 \begin{table}[H]
     \begin{center}
@@ -250,7 +250,7 @@ Listing~\ref{lst:k8s-role} defines a \lstinline{pod-reader} \textbf{Role} inside
       verbs: ["get", "list", "watch"]
 \end{lstlisting}
 
-\subsubsection*{Data security}
+\subsubsection*{Data Security}
 
 Kubernetes provides only one kind of resource to manage sensitive data. A Kubernetes Secret is designed to store sensitive data in a way that prevents it from being exposed unnecessarily. API tokens, database credentials or encryption keys can be stored as Secrets. By default, Secrets are stored unencrypted in etcd. Enabling encryption at rest is crucial to secure their contents. For a more secure solution external tools such as HashiCorp Vault, AWS Secrets Manager, or Azure Key Vault should be considered as an alternative to the Kubernetes Secrets to securely manage and rotate sensitive information.
 
@@ -265,7 +265,7 @@ Openshift is another container orchestration platform built on top of Kubernetes
 
 OpenShift emphasizes security with stricter security defaults, such as non-root containers by default and integrated role-based access control. It also provides Security Context Constraints for fine-grained control over workloads. They control the actions that a pod can perform and what it has the ability to access. Imagine we have a ServiceAccount \lstinline{mysvcacct} inside \lstinline{default} namespace (or project, as they called in Openshift). Then if we would like to grant a pod inside the \lstinline{default} namespace running under \lstinline{mysvcacct} ServiceAccount, we could do so using this command: \lstinline{oc adm policy add-scc-to-user privileged system:serviceaccount:myproject:mysvcacct}.
 
-The OpenShift dashboard, part of the OpenShift Web Console, provides a graphical user interface for managing and monitoring Kubernetes resources within an OpenShift cluster. It simplifies cluster management and enables users to perform tasks without extensive use of the command line. Overview page of the dashboard can be seen on Figure~\ref{img:openshift-dashboard}.
+The OpenShift dashboard, part of the OpenShift Web Console, provides a graphical user interface for managing and monitoring Kubernetes resources within an OpenShift cluster. It simplifies cluster management and enables users to perform tasks without extensive use of the command line. Overview page of the dashboard can be seen on Fig~\ref{img:openshift-dashboard}.
 
 \begin{figure}[!hbt]
 	\begin{center}
