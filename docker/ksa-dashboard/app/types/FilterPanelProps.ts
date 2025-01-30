@@ -1,6 +1,11 @@
+import { Report } from "./Report";
+
 export type FilterPanelProps = {
-    valueScanner: string;
-    onChangeScanner: (newValue: string) => void;
-    valueType: string;
-    onChangeType: (newValue: string) => void;
+    valueSelectedScanner: string;
+    onChangeSelectedScanner: (newValue: string) => void;
+    valueSelectedType: string;
+    onChangeSelectedType: (newValue: string) => void;
+    valueSelectedReport: string;
+    onChangeSelectedReport: (newValue: string) => void;
+    valueReports: Report[];
 };

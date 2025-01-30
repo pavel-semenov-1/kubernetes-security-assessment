@@ -2,34 +2,37 @@ package runner
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
-	"time"
-
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+	"time"
 )
 
 type TrivyRunner struct {
 	clientset *kubernetes.Clientset
 	namespace string
 	jobName   string
+	fileName  string
 }
 
 var TimeFormat = "2006-01-02-15-04-05"
 
-func NewTrivyRunner(clientset *kubernetes.Clientset, namespace string) *TrivyRunner {
+func NewTrivyRunner(clientset *kubernetes.Clientset, namespace string, jobName string) *TrivyRunner {
 	return &TrivyRunner{
 		clientset: clientset,
 		namespace: namespace,
+		jobName:   jobName,
 	}
 }
 
-func (tr *TrivyRunner) Run() string {
+func (tr *TrivyRunner) Run() error {
+	tr.fileName = fmt.Sprintf("trivy-%s.json", time.Now().Format(TimeFormat))
 	job := &batchv1.Job{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      "trivy-runner",
+			Name:      tr.jobName,
 			Namespace: tr.namespace,
 		},
 		Spec: batchv1.JobSpec{
@@ -53,7 +56,7 @@ func (tr *TrivyRunner) Run() string {
 						{
 							Name:  "trivy-runner",
 							Image: "aquasec/trivy:latest",
-							Args:  []string{"kubernetes", "--format", "json", "--output", fmt.Sprintf("/var/scan/trivy-%s.json", time.Now().Format(TimeFormat))},
+							Args:  []string{"kubernetes", "--format", "json", "--output", fmt.Sprintf("/var/scan/%s", tr.fileName)},
 							VolumeMounts: []corev1.VolumeMount{
 								{Name: "var-scan", MountPath: "/var/scan"},
 								{Name: "var-lib-cni", MountPath: "/var/lib/cni", ReadOnly: true},
@@ -91,29 +94,80 @@ func (tr *TrivyRunner) Run() string {
 		},
 	}
 
-	createdJob, err := tr.clientset.BatchV1().Jobs(tr.namespace).Create(context.TODO(), job, metav1.CreateOptions{})
+	_, err := tr.clientset.BatchV1().Jobs(tr.namespace).Create(context.TODO(), job, metav1.CreateOptions{})
 	if err != nil {
-		panic("Failed to create job: " + err.Error())
+		return fmt.Errorf("failed to create job %s: %w", tr.jobName, err)
 	}
 
-	tr.jobName = createdJob.Name
+	return nil
+}
 
-	return tr.jobName
+func (tr *TrivyRunner) Watch(db *sql.DB) {
+	fieldSelector := fmt.Sprintf("metadata.name=%s", tr.jobName)
+	listOptions := metav1.ListOptions{FieldSelector: fieldSelector}
+	watcher, err := tr.clientset.BatchV1().Jobs(tr.namespace).Watch(context.TODO(), listOptions)
+	if err != nil {
+		panic(err)
+	}
+	defer watcher.Stop()
+
+	for event := range watcher.ResultChan() {
+		job, ok := event.Object.(*batchv1.Job)
+		if !ok {
+			continue
+		}
+
+		for _, condition := range job.Status.Conditions {
+			if condition.Type == batchv1.JobComplete && condition.Status == "True" {
+				rows, err := db.Query("SELECT id FROM scanner where name=$1", "trivy")
+				if err != nil {
+					panic(err)
+				}
+				defer rows.Close()
+
+				if rows.Next() {
+					var id int
+					err = rows.Scan(&id)
+					if err != nil {
+						panic(err)
+					}
+					_, err = db.Exec("INSERT INTO report (scanner_id, filename, parsed, generated_at) VALUES ($1, $2, false, CURRENT_TIMESTAMP)", id, tr.fileName)
+					if err != nil {
+						panic(err)
+					}
+				}
+				return
+			}
+		}
+	}
 }
 
 func (tr *TrivyRunner) GetStatus() JobStatus {
-	if tr.jobName == "" {
-		return JobStatus{}
-	}
-
 	job, err := tr.clientset.BatchV1().Jobs(tr.namespace).Get(context.TODO(), tr.jobName, metav1.GetOptions{})
 	if err != nil {
-		panic(fmt.Sprintf("Failed to get job %s: %v", tr.jobName, err))
+		return JobStatus{
+			ActivePods:    0,
+			SucceededPods: 0,
+			FailedPods:    0,
+		}
 	}
 
 	return JobStatus{
-		active_pods:    job.Status.Active,
-		succeeded_pods: job.Status.Succeeded,
-		failed_pods:    job.Status.Failed,
+		ActivePods:    job.Status.Active,
+		SucceededPods: job.Status.Succeeded,
+		FailedPods:    job.Status.Failed,
 	}
+}
+
+func (tr *TrivyRunner) CleanUp() error {
+	propagationPolicy := metav1.DeletePropagationForeground
+	err := tr.clientset.BatchV1().Jobs(tr.namespace).Delete(context.TODO(), tr.jobName, metav1.DeleteOptions{
+		PropagationPolicy: &propagationPolicy,
+	})
+	if err != nil {
+		return fmt.Errorf("failed to delete job %s: %w", tr.jobName, err)
+	}
+
+	fmt.Printf("Deleted job %s\n", tr.jobName)
+	return nil
 }

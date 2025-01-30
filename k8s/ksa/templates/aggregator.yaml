@@ -18,7 +18,15 @@ spec:
       - image: {{ .Values.aggregator.image }}
         imagePullPolicy: IfNotPresent
         name: ksa-aggregator
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.database.cm.name }}
         env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.database.secret.name }}
+              key: POSTGRES_PASSWORD
         - name: NAMESPACE
           value: {{ .Release.Namespace }}
         - name: PORT
@@ -56,6 +64,7 @@ rules:
   - get
   - list
   - watch
+  - delete
 - apiGroups:
   - batch
   resources:
@@ -65,6 +74,7 @@ rules:
   - list
   - watch
   - create
+  - delete
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding

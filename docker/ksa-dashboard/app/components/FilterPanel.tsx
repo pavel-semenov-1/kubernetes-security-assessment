@@ -2,7 +2,7 @@
 import React from "react";
 import { FilterPanelProps } from "../types/FilterPanelProps";
 
-const FilterPanel = ({ valueScanner, onChangeScanner, valueType, onChangeType }: FilterPanelProps) => {
+const FilterPanel = ({ valueSelectedScanner, onChangeSelectedScanner, valueSelectedType, onChangeSelectedType, valueSelectedReport, onChangeSelectedReport, valueReports }: FilterPanelProps) => {
     const scanners = ["Trivy", "Kubescape"];
     const types = ["Misconfiguration", "Vulnerability"];
 
@@ -14,8 +14,8 @@ const FilterPanel = ({ valueScanner, onChangeScanner, valueType, onChangeType }:
                 </label>
                 <select
                     id="scanner"
-                    value={valueScanner}
-                    onChange={(e) => onChangeScanner(e.target.value)}
+                    value={valueSelectedScanner}
+                    onChange={(e) => onChangeSelectedScanner(e.target.value)}
                     className="text-gray-800 p-1 border rounded bg-white focus:outline-none focus:ring-2 focus:ring-darkblue-500"
                 >
                     {scanners.map((scanner, index) => (
@@ -32,13 +32,31 @@ const FilterPanel = ({ valueScanner, onChangeScanner, valueType, onChangeType }:
                 </label>
                 <select
                     id="type"
-                    value={valueType}
-                    onChange={(e) => onChangeType(e.target.value)}
+                    value={valueSelectedType}
+                    onChange={(e) => onChangeSelectedType(e.target.value)}
                     className="text-gray-800 p-1 border rounded bg-white focus:outline-none focus:ring-2 focus:ring-darkblue-500"
                     >
                     {types.map((type, index) => (
                         <option key={index} value={type}>
                         {type}
+                        </option>
+                    ))}
+                    </select>
+            </div>
+
+            <div className="flex items-center gap-3">
+                <label htmlFor="report" className="text-base text-gray-800">
+                    Report:
+                </label>
+                <select
+                    id="report"
+                    value={valueSelectedReport}
+                    onChange={(e) => onChangeSelectedReport(e.target.value)}
+                    className="text-gray-800 p-1 border rounded bg-white focus:outline-none focus:ring-2 focus:ring-darkblue-500"
+                    >
+                    {valueReports.map((report) => (
+                        <option key={report.Id} value={report.Filename}>
+                        {report.Filename}
                         </option>
                     ))}
                     </select>

@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.database.sts.name }}
+  labels:
+    app: {{ .Values.database.sts.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.database.sts.name }}
+  serviceName: {{ .Values.database.service.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.database.sts.name }}
+    spec:
+      containers:
+        - name: {{ .Values.database.sts.name }}
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.secret.name }}
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.database.cm.name }}
+                  key: POSTGRES_DB
+            - name: PGUSER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.database.cm.name }}
+                  key: POSTGRES_USER
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.database.cm.name }}
+                  key: POSTGRES_USER
+          image: {{ .Values.database.sts.image.repository }}
+          imagePullPolicy: {{ .Values.database.sts.image.pullPolicy }}
+          ports:
+            - name: postgres
+              containerPort: {{ .Values.database.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.database.sts.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.database.sts.readinessProbe | nindent 12 }}
+          {{- with .Values.database.sts.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.database.sts.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.database.service.name }}
+spec:
+  type: {{ .Values.database.service.type }}
+  ports:
+    - port: {{ .Values.database.service.port }}
+      targetPort: postgres
+      protocol: TCP
+      name: postgres
+  selector:
+    app: {{ .Values.database.sts.name }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.database.cm.name }}
+data:
+  POSTGRES_HOST: "{{ .Values.database.service.name }}"
+  POSTGRES_PORT: "{{ .Values.database.service.port }}"
+  POSTGRES_USER: "postgres"
+  POSTGRES_DB: "ksa"
+---
+apiVersion: v1
+data:
+  POSTGRES_PASSWORD: d2VsY29tZTE=
+kind: Secret
+metadata:
+  name: {{ .Values.database.secret.name }}
+type: Opaque

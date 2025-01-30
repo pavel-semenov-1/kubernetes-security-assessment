@@ -2,10 +2,10 @@ package parser
 
 // Parser defines a common interface for all security scanner parsers
 type Parser interface {
-	Parse(filePath string) error
+	Parse(filePath string) ([]Vulnerability, []Misconfiguration, error)
 	GetResults() interface{}
-	GetVulnerabilities(namespace *string, severity *string) []Vulnerability
-	GetMisconfigurations(namespace *string, severity *string) []Misconfiguration
+	GetVulnerabilities() []Vulnerability
+	GetMisconfigurations() []Misconfiguration
 }
 
 type Vulnerability struct {
@@ -27,15 +27,6 @@ type Misconfiguration struct {
 	Resolution  string `json:"Resolution"`
 	Severity    string `json:"Severity"`
 	Target      string `json:"Target"`
-}
-
-func filterBy[T any](ss []T, filter func(T) bool) (ret []T) {
-	for _, s := range ss {
-		if filter(s) {
-			ret = append(ret, s)
-		}
-	}
-	return
 }
 
 func RemoveDuplicates[T any](ss []T, extractor func(T) string) (ret []T) {

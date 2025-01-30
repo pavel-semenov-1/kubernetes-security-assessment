@@ -43,19 +43,18 @@ func NewTrivyParser() *TrivyParser {
 	return &TrivyParser{}
 }
 
-func (p *TrivyParser) Parse(filePath string) error {
+func (p *TrivyParser) Parse(filePath string) ([]Vulnerability, []Misconfiguration, error) {
 	p.mutex.Lock()
-	defer p.mutex.Unlock()
 
 	byteValue, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		return fmt.Errorf("error reading file: %v", err)
+		return nil, nil, fmt.Errorf("error reading file: %v", err)
 	}
 
 	var result TrivyResult
 	err = json.Unmarshal(byteValue, &result)
 	if err != nil {
-		return fmt.Errorf("error unmarshaling JSON: %v", err)
+		return nil, nil, fmt.Errorf("error unmarshaling JSON: %v", err)
 	}
 
 	for resourceIndex, res := range result.Resources {
@@ -74,7 +73,8 @@ func (p *TrivyParser) Parse(filePath string) error {
 	}
 
 	p.data = result
-	return nil
+	p.mutex.Unlock()
+	return p.GetVulnerabilities(), p.GetMisconfigurations(), nil
 }
 
 func (p *TrivyParser) GetResults() interface{} {
@@ -83,44 +83,30 @@ func (p *TrivyParser) GetResults() interface{} {
 	return p.data
 }
 
-func (p *TrivyParser) GetVulnerabilities(namespace *string, severity *string) []Vulnerability {
+func (p *TrivyParser) GetVulnerabilities() []Vulnerability {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
 
 	var vulnerabilities []Vulnerability
 	for _, res := range p.data.Resources {
-		if namespace == nil || *namespace == "" || *namespace == res.Namespace {
-			for _, rslt := range res.Results {
-				if rslt.Vulnerabilities != nil {
-					if severity != nil && *severity != "" {
-						severityFilter := func(v Vulnerability) bool { return v.Severity == *severity }
-						vulnerabilities = append(vulnerabilities, filterBy(rslt.Vulnerabilities, severityFilter)...)
-					} else {
-						vulnerabilities = append(vulnerabilities, rslt.Vulnerabilities...)
-					}
-				}
+		for _, rslt := range res.Results {
+			if rslt.Vulnerabilities != nil {
+				vulnerabilities = append(vulnerabilities, rslt.Vulnerabilities...)
 			}
 		}
 	}
 	return vulnerabilities
 }
 
-func (p *TrivyParser) GetMisconfigurations(namespace *string, severity *string) []Misconfiguration {
+func (p *TrivyParser) GetMisconfigurations() []Misconfiguration {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
 
 	var misconfigurations []Misconfiguration
 	for _, res := range p.data.Resources {
-		if namespace == nil || *namespace == "" || *namespace == res.Namespace {
-			for _, rslt := range res.Results {
-				if rslt.Misconfigurations != nil {
-					if severity != nil && *severity != "" {
-						severityFilter := func(v Misconfiguration) bool { return v.Severity == *severity }
-						misconfigurations = append(misconfigurations, filterBy(rslt.Misconfigurations, severityFilter)...)
-					} else {
-						misconfigurations = append(misconfigurations, rslt.Misconfigurations...)
-					}
-				}
+		for _, rslt := range res.Results {
+			if rslt.Misconfigurations != nil {
+				misconfigurations = append(misconfigurations, rslt.Misconfigurations...)
 			}
 		}
 	}

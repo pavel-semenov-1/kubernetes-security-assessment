@@ -20,6 +20,10 @@ spec:
         env:
         - name: PORT
           value: "{{ .Values.dashboard.service.targetPort }}"
+        - name: NEXT_PUBLIC_PARSER_API_URL
+          value: "http://{{ .Values.parser.service.name }}:{{ .Values.parser.service.port }}"
+        - name: NEXT_PUBLIC_AGGREGATOR_API_URL
+          value: "http://{{ .Values.aggregator.service.name }}:{{ .Values.aggregator.service.port }}"
 ---
 apiVersion: v1
 kind: Service

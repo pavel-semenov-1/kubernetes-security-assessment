@@ -17,13 +17,19 @@ spec:
       - image: {{ .Values.parser.image }}
         imagePullPolicy: IfNotPresent
         name: ksa-parser
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.database.cm.name }}
         env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.database.secret.name }}
+              key: POSTGRES_PASSWORD
         - name: PORT
           value: "{{ .Values.parser.service.targetPort }}"
-        - name: TRIVY_DATA_LOCATION
-          value: {{ .Values.parser.volumes.trivy.path }}
-        - name: KUBE_BENCH_DATA_LOCATION
-          value: {{ .Values.parser.volumes.kubebench.path }}
+        - name: REPORT_DATA_LOCATION
+          value: {{ .Values.parser.volumes.basepath }}
         volumeMounts:
         - name: {{ .Values.parser.volumes.trivy.name }}
           mountPath: {{ .Values.parser.volumes.trivy.path }}

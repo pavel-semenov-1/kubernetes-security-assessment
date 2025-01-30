@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   const scanner = searchParams.get("scanner");
 
   try {
-    const response = await fetch(`http://localhost:8123/vulnerabilities?scanner=${scanner}&severity=${severity}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_PARSER_API_URL}/vulnerabilities?scanner=${scanner?.toLowerCase()}&severity=${severity}&reportId=1`, {
       method: "GET"
     });
     if (!response.ok) {

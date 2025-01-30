@@ -16,12 +16,10 @@ WORKDIR /app
 
 COPY --from=builder --chown=node:node /app ./
 
-RUN npm install -g serve
-
 USER node
 
 ENV PORT 3000
 
 EXPOSE $PORT
 
-CMD ["sh", "-c", "serve -s out -l ${PORT}"]
+CMD ["npm", "run", "start"]

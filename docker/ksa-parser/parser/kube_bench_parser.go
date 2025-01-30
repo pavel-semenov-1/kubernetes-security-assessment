@@ -44,19 +44,19 @@ func NewKubeBenchParser() *KubeBenchParser {
 	return &KubeBenchParser{}
 }
 
-func (p *KubeBenchParser) Parse(filePath string) error {
+func (p *KubeBenchParser) Parse(filePath string) ([]Vulnerability, []Misconfiguration, error) {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
 
 	byteValue, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		return fmt.Errorf("error reading file: %v", err)
+		return nil, nil, fmt.Errorf("error reading file: %v", err)
 	}
 
 	var result KubeBenchResult
 	err = json.Unmarshal(byteValue, &result)
 	if err != nil {
-		return fmt.Errorf("error unmarshaling JSON: %v", err)
+		return nil, nil, fmt.Errorf("error unmarshaling JSON: %v", err)
 	}
 
 	// Normalize Misconfigurations
@@ -81,7 +81,7 @@ func (p *KubeBenchParser) Parse(filePath string) error {
 	}
 
 	p.data = result
-	return nil
+	return p.GetVulnerabilities(), p.GetMisconfigurations(), nil
 }
 
 func (p *KubeBenchParser) GetResults() interface{} {
@@ -90,14 +90,14 @@ func (p *KubeBenchParser) GetResults() interface{} {
 	return p.data
 }
 
-func (p *KubeBenchParser) GetVulnerabilities(namespace *string, severity *string) []Vulnerability {
+func (p *KubeBenchParser) GetVulnerabilities() []Vulnerability {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
 
 	return []Vulnerability{}
 }
 
-func (p *KubeBenchParser) GetMisconfigurations(namespace *string, severity *string) []Misconfiguration {
+func (p *KubeBenchParser) GetMisconfigurations() []Misconfiguration {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
 
@@ -105,12 +105,7 @@ func (p *KubeBenchParser) GetMisconfigurations(namespace *string, severity *stri
 	for _, ctrl := range p.data.Controls {
 		for _, test := range ctrl.Tests {
 			if test.Misconfigurations != nil {
-				if severity != nil && *severity != "" {
-					severityFilter := func(v Misconfiguration) bool { return v.Severity == *severity }
-					misconfigurations = append(misconfigurations, filterBy(test.Misconfigurations, severityFilter)...)
-				} else {
-					misconfigurations = append(misconfigurations, test.Misconfigurations...)
-				}
+				misconfigurations = append(misconfigurations, test.Misconfigurations...)
 			}
 		}
 	}

@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   const scanner = searchParams.get("scanner");
 
   try {
-    const response = await fetch(`http://localhost:8123/misconfigurations?scanner=${scanner}&severity=${severity}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_PARSER_API_URL}/misconfigurations?scanner=${scanner?.toLowerCase()}&severity=${severity}&reportId=1`, {
       method: "GET"
     });
     if (!response.ok) {
