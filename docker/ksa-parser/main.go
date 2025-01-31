@@ -168,6 +168,47 @@ func main() {
 		json.NewEncoder(w).Encode(reports)
 	})
 
+	// HTTP handler to query statistics
+	http.HandleFunc("/stats", func(w http.ResponseWriter, r *http.Request) {
+		scanner := r.URL.Query().Get("scanner")
+
+		if scanner == "" || parsers[scanner] == nil {
+			http.Error(w, "Missing scanner parameter", http.StatusBadRequest)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		reportId, err := dbcon.GetLastParsedReportId(scanner)
+		if err != nil {
+			http.Error(w, "Error querying reports", http.StatusInternalServerError)
+			return
+		}
+
+		type Stats struct {
+			Vulnerabilities   map[string]int `json:"vulnerabilities"`
+			Misconfigurations map[string]int `json:"misconfigurations"`
+		}
+
+		vuln, err := dbcon.GetVulnerabilityStatistics(reportId)
+		if err != nil {
+			http.Error(w, "Error getting vulnerability statistics", http.StatusInternalServerError)
+			return
+		}
+
+		misc, err := dbcon.GetMisconfigurationStatistics(reportId)
+		if err != nil {
+			http.Error(w, "Error getting misconfiguration statistics", http.StatusInternalServerError)
+			return
+		}
+
+		result := Stats{
+			Vulnerabilities:   vuln,
+			Misconfigurations: misc,
+		}
+
+		json.NewEncoder(w).Encode(result)
+	})
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"

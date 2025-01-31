@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const severity = searchParams.get("severity");
   const scanner = searchParams.get("scanner");
-  const reportId = searchParams.get("reportId");
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_PARSER_API_URL}/misconfigurations?scanner=${scanner?.toLowerCase()}&severity=${severity}&reportId=${reportId}`, {
-      method: "GET"
+    const response = await fetch(`${process.env.NEXT_PUBLIC_AGGREGATOR_API_URL}/run?scanner=${scanner?.toLowerCase()}`, {
+      method: "POST"
     });
     if (!response.ok) {
       return NextResponse.json(
@@ -17,8 +15,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const data = await response.json();
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json({ status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

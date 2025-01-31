@@ -4,8 +4,8 @@ import { ItemListProps } from "../types/ItemListProps";
 import { Plus, Minus } from 'lucide-react';
 import { Misconfiguration } from "../types/Misconfiguration";
 
-const MisconfigList = ({ data }: ItemListProps<Misconfiguration>) => {
-    const [openCategory, setOpenCategory] = useState<number | null>(0);
+const MisconfigurationList = ({ data }: ItemListProps<Misconfiguration>) => {
+    const [openCategory, setOpenCategory] = useState<number | null>(null);
     const [openItem, setOpenItem] = useState<number | null>(null);
 
     return (
@@ -69,4 +69,4 @@ const MisconfigList = ({ data }: ItemListProps<Misconfiguration>) => {
     );
 }
 
-export default MisconfigList;
+export default MisconfigurationList;

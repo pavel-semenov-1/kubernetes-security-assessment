@@ -4,12 +4,14 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/websocket"
 	_ "github.com/lib/pq"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"ksa-aggregator/runner"
 	"net/http"
 	"os"
+	"sync"
 )
 
 func main() {
@@ -66,6 +68,51 @@ func main() {
 		"trivy": trivyRunner,
 	}
 
+	// Websocket stuff
+	var upgrader = websocket.Upgrader{
+		CheckOrigin: func(r *http.Request) bool { return true },
+	}
+	var clients = make(map[*websocket.Conn]bool)
+	var mutex = sync.Mutex{}
+
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		conn, err := upgrader.Upgrade(w, r, nil)
+		if err != nil {
+			fmt.Println("WebSocket upgrade failed:", err)
+			return
+		}
+		defer conn.Close()
+
+		// Register the client
+		mutex.Lock()
+		clients[conn] = true
+		mutex.Unlock()
+
+		// Listen for disconnects
+		for {
+			_, _, err := conn.ReadMessage()
+			if err != nil {
+				mutex.Lock()
+				delete(clients, conn)
+				mutex.Unlock()
+				break
+			}
+		}
+	})
+
+	broadcastMessage := func(message string) {
+		mutex.Lock()
+		defer mutex.Unlock()
+
+		for client := range clients {
+			err := client.WriteMessage(websocket.TextMessage, []byte(message))
+			if err != nil {
+				client.Close()
+				delete(clients, client)
+			}
+		}
+	}
+
 	// HTTP handler to run scans
 	http.HandleFunc("/run", func(w http.ResponseWriter, r *http.Request) {
 		scanner := r.URL.Query().Get("scanner")
@@ -93,7 +140,13 @@ func main() {
 			return
 		}
 
-		go rnr.Watch(con)
+		broadcastMessage("Successfully started the job")
+		broadcastMessage(fmt.Sprintf("@job:%s:start", scanner))
+
+		go func() {
+			broadcastMessage(rnr.Watch(con))
+			broadcastMessage(fmt.Sprintf("@job:%s:end", scanner))
+		}()
 	})
 
 	// HTTP handler to query scan status

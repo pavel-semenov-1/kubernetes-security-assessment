@@ -4,9 +4,10 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const severity = searchParams.get("severity");
   const scanner = searchParams.get("scanner");
+  const reportId = searchParams.get("reportId");
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_PARSER_API_URL}/vulnerabilities?scanner=${scanner?.toLowerCase()}&severity=${severity}&reportId=1`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_PARSER_API_URL}/vulnerabilities?scanner=${scanner?.toLowerCase()}&severity=${severity}&reportId=${reportId}`, {
       method: "GET"
     });
     if (!response.ok) {

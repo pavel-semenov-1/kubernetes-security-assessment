@@ -7,6 +7,7 @@ import (
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes"
 	"time"
 )
@@ -102,7 +103,7 @@ func (tr *TrivyRunner) Run() error {
 	return nil
 }
 
-func (tr *TrivyRunner) Watch(db *sql.DB) {
+func (tr *TrivyRunner) Watch(db *sql.DB) string {
 	fieldSelector := fmt.Sprintf("metadata.name=%s", tr.jobName)
 	listOptions := metav1.ListOptions{FieldSelector: fieldSelector}
 	watcher, err := tr.clientset.BatchV1().Jobs(tr.namespace).Watch(context.TODO(), listOptions)
@@ -136,10 +137,14 @@ func (tr *TrivyRunner) Watch(db *sql.DB) {
 						panic(err)
 					}
 				}
-				return
+				return "Job has successfully finished"
+			} else if condition.Type == batchv1.JobFailed && condition.Status == "True" {
+				return "Job has failed"
 			}
 		}
 	}
+
+	return "Unexpected error occurred"
 }
 
 func (tr *TrivyRunner) GetStatus() JobStatus {
@@ -168,6 +173,24 @@ func (tr *TrivyRunner) CleanUp() error {
 		return fmt.Errorf("failed to delete job %s: %w", tr.jobName, err)
 	}
 
-	fmt.Printf("Deleted job %s\n", tr.jobName)
+	// Wait for the job to be deleted
+	watchInterface, err := tr.clientset.BatchV1().Jobs(tr.namespace).Watch(context.TODO(), metav1.ListOptions{
+		FieldSelector: fmt.Sprintf("metadata.name=%s", tr.jobName),
+	})
+	if err != nil {
+		return fmt.Errorf("failed to watch job %s: %w", tr.jobName, err)
+	}
+	defer watchInterface.Stop()
+
+	for event := range watchInterface.ResultChan() {
+		switch event.Type {
+		case watch.Deleted:
+			fmt.Printf("Job %s and its pods have been deleted\n", tr.jobName)
+			return nil
+		case watch.Error:
+			return fmt.Errorf("error watching job %s: %v", tr.jobName, event.Object)
+		}
+	}
+
 	return nil
 }

@@ -13,7 +13,7 @@ type DB struct {
 }
 
 type Report struct {
-	Id       int    `json:"id"`
+	Id       int    `json:"ID"`
 	Filename string `json:"Filename"`
 }
 
@@ -205,4 +205,105 @@ func (db *DB) GetReports(scanner string) ([]Report, error) {
 	}
 
 	return reports, nil
+}
+
+func (db *DB) GetLastParsedReportId(scanner string) (int, error) {
+	rows, err := db.connection.Query("SELECT id FROM scanner where name=$1", scanner)
+	if err != nil {
+		return 0, fmt.Errorf("query failed: %v", err)
+	}
+	defer rows.Close()
+
+	if rows.Next() {
+		var id int
+		err = rows.Scan(&id)
+		if err != nil {
+			return 0, fmt.Errorf("row scan failed: %v", err)
+		}
+		rows, err = db.connection.Query("SELECT id FROM report where scanner_id=$1 and parsed=true ORDER BY generated_at DESC LIMIT 1", id)
+		if err != nil {
+			return 0, fmt.Errorf("query failed: %v", err)
+		}
+		defer rows.Close()
+
+		if rows.Next() {
+			var reportId int
+			err = rows.Scan(&reportId)
+			if err != nil {
+				return 0, fmt.Errorf("row scan failed: %v", err)
+			}
+
+			return reportId, nil
+		}
+	}
+
+	return 0, nil
+}
+
+func (db *DB) GetVulnerabilityStatistics(reportId int) (map[string]int, error) {
+	results := map[string]int{
+		"CRITICAL": 0,
+		"HIGH":     0,
+		"MEDIUM":   0,
+		"LOW":      0,
+	}
+
+	stmt, err := db.connection.Prepare("SELECT count(*) FROM vulnerability where report_id=$1 and severity=$2")
+	if err != nil {
+		return nil, fmt.Errorf("query failed: %v", err)
+	}
+	defer stmt.Close()
+
+	for svrt := range results {
+		rows, err := stmt.Query(reportId, svrt)
+		if err != nil {
+			return nil, fmt.Errorf("query failed: %v", err)
+		}
+		defer rows.Close()
+
+		if rows.Next() {
+			var count int
+			err = rows.Scan(&count)
+			if err != nil {
+				return nil, fmt.Errorf("row scan failed: %v", err)
+			}
+			results[svrt] = count
+		}
+	}
+
+	return results, nil
+}
+
+func (db *DB) GetMisconfigurationStatistics(reportId int) (map[string]int, error) {
+	results := map[string]int{
+		"CRITICAL": 0,
+		"HIGH":     0,
+		"MEDIUM":   0,
+		"LOW":      0,
+	}
+
+	stmt, err := db.connection.Prepare("SELECT count(*) FROM misconfiguration where report_id=$1 and severity=$2")
+	if err != nil {
+		return nil, fmt.Errorf("query failed: %v", err)
+	}
+	defer stmt.Close()
+
+	for svrt := range results {
+		rows, err := stmt.Query(reportId, svrt)
+		if err != nil {
+			return nil, fmt.Errorf("query failed: %v", err)
+		}
+		defer rows.Close()
+
+		if rows.Next() {
+			var count int
+			err = rows.Scan(&count)
+			if err != nil {
+				return nil, fmt.Errorf("row scan failed: %v", err)
+			}
+			results[svrt] = count
+		}
+	}
+
+	return results, nil
 }

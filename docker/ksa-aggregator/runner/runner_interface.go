@@ -7,7 +7,7 @@ type Runner interface {
 	Run() error
 	GetStatus() JobStatus
 	CleanUp() error
-	Watch(*sql.DB)
+	Watch(*sql.DB) string
 }
 
 type JobStatus struct {

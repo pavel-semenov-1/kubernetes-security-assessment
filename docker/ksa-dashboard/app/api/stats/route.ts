@@ -2,12 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const severity = searchParams.get("severity");
   const scanner = searchParams.get("scanner");
-  const reportId = searchParams.get("reportId");
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_PARSER_API_URL}/misconfigurations?scanner=${scanner?.toLowerCase()}&severity=${severity}&reportId=${reportId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_PARSER_API_URL}/stats?scanner=${scanner?.toLowerCase()}`, {
       method: "GET"
     });
     if (!response.ok) {

@@ -1,4 +1,4 @@
 export interface Report {
-    Id: number,
+    ID: string,
     Filename: string,
 }
