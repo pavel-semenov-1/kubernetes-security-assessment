@@ -58,3 +58,31 @@ create table misconfiguration
     severity varchar not null,
     target varchar not null
 );
+
+alter table vulnerability add column search_vector tsvector;
+create index vulnerability_search_vector_idx on vulnerability using gin (search_vector);
+
+create function vulnerability_update_search_vector() returns trigger as $$
+begin
+    new.search_vector := to_tsvector('english', new.vid || ' ' || new.pkg_name || ' ' || new.title || ' ' || new.description || ' ' || new.target);
+    return new;
+end;
+$$ language plpgsql;
+
+create trigger vulnerability_search_vector_trigger
+before insert or update on vulnerability
+for each row execute function vulnerability_update_search_vector();
+
+alter table misconfiguration add column search_vector tsvector;
+create index misconfiguration_search_vector_idx on misconfiguration using gin (search_vector);
+
+create function misconfiguration_update_search_vector() returns trigger as $$
+begin
+    new.search_vector := to_tsvector('english', new.mid || ' ' || new.type || ' ' || new.title || ' ' || new.description || ' ' || new.target);
+    return new;
+end;
+$$ language plpgsql;
+
+create trigger misconfiguration_search_vector_trigger
+before insert or update on misconfiguration
+for each row execute function misconfiguration_update_search_vector();

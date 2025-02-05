@@ -2,6 +2,7 @@
 import React from "react";
 import { Report } from "../types/Report";
 import { RotateCcw } from "lucide-react";
+import SearchInput from "./SearchInput";
 
 interface FilterPanelProps {
     valueSelectedScanner: string;
@@ -13,9 +14,11 @@ interface FilterPanelProps {
     valueReports: Report[];
     onClickRescan: () => void;
     jobInProgress: boolean;
+    setLoading: (newValue: boolean) => void;
+    onChangeSearchValue: (newValue: string) => void;
 };
 
-const FilterPanel = ({ valueSelectedScanner, onChangeSelectedScanner, valueSelectedType, onChangeSelectedType, valueSelectedReport, onChangeSelectedReport, valueReports, onClickRescan, jobInProgress }: FilterPanelProps) => {
+const FilterPanel = ({ valueSelectedScanner, onChangeSelectedScanner, valueSelectedType, onChangeSelectedType, valueSelectedReport, onChangeSelectedReport, valueReports, onClickRescan, jobInProgress, setLoading, onChangeSearchValue }: FilterPanelProps) => {
     const scanners = ["Trivy", "Kubescape"];
     const types = ["Misconfiguration", "Vulnerability"];
 
@@ -61,6 +64,7 @@ const FilterPanel = ({ valueSelectedScanner, onChangeSelectedScanner, valueSelec
                 <label htmlFor="report" className="text-base text-gray-800">
                     Report:
                 </label>
+                {valueReports.length > 0 ?
                 <select
                     id="report"
                     value={valueSelectedReport}
@@ -72,12 +76,17 @@ const FilterPanel = ({ valueSelectedScanner, onChangeSelectedScanner, valueSelec
                         {report.Filename}
                         </option>
                     ))}
-                    </select>
+                </select>
+                : 
+                <span>No data. Trigger a scan first.</span>
+                }
             </div>
 
             <div className="gap-3 bg-blue-700 text-white border rounded-full p-1">
                 <a onClick={onClickRescan} className="button"><RotateCcw className={jobInProgress ? "animate-spin" : ""}/></a>
             </div>
+
+            <SearchInput setLoading={setLoading} setQuery={onChangeSearchValue} className="relative ml-auto"/>
         </div>
     );
 }

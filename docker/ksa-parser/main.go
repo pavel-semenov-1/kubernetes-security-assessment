@@ -70,12 +70,13 @@ func main() {
 		return nil
 	}
 
-	// HTTP handler to query vulnerabilities by severity
+	// HTTP handler to query vulnerabilities
 	http.HandleFunc("/vulnerabilities", func(w http.ResponseWriter, r *http.Request) {
 		scanner := r.URL.Query().Get("scanner")
-		// namespace := r.URL.Query().Get("namespace")
-		severity := r.URL.Query().Get("severity")
 		reportId := r.URL.Query().Get("reportId")
+		search := r.URL.Query().Get("search")
+
+		fmt.Printf("Querying vulnerabilities for reportId=%s and search=%s\n", reportId, search)
 
 		prsr := parsers[scanner]
 
@@ -92,34 +93,41 @@ func main() {
 		parsed, err := dbcon.Parsed(reportId)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
+			panic(err)
 		}
 		if !parsed {
 			fmt.Println("Report not parsed, parsing...")
 			err = parseAndPopulate(reportId, scanner, &prsr, &w)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
+				panic(err)
 			}
 		}
 		fmt.Println("Report parsed.")
 
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Println("Querying vulnerabilities from the database...")
-		vulnerabilities, err := dbcon.GetVulnerabilities(reportId, severity)
+		vulnerabilities, err := dbcon.GetVulnerabilities(reportId, search)
 		if err != nil {
 			http.Error(w, "Error getting vulnerabilities from the database", http.StatusInternalServerError)
-			return
+			panic(err)
 		}
-		json.NewEncoder(w).Encode(vulnerabilities)
+
+		vulnMap := make(map[string][]parser.Vulnerability)
+		for _, vuln := range vulnerabilities {
+			vulnMap[vuln.Severity] = append(vulnMap[vuln.Severity], vuln)
+		}
+
+		json.NewEncoder(w).Encode(vulnMap)
 	})
 
-	// HTTP handler to query misconfigurations by severity
+	// HTTP handler to query misconfigurations
 	http.HandleFunc("/misconfigurations", func(w http.ResponseWriter, r *http.Request) {
 		scanner := r.URL.Query().Get("scanner")
-		// namespace := r.URL.Query().Get("namespace")
-		severity := r.URL.Query().Get("severity")
 		reportId := r.URL.Query().Get("reportId")
+		search := r.URL.Query().Get("search")
+
+		fmt.Printf("Querying misconfigurations for reportId=%s and search=%s\n", reportId, search)
 
 		prsr := parsers[scanner]
 
@@ -131,23 +139,29 @@ func main() {
 		parsed, err := dbcon.Parsed(reportId)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
+			panic(err)
 		}
 		if !parsed {
 			err = parseAndPopulate(reportId, scanner, &prsr, &w)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
+				panic(err)
 			}
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		misconfigurations, err := dbcon.GetMisconfigurations(reportId, severity)
+		misconfigurations, err := dbcon.GetMisconfigurations(reportId, search)
 		if err != nil {
 			http.Error(w, "Error getting misconfigurations from the database", http.StatusInternalServerError)
-			return
+			panic(err)
 		}
-		json.NewEncoder(w).Encode(misconfigurations)
+
+		miscMap := make(map[string][]parser.Misconfiguration)
+		for _, misc := range misconfigurations {
+			miscMap[misc.Severity] = append(miscMap[misc.Severity], misc)
+		}
+
+		json.NewEncoder(w).Encode(miscMap)
 	})
 
 	// HTTP handler to query scan reports
@@ -163,7 +177,7 @@ func main() {
 		reports, err := dbcon.GetReports(scanner)
 		if err != nil {
 			http.Error(w, "Error getting reports", http.StatusInternalServerError)
-			return
+			panic(err)
 		}
 		json.NewEncoder(w).Encode(reports)
 	})
@@ -181,7 +195,7 @@ func main() {
 		reportId, err := dbcon.GetLastParsedReportId(scanner)
 		if err != nil {
 			http.Error(w, "Error querying reports", http.StatusInternalServerError)
-			return
+			panic(err)
 		}
 
 		type Stats struct {
@@ -192,13 +206,13 @@ func main() {
 		vuln, err := dbcon.GetVulnerabilityStatistics(reportId)
 		if err != nil {
 			http.Error(w, "Error getting vulnerability statistics", http.StatusInternalServerError)
-			return
+			panic(err)
 		}
 
 		misc, err := dbcon.GetMisconfigurationStatistics(reportId)
 		if err != nil {
 			http.Error(w, "Error getting misconfiguration statistics", http.StatusInternalServerError)
-			return
+			panic(err)
 		}
 
 		result := Stats{

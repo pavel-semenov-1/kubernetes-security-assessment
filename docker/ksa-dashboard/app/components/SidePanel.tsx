@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react';
-import { ChevronsRight } from 'lucide-react';
+import { ChevronsRight, ChevronsLeft } from 'lucide-react';
 import { StatResult } from '../types/StatResult';
 import { Stats } from '../types/Stats';
 import VulnerabilityBarChart from './VulnerabilityBarChart';
@@ -28,7 +28,6 @@ const SidePanel: FC = () => {
               }
   
               const stats: Stats = await res.json();
-              console.log(stats)
               return { scanner, stats };
             })
           );
@@ -51,8 +50,15 @@ const SidePanel: FC = () => {
             isPanelOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         >
-            <div className="gap-3 bg-blue-700 text-white rounded-md inline font-bold absolute top-4 left-[-125px] bg-gray-600 hover:text-gray-300">
-                <a className="p-2 block flex items-center button" onClick={togglePanel}>STATISTICS<ChevronsRight/></a>
+            <div className={`${
+              isPanelOpen ? 'left-[-35px]' : 'left-[-125px]'
+            } gap-3 bg-blue-700 text-white rounded-md inline font-bold absolute top-4 bg-gray-600 hover:text-gray-300`}>
+              <a
+                className="p-2 block flex items-center button cursor-pointer transition-all"
+                onClick={togglePanel}
+              >
+                {isPanelOpen ? <ChevronsLeft /> : <>STATISTICS<ChevronsRight /></>}
+              </a>
             </div>
             {loading ? <div>Loading...</div> : error ? <div>{error}</div> :
                 <>

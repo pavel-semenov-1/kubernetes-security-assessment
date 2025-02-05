@@ -106,68 +106,45 @@ func (db *DB) Populate(reportId string, vuln []parser.Vulnerability, misc []pars
 	return nil
 }
 
-func (db *DB) GetVulnerabilities(reportId string, severity string) ([]parser.Vulnerability, error) {
-	vulnerabilities := []parser.Vulnerability{}
-	rows, err := db.connection.Query("SELECT vid, pkg_name, installed_version, fixed_version, title, description, target FROM vulnerability where report_id=$1 and severity=$2", reportId, severity)
+func (db *DB) GetVulnerabilities(reportId string, searchTerm string) ([]parser.Vulnerability, error) {
+	rows, err := db.connection.Query(`SELECT vid, pkg_name, installed_version, fixed_version, title, description, severity, target 
+													FROM vulnerability WHERE report_id = $1 
+											        		AND ($2 = '' OR search_vector @@ plainto_tsquery($2))`, reportId, searchTerm)
 	if err != nil {
-		return vulnerabilities, err
+		return nil, err
 	}
 	defer rows.Close()
 
+	vulnerabilities := make([]parser.Vulnerability, 0)
 	for rows.Next() {
-		var vid string
-		var pkgName string
-		var installedVersion string
-		var fixedVersion string
-		var title string
-		var description string
-		var target string
-		err := rows.Scan(&vid, &pkgName, &installedVersion, &fixedVersion, &title, &description, &target)
-		if err != nil {
-			return vulnerabilities, err
+		var v parser.Vulnerability
+		if err := rows.Scan(&v.VulnerabilityID, &v.PkgName, &v.InstalledVersion, &v.FixedVersion,
+			&v.Title, &v.Description, &v.Severity, &v.Target); err != nil {
+			return nil, err
 		}
-		vulnerabilities = append(vulnerabilities, parser.Vulnerability{
-			VulnerabilityID:  vid,
-			PkgName:          pkgName,
-			InstalledVersion: installedVersion,
-			FixedVersion:     fixedVersion,
-			Title:            title,
-			Description:      description,
-			Severity:         severity,
-			Target:           target,
-		})
+
+		vulnerabilities = append(vulnerabilities, v)
 	}
 	return vulnerabilities, nil
 }
 
-func (db *DB) GetMisconfigurations(reportId string, severity string) ([]parser.Misconfiguration, error) {
-	misconfigurations := []parser.Misconfiguration{}
-	rows, err := db.connection.Query("SELECT mid, type, title, description, resolution, target FROM misconfiguration where report_id=$1 and severity=$2", reportId, severity)
+func (db *DB) GetMisconfigurations(reportId string, searchTerm string) ([]parser.Misconfiguration, error) {
+	rows, err := db.connection.Query(`SELECT type, mid, title, description, resolution, severity, target 
+													FROM misconfiguration WHERE report_id = $1 
+											        		AND ($2 = '' OR search_vector @@ plainto_tsquery($2))`, reportId, searchTerm)
 	if err != nil {
-		return misconfigurations, err
+		return nil, err
 	}
 	defer rows.Close()
 
+	misconfigurations := make([]parser.Misconfiguration, 0)
 	for rows.Next() {
-		var mid string
-		var ttype string
-		var title string
-		var description string
-		var resolution string
-		var target string
-		err := rows.Scan(&mid, &ttype, &title, &description, &resolution, &target)
-		if err != nil {
-			return misconfigurations, err
+		var m parser.Misconfiguration
+		if err := rows.Scan(&m.Type, &m.ID, &m.Title, &m.Description, &m.Resolution, &m.Severity, &m.Target); err != nil {
+			return nil, err
 		}
-		misconfigurations = append(misconfigurations, parser.Misconfiguration{
-			ID:          mid,
-			Type:        ttype,
-			Title:       title,
-			Description: description,
-			Resolution:  resolution,
-			Severity:    severity,
-			Target:      target,
-		})
+
+		misconfigurations = append(misconfigurations, m)
 	}
 	return misconfigurations, nil
 }
@@ -248,27 +225,21 @@ func (db *DB) GetVulnerabilityStatistics(reportId int) (map[string]int, error) {
 		"LOW":      0,
 	}
 
-	stmt, err := db.connection.Prepare("SELECT count(*) FROM vulnerability where report_id=$1 and severity=$2")
+	rows, err := db.connection.Query("SELECT severity, count(*) FROM vulnerability where report_id=$1 GROUP BY severity;", reportId)
 	if err != nil {
 		return nil, fmt.Errorf("query failed: %v", err)
 	}
-	defer stmt.Close()
+	defer rows.Close()
 
-	for svrt := range results {
-		rows, err := stmt.Query(reportId, svrt)
+	for rows.Next() {
+		var severity string
+		var count int
+		err = rows.Scan(&severity, &count)
 		if err != nil {
-			return nil, fmt.Errorf("query failed: %v", err)
+			return nil, fmt.Errorf("row scan failed: %v", err)
 		}
-		defer rows.Close()
 
-		if rows.Next() {
-			var count int
-			err = rows.Scan(&count)
-			if err != nil {
-				return nil, fmt.Errorf("row scan failed: %v", err)
-			}
-			results[svrt] = count
-		}
+		results[severity] = count
 	}
 
 	return results, nil
@@ -282,27 +253,21 @@ func (db *DB) GetMisconfigurationStatistics(reportId int) (map[string]int, error
 		"LOW":      0,
 	}
 
-	stmt, err := db.connection.Prepare("SELECT count(*) FROM misconfiguration where report_id=$1 and severity=$2")
+	rows, err := db.connection.Query("SELECT severity, count(*) FROM misconfiguration where report_id=$1 GROUP BY severity;", reportId)
 	if err != nil {
 		return nil, fmt.Errorf("query failed: %v", err)
 	}
-	defer stmt.Close()
+	defer rows.Close()
 
-	for svrt := range results {
-		rows, err := stmt.Query(reportId, svrt)
+	for rows.Next() {
+		var severity string
+		var count int
+		err = rows.Scan(&severity, &count)
 		if err != nil {
-			return nil, fmt.Errorf("query failed: %v", err)
+			return nil, fmt.Errorf("row scan failed: %v", err)
 		}
-		defer rows.Close()
 
-		if rows.Next() {
-			var count int
-			err = rows.Scan(&count)
-			if err != nil {
-				return nil, fmt.Errorf("row scan failed: %v", err)
-			}
-			results[svrt] = count
-		}
+		results[severity] = count
 	}
 
 	return results, nil

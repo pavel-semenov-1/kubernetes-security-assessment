@@ -24,6 +24,8 @@ spec:
           value: "http://{{ .Values.parser.service.name }}:{{ .Values.parser.service.port }}"
         - name: NEXT_PUBLIC_AGGREGATOR_API_URL
           value: "http://{{ .Values.aggregator.service.name }}:{{ .Values.aggregator.service.port }}"
+        - name: NEXT_PUBLIC_WEBSOCKET_URL
+          value: "ws://localhost:{{ .Values.aggregator.service.port }}/ws"
 ---
 apiVersion: v1
 kind: Service

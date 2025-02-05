@@ -107,6 +107,7 @@ func main() {
 		for client := range clients {
 			err := client.WriteMessage(websocket.TextMessage, []byte(message))
 			if err != nil {
+				fmt.Println("Failed to send message to client:", err)
 				client.Close()
 				delete(clients, client)
 			}

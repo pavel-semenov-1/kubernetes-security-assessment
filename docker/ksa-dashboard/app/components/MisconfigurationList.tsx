@@ -5,8 +5,16 @@ import { Plus, Minus } from 'lucide-react';
 import { Misconfiguration } from "../types/Misconfiguration";
 
 const MisconfigurationList = ({ data }: ItemListProps<Misconfiguration>) => {
+    const maximumTitleLength = 165;
     const [openCategory, setOpenCategory] = useState<number | null>(null);
     const [openItem, setOpenItem] = useState<number | null>(null);
+    const truncated = (text: string, maxLength: number) => 
+        text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+
+
+    if (Object.values(data).every((list) => list.length === 0)) {
+        data = { "CRITICAL": [], "HIGH": [], "MEDIUM": [], "LOW": [] }
+    }
 
     return (
         <div className="p-4 flex-auto">
@@ -49,14 +57,14 @@ const MisconfigurationList = ({ data }: ItemListProps<Misconfiguration>) => {
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
                                             </svg>
                                         </span>
-                                        <span className="font-semibold">{item?.Target}</span>: {item.Title}
+                                        <span className="font-semibold">{truncated(item?.Target, maximumTitleLength - item.Title.length)}</span>: {item.Title}
                                     </a>
                                     {openItem === id && (
                                         <div className="text-gray-900 flex flex-col mt-1 px-7 pb-2">
                                             <div><p className="font-semibold inline">Misconfiguration ID:</p> {item?.ID}</div>
                                             <div><p className="font-semibold inline">Type:</p> {item?.Type}</div>
                                             <div><p className="font-semibold inline">Description:</p> {item?.Description}</div>
-                                            <div><p className="font-semibold inline">Resolution:</p> {item?.Resolution}</div>
+                                            <div><p className="font-semibold inline">Resolution:</p> {item?.Resolution || "No resolution available."}</div>
                                         </div>
                                     )}
                                 </li>
