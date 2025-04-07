@@ -8,23 +8,23 @@ import (
 )
 
 type TrivyParser struct {
-	data  TrivyResult
+	data  TrivyReport
 	mutex sync.Mutex
 }
 
+type TrivyReport struct {
+	ClusterName string          `json:"ClusterName"`
+	Resources   []TrivyResource `json:"Resources"`
+}
+
+type TrivyResource struct {
+	Namespace string        `json:"Namespace"`
+	Kind      string        `json:"Kind"`
+	Name      string        `json:"Name"`
+	Results   []TrivyResult `json:"Results"`
+}
+
 type TrivyResult struct {
-	ClusterName string     `json:"ClusterName"`
-	Resources   []Resource `json:"Resources"`
-}
-
-type Resource struct {
-	Namespace string   `json:"Namespace"`
-	Kind      string   `json:"Kind"`
-	Name      string   `json:"Name"`
-	Results   []Result `json:"Results"`
-}
-
-type Result struct {
 	Target            string             `json:"Target"`
 	Class             string             `json:"Class"`
 	Type              string             `json:"Type"`
@@ -44,14 +44,12 @@ func NewTrivyParser() *TrivyParser {
 }
 
 func (p *TrivyParser) Parse(filePath string) ([]Vulnerability, []Misconfiguration, error) {
-	p.mutex.Lock()
-
 	byteValue, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, nil, fmt.Errorf("error reading file: %v", err)
 	}
 
-	var result TrivyResult
+	var result TrivyReport
 	err = json.Unmarshal(byteValue, &result)
 	if err != nil {
 		return nil, nil, fmt.Errorf("error unmarshaling JSON: %v", err)
@@ -72,14 +70,17 @@ func (p *TrivyParser) Parse(filePath string) ([]Vulnerability, []Misconfiguratio
 		}
 	}
 
+	p.mutex.Lock()
 	p.data = result
 	p.mutex.Unlock()
+
 	return p.GetVulnerabilities(), p.GetMisconfigurations(), nil
 }
 
 func (p *TrivyParser) GetResults() interface{} {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
+
 	return p.data
 }
 

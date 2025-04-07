@@ -1,24 +1,22 @@
 'use client';
 import React, { useState } from "react";
 import { ItemListProps } from "../types/ItemListProps";
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, CircleCheck, Trash2, Download } from 'lucide-react';
 import { Misconfiguration } from "../types/Misconfiguration";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const MisconfigurationList = ({ data }: ItemListProps<Misconfiguration>) => {
     const maximumTitleLength = 165;
+    const emptyDataMessage = "No data. Run a new scan or a select a different object type.";
     const [openCategory, setOpenCategory] = useState<number | null>(null);
     const [openItem, setOpenItem] = useState<number | null>(null);
     const truncated = (text: string, maxLength: number) => 
         text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 
-
-    if (Object.values(data).every((list) => list.length === 0)) {
-        data = { "CRITICAL": [], "HIGH": [], "MEDIUM": [], "LOW": [] }
-    }
-
     return (
         <div className="p-4 flex-auto">
-            {Object.entries(data).map(([category, items], index) => (
+            {data === null ? emptyDataMessage : Object.entries(data).map(([category, items], index) => (
                 <div key={index} className="mb-4">
                     <button
                         className="flex flex-row w-full bg-blue-700 text-white font-semibold py-2 px-4 rounded-md text-left"
@@ -26,7 +24,8 @@ const MisconfigurationList = ({ data }: ItemListProps<Misconfiguration>) => {
                             setOpenCategory(openCategory === index ? null : index)
                         }
                     >
-                        <div className="grow flex flex-row">{openCategory === index ? (<Minus className="mr-2"/>) : (<Plus className="mr-2"/>)}{category}</div><p>{items.length }</p>
+                        <div className="grow flex flex-row">{openCategory === index ? (<Minus className="mr-2"/>) : (<Plus className="mr-2"/>)}{category}</div>
+                        <p>{items.length }</p>
                     </button>
 
                     {openCategory === index && (
@@ -36,37 +35,63 @@ const MisconfigurationList = ({ data }: ItemListProps<Misconfiguration>) => {
                              items.map((item, id) => (
                                 <li
                                     key={id}
-                                    className={`border-transparent border-2 rounded-md last:border-b-0 hover:border-blue-500 ${openItem === id && 'bg-slate-300'}`}
+                                    className={`flex flex-col w-full px-4 border-transparent border-2 rounded-md last:border-b-0 hover:border-blue-500 ${openItem === id && 'bg-slate-300'}`}
                                 >
-                                    <a className="items-center block flex flex-row p-3" onClick={() =>
-                                        setOpenItem(openItem === id ? null : id)
-                                    }>
-                                        <span
-                                            className={`transform transition-transform duration-300 ${
-                                                openItem === id ? 'rotate-90' : ''
-                                            }`}
-                                            >
-                                            <svg
-                                                className="w-4 h-4"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
-                                            </svg>
-                                        </span>
-                                        <span className="font-semibold">{truncated(item?.Target, maximumTitleLength - item.Title.length)}</span>: {item.Title}
-                                    </a>
-                                    {openItem === id && (
-                                        <div className="text-gray-900 flex flex-col mt-1 px-7 pb-2">
-                                            <div><p className="font-semibold inline">Misconfiguration ID:</p> {item?.ID}</div>
-                                            <div><p className="font-semibold inline">Type:</p> {item?.Type}</div>
-                                            <div><p className="font-semibold inline">Description:</p> {item?.Description}</div>
-                                            <div><p className="font-semibold inline">Resolution:</p> {item?.Resolution || "No resolution available."}</div>
-                                        </div>
-                                    )}
+                                        <a className="flex flex-row items-center block py-3" onClick={() =>
+                                            setOpenItem(openItem === id ? null : id)
+                                        }>
+                                            <span
+                                                className={`transform transition-transform duration-300 ${
+                                                    openItem === id ? 'rotate-90' : ''
+                                                }`}
+                                                >
+                                                <svg
+                                                    className="w-4 h-4"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
+                                                </svg>
+                                            </span>
+                                            <span className="font-semibold">{truncated(item?.Target, maximumTitleLength - item.Title.length)}</span>: {item.Title}
+                                        </a>
+                                        {openItem === id && (
+                                            <div className="text-gray-900 flex flex-col mt-1 px-4 pb-2">
+                                                <div><p className="font-semibold inline">Misconfiguration ID:</p> {item?.ID}</div>
+                                                <div><p className="font-semibold inline">Type:</p> {item?.Type}</div>
+                                                <div><p className="font-semibold inline">Description:</p> {item?.Description}</div>
+                                                <div><p className="font-semibold inline">Resolution:</p> {item?.Resolution || "No resolution available."}</div>
+                                                <div className="my-3 flex flex-row-reverse gap-2">
+                                                    <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                            <Button className="w-10 bg-green-800 hover:bg-green-700"><CircleCheck/></Button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                            Resolve
+                                                        </TooltipContent>
+                                                    </Tooltip>
+                                                    <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                            <Button className="w-10 bg-red-800 hover:bg-red-700"><Trash2/></Button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                            Delete
+                                                        </TooltipContent>
+                                                    </Tooltip>
+                                                    <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                            <Button className="w-10 bg-blue-800 hover:bg-blue-700"><Download/></Button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                            Download
+                                                        </TooltipContent>
+                                                    </Tooltip>
+                                                </div>
+                                            </div>
+                                        )}
                                 </li>
                             ))}
                         </ul>

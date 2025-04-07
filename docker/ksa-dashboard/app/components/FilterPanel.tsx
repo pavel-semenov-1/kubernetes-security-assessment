@@ -1,8 +1,9 @@
 'use client';
 import React from "react";
 import { Report } from "../types/Report";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, CloudDownload } from "lucide-react";
 import SearchInput from "./SearchInput";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface FilterPanelProps {
     valueSelectedScanner: string;
@@ -19,7 +20,7 @@ interface FilterPanelProps {
 };
 
 const FilterPanel = ({ valueSelectedScanner, onChangeSelectedScanner, valueSelectedType, onChangeSelectedType, valueSelectedReport, onChangeSelectedReport, valueReports, onClickRescan, jobInProgress, setLoading, onChangeSearchValue }: FilterPanelProps) => {
-    const scanners = ["Trivy", "Kubescape"];
+    const scanners = ["All scanners", "Trivy", "Prowler", "Kube-bench"];
     const types = ["Misconfiguration", "Vulnerability"];
 
     return (
@@ -77,13 +78,32 @@ const FilterPanel = ({ valueSelectedScanner, onChangeSelectedScanner, valueSelec
                         </option>
                     ))}
                 </select>
-                : 
+                : valueSelectedScanner === "All scanners" ? <span>Newest reports</span> :
                 <span>No data. Trigger a scan first.</span>
                 }
             </div>
 
-            <div className="gap-3 bg-blue-700 text-white border rounded-full p-1">
-                <a onClick={onClickRescan} className="button"><RotateCcw className={jobInProgress ? "animate-spin" : ""}/></a>
+            <div className="flex flex-row gap-2">
+                <div className="bg-blue-700 text-white border rounded-full p-1">
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <a onClick={onClickRescan} className="button"><RotateCcw className={jobInProgress ? "animate-spin" : ""}/></a>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            Rescan
+                        </TooltipContent>
+                    </Tooltip>
+                </div>
+                <div className="bg-blue-700 text-white border rounded-full p-1">
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <a className="button"><CloudDownload/></a>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            Download report
+                        </TooltipContent>
+                    </Tooltip>
+                </div>
             </div>
 
             <SearchInput setLoading={setLoading} setQuery={onChangeSearchValue} className="relative ml-auto"/>

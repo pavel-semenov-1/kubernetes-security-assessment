@@ -1,5 +1,5 @@
 import { Item } from "./Item";
 
 export type ItemListProps<T extends Item> = {
-    data: Record<string, T[]>;
+    data: Record<string, T[]> | null;
 }

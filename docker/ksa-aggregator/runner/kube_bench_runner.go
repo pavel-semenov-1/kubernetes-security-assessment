@@ -12,23 +12,23 @@ import (
 	"time"
 )
 
-type TrivyRunner struct {
+type KubeBenchRunner struct {
 	clientset *kubernetes.Clientset
 	namespace string
 	jobName   string
 	fileName  string
 }
 
-func NewTrivyRunner(clientset *kubernetes.Clientset, namespace string, jobName string) *TrivyRunner {
-	return &TrivyRunner{
+func NewKubeBenchRunner(clientset *kubernetes.Clientset, namespace string, jobName string) *KubeBenchRunner {
+	return &KubeBenchRunner{
 		clientset: clientset,
 		namespace: namespace,
 		jobName:   jobName,
 	}
 }
 
-func (tr *TrivyRunner) Run() error {
-	tr.fileName = fmt.Sprintf("trivy-%s.json", time.Now().Format(TimeFormat))
+func (tr *KubeBenchRunner) Run() error {
+	tr.fileName = fmt.Sprintf("kube-bench-%s.json", time.Now().Format(TimeFormat))
 	job := &batchv1.Job{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      tr.jobName,
@@ -37,25 +37,18 @@ func (tr *TrivyRunner) Run() error {
 		Spec: batchv1.JobSpec{
 			Template: corev1.PodTemplateSpec{
 				Spec: corev1.PodSpec{
-					ServiceAccountName: "trivy",
+					ServiceAccountName: "kube-bench",
 					SecurityContext: &corev1.PodSecurityContext{
 						SeccompProfile: &corev1.SeccompProfile{
 							Type: corev1.SeccompProfileTypeRuntimeDefault,
 						},
 					},
-					InitContainers: []corev1.Container{
-						{
-							Name:    "cluster-preparation",
-							Image:   "alpine/k8s@sha256:fea4057e9e8a0d363ac4f67e55cf6ab8a6e44a057e0e0315ca7b5068927c5fdc",
-							Command: []string{"kubectl", "delete", "namespace", "trivy-temp", "--ignore-not-found", "true"},
-						},
-					},
 					RestartPolicy: corev1.RestartPolicyOnFailure,
 					Containers: []corev1.Container{
 						{
-							Name:  "trivy-runner",
-							Image: "aquasec/trivy:latest",
-							Args:  []string{"kubernetes", "--format", "json", "--output", fmt.Sprintf("/var/scan/%s", tr.fileName)},
+							Name:  "kube-bench-runner",
+							Image: "docker.io/aquasec/kube-bench:v0.9.3",
+							Args:  []string{"--json", "--nototals", "--outputfile", fmt.Sprintf("/var/scan/%s", tr.fileName)},
 							VolumeMounts: []corev1.VolumeMount{
 								{Name: "var-scan", MountPath: "/var/scan"},
 								{Name: "var-lib-cni", MountPath: "/var/lib/cni", ReadOnly: true},
@@ -74,7 +67,7 @@ func (tr *TrivyRunner) Run() error {
 						},
 					},
 					Volumes: []corev1.Volume{
-						{Name: "var-scan", VolumeSource: corev1.VolumeSource{PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{ClaimName: "trivy-scan-results"}}},
+						{Name: "var-scan", VolumeSource: corev1.VolumeSource{PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{ClaimName: "kube-bench-scan-results"}}},
 						{Name: "var-lib-cni", VolumeSource: corev1.VolumeSource{HostPath: &corev1.HostPathVolumeSource{Path: "/var/lib/cni"}}},
 						{Name: "var-lib-etcd", VolumeSource: corev1.VolumeSource{HostPath: &corev1.HostPathVolumeSource{Path: "/var/lib/etcd"}}},
 						{Name: "var-lib-kubelet", VolumeSource: corev1.VolumeSource{HostPath: &corev1.HostPathVolumeSource{Path: "/var/lib/kubelet"}}},
@@ -101,7 +94,7 @@ func (tr *TrivyRunner) Run() error {
 	return nil
 }
 
-func (tr *TrivyRunner) Watch(db *sql.DB) (int, string) {
+func (tr *KubeBenchRunner) Watch(db *sql.DB) (int, string) {
 	fieldSelector := fmt.Sprintf("metadata.name=%s", tr.jobName)
 	listOptions := metav1.ListOptions{FieldSelector: fieldSelector}
 	watcher, err := tr.clientset.BatchV1().Jobs(tr.namespace).Watch(context.TODO(), listOptions)
@@ -118,7 +111,7 @@ func (tr *TrivyRunner) Watch(db *sql.DB) (int, string) {
 
 		for _, condition := range job.Status.Conditions {
 			if condition.Type == batchv1.JobComplete && condition.Status == "True" {
-				rows, err := db.Query("SELECT id FROM scanner where name=$1", "trivy")
+				rows, err := db.Query("SELECT id FROM scanner where name=$1", "kube-bench")
 				if err != nil {
 					panic(err)
 				}
@@ -150,7 +143,7 @@ func (tr *TrivyRunner) Watch(db *sql.DB) (int, string) {
 	return 0, "Unexpected error occurred"
 }
 
-func (tr *TrivyRunner) GetStatus() JobStatus {
+func (tr *KubeBenchRunner) GetStatus() JobStatus {
 	job, err := tr.clientset.BatchV1().Jobs(tr.namespace).Get(context.TODO(), tr.jobName, metav1.GetOptions{})
 	if err != nil {
 		return JobStatus{
@@ -167,7 +160,7 @@ func (tr *TrivyRunner) GetStatus() JobStatus {
 	}
 }
 
-func (tr *TrivyRunner) CleanUp() error {
+func (tr *KubeBenchRunner) CleanUp() error {
 	propagationPolicy := metav1.DeletePropagationForeground
 	err := tr.clientset.BatchV1().Jobs(tr.namespace).Delete(context.TODO(), tr.jobName, metav1.DeleteOptions{
 		PropagationPolicy: &propagationPolicy,

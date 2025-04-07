@@ -1,3 +1,22 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ksa-read-cluster-kube-bench-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ksa-read-cluster
+subjects:
+- kind: ServiceAccount
+  name: kube-bench
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-bench
+  namespace: {{ .Release.Namespace }}
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -8,7 +27,6 @@ spec:
   resources:
     requests:
       storage: {{ .Values.kubebench.storage.size }}
-
 ---
 {{- if eq .Values.kubebench.deploy true}}
 apiVersion: batch/v1
@@ -22,8 +40,11 @@ spec:
         app: kube-bench
     spec:
       containers:
-        - command: ["kube-bench"]
-          args: ["--json", "--outputfile", "/var/scan/kube-bench.json"]
+        - command: 
+          - "kube-bench"
+          - "--json"
+          - "--outputfile"
+          - "/var/scan/kube-bench.json"
           image: {{ .Values.kubebench.image }}
           name: kube-bench
           volumeMounts:

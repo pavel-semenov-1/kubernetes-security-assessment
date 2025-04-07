@@ -7,7 +7,7 @@ type Runner interface {
 	Run() error
 	GetStatus() JobStatus
 	CleanUp() error
-	Watch(*sql.DB) string
+	Watch(*sql.DB) (int, string)
 }
 
 type JobStatus struct {
@@ -27,3 +27,5 @@ func (js *JobStatus) Succeeded() bool {
 func (js *JobStatus) Failed() bool {
 	return js.FailedPods > 0
 }
+
+var TimeFormat = "2006-01-02-15-04-05"

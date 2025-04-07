@@ -31,6 +31,8 @@ spec:
           value: {{ .Release.Namespace }}
         - name: PORT
           value: "{{ .Values.aggregator.service.targetPort }}"
+        - name: PARSER_API_URL
+          value: "http://{{ .Values.parser.service.name }}:{{ .Values.parser.service.port }}"
 ---
 apiVersion: v1
 kind: Service

@@ -7,6 +7,7 @@ import (
 	"ksa-parser/pdb"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -47,18 +48,25 @@ func main() {
 	// Initialize parsers
 	trivyParser := parser.NewTrivyParser()
 	kubeBenchParser := parser.NewKubeBenchParser()
+	prowlerParser := parser.NewProwlerParser()
 
 	parsers := map[string]parser.Parser{
-		"trivy":     trivyParser,
-		"kubebench": kubeBenchParser,
+		"trivy":      trivyParser,
+		"kube-bench": kubeBenchParser,
+		"prowler":    prowlerParser,
 	}
 
-	parseAndPopulate := func(reportId string, scanner string, prsr *parser.Parser, w *http.ResponseWriter) error {
+	parseAndPopulate := func(reportId string, w *http.ResponseWriter) error {
+		fmt.Println("Getting scanner name...")
+		scanner, err := dbcon.GetScannerNameByReportId(reportId)
+		if err != nil {
+			return fmt.Errorf("error getting the scanner name %v", err)
+		}
 		fmt.Println("Querying the report filename...")
 		filename := dbcon.GetReportFilename(reportId)
 		filepath := fmt.Sprintf("%s/%s/%s", reportDataLocation, scanner, filename)
 		fmt.Printf("Parsing the report file %s...\n", filepath)
-		vuln, misc, err := (*prsr).Parse(filepath)
+		vuln, misc, err := parsers[scanner].Parse(filepath)
 		if err != nil {
 			return fmt.Errorf("error parsing the report: %v", err)
 		}
@@ -69,6 +77,29 @@ func main() {
 		}
 		return nil
 	}
+
+	http.HandleFunc("/parse", func(w http.ResponseWriter, r *http.Request) {
+		var req struct {
+			ReportId string `json:"report_id"`
+		}
+
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			http.Error(w, "Invalid JSON body", http.StatusBadRequest)
+			return
+		}
+		defer r.Body.Close()
+
+		if req.ReportId == "" {
+			http.Error(w, "Missing reportId", http.StatusBadRequest)
+			return
+		}
+
+		err := parseAndPopulate(req.ReportId, &w)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			panic(err)
+		}
+	})
 
 	// HTTP handler to query vulnerabilities
 	http.HandleFunc("/vulnerabilities", func(w http.ResponseWriter, r *http.Request) {
@@ -97,7 +128,7 @@ func main() {
 		}
 		if !parsed {
 			fmt.Println("Report not parsed, parsing...")
-			err = parseAndPopulate(reportId, scanner, &prsr, &w)
+			err = parseAndPopulate(reportId, &w)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				panic(err)
@@ -123,34 +154,27 @@ func main() {
 
 	// HTTP handler to query misconfigurations
 	http.HandleFunc("/misconfigurations", func(w http.ResponseWriter, r *http.Request) {
-		scanner := r.URL.Query().Get("scanner")
 		reportId := r.URL.Query().Get("reportId")
 		search := r.URL.Query().Get("search")
 
 		fmt.Printf("Querying misconfigurations for reportId=%s and search=%s\n", reportId, search)
 
-		prsr := parsers[scanner]
+		var reports []string
 
-		if scanner == "" || prsr == nil {
-			http.Error(w, "Missing scanner parameter", http.StatusBadRequest)
-			return
-		}
-
-		parsed, err := dbcon.Parsed(reportId)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			panic(err)
-		}
-		if !parsed {
-			err = parseAndPopulate(reportId, scanner, &prsr, &w)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				panic(err)
+		if reportId == "" {
+			for scn, _ := range parsers {
+				rid, err := dbcon.GetLastParsedReportId(scn)
+				if err != nil {
+					http.Error(w, "Error getting reports from the database", http.StatusInternalServerError)
+					panic(err)
+				}
+				reports = append(reports, strconv.Itoa(rid))
 			}
+		} else {
+			reports = append(reports, reportId)
 		}
 
-		w.Header().Set("Content-Type", "application/json")
-		misconfigurations, err := dbcon.GetMisconfigurations(reportId, search)
+		misconfigurations, err := dbcon.GetMisconfigurations(reports, search)
 		if err != nil {
 			http.Error(w, "Error getting misconfigurations from the database", http.StatusInternalServerError)
 			panic(err)
@@ -161,6 +185,7 @@ func main() {
 			miscMap[misc.Severity] = append(miscMap[misc.Severity], misc)
 		}
 
+		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(miscMap)
 	})
 

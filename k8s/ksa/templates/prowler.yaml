@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: prowler
+  name: prowler
+  namespace: {{ .Release.Namespace }}
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: prowler-clusterroles
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["get", "list", "describe"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: prowler-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prowler-clusterroles
+subjects:
+- kind: ServiceAccount
+  name: prowler
+  namespace: {{ .Release.Namespace }}
+---
+{{- if .Values.prowler.deploy }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prowler
+  namespace: {{ .Release.Namespace }}
+spec:
+  template:
+    metadata:
+      name: prowler
+    spec:
+      serviceAccountName: prowler
+      restartPolicy: OnFailure
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: prowler
+          image: {{ .Values.prowler.image }}
+          imagePullPolicy: IfNotPresent
+          command:
+          - "prowler"
+          - "kubernetes"
+          - "--output-formats"
+          - "json-ocsf"
+          - "--status"
+          - "FAIL"
+          - "MANUAL"
+          - "-F"
+          - "prowler"
+          - "-o"
+          - "/var/scan"
+          - "-z"
+          volumeMounts:
+            - name: var-scan
+              mountPath: /var/scan
+      volumes:
+        - name: var-scan
+          persistentVolumeClaim:
+            claimName: {{ .Values.prowler.storage.name }}
+{{- end }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.prowler.storage.name }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.prowler.storage.size }}

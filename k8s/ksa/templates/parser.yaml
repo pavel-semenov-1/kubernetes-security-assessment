@@ -31,19 +31,25 @@ spec:
         - name: REPORT_DATA_LOCATION
           value: {{ .Values.parser.volumes.basepath }}
         volumeMounts:
-        - name: {{ .Values.parser.volumes.trivy.name }}
+        - name:  {{ .Values.trivy.storage.name }}
           mountPath: {{ .Values.parser.volumes.trivy.path }}
           readOnly: true
-        - name: {{ .Values.parser.volumes.kubebench.name }}
+        - name: {{ .Values.kubebench.storage.name }}
           mountPath: {{ .Values.parser.volumes.kubebench.path }}
           readOnly: true
+        - name: {{ .Values.prowler.storage.name }}
+          mountPath: {{ .Values.parser.volumes.prowler.path }}
+          readOnly: true
       volumes:
-      - name: {{ .Values.parser.volumes.trivy.name }}
+      - name: {{ .Values.trivy.storage.name }}
         persistentVolumeClaim:
-          claimName: trivy-scan-results
-      - name: {{ .Values.parser.volumes.kubebench.name }}
+          claimName: {{ .Values.trivy.storage.name }}
+      - name: {{ .Values.kubebench.storage.name }}
         persistentVolumeClaim:
-          claimName: kube-bench-scan-results
+          claimName: {{ .Values.kubebench.storage.name }}
+      - name: {{ .Values.prowler.storage.name }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.prowler.storage.name }}
 ---
 apiVersion: v1
 kind: Service

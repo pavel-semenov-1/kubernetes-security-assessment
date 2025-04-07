@@ -14,16 +14,13 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function Home() {
+  const emptyData = { data: null }
   const [selectedType, setSelectedType] = useState("Misconfiguration");
   const [selectedScanner, setSelectedScanner] = useState("Trivy");
   const [selectedReport, setSelectedReport] = useState("");
   const [reports, setReports] = useState<Report[]>([]);
-  const [misconfigurations, setMisconfigurations] = useState<ItemListProps<Misconfiguration>>({
-    data: { CRITICAL: [], HIGH: [], MEDIUM: [], LOW: [] },
-  });
-  const [vulnerabilities, setVulnerabilities] = useState<ItemListProps<Vulnerability>>({
-    data: { CRITICAL: [], HIGH: [], MEDIUM: [], LOW: [] },
-  });
+  const [misconfigurations, setMisconfigurations] = useState<ItemListProps<Misconfiguration>>(emptyData);
+  const [vulnerabilities, setVulnerabilities] = useState<ItemListProps<Vulnerability>>(emptyData);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [showToast, setShowToast] = useState(false);
@@ -65,32 +62,51 @@ export default function Home() {
         if (!response.ok) throw new Error(`Failed to fetch reports`);
         const data: Report[] = await response.json();
         setReports(data);
-        if (!selectedReport && data.length > 0) {
+        if (data.length > 0) {
           setSelectedReport(data[0].ID); 
+        } else {
+          setSelectedReport("")
+          setMisconfigurations(emptyData)
+          setVulnerabilities(emptyData)
         }
+        console.log(`*reports* selected report = ${selectedReport}`)
       } catch (err: any) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
+    if (selectedScanner === "All scanners") {
+      setSelectedReport("")
+      setReports([])
+      return
+    }
     fetchReports();
   }, [selectedScanner, jobInProgress]);
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(`selected report = ${selectedReport}`)
       try {
         setLoading(true);
         if (selectedType === "Misconfiguration") {
-          const response = await fetch(`/api/misconfigurations?scanner=${selectedScanner}&reportId=${selectedReport}${query ? "&search=" + query : ""}`)
+          const response = await fetch(`/api/misconfigurations?reportId=${selectedReport}${query ? "&search=" + query : ""}`)
           if (!response.ok) throw new Error(`Failed to fetch misconfigurations`);
           const data: Record<string, Misconfiguration[]> = await response.json();
-          setMisconfigurations({ data: data })
+          if (Object.keys(data).length === 0) {
+            setMisconfigurations(emptyData)
+          } else {
+            setMisconfigurations({ data: data })
+          }
         } else {
           const response = await fetch(`/api/vulnerabilities?scanner=${selectedScanner}&reportId=${selectedReport}${query ? "&search=" + query : ""}`)
           if (!response.ok) throw new Error(`Failed to fetch vulnerabilities`);
           const data: Record<string, Vulnerability[]> = await response.json();
-          setVulnerabilities({ data: data })
+          if (Object.keys(data).length === 0) {
+            setVulnerabilities(emptyData)
+          } else {
+            setVulnerabilities({ data: data })
+          }
         }
       } catch (err: any) {
         setError(err.message);
@@ -98,9 +114,8 @@ export default function Home() {
         setLoading(false);
       }
     };
-    if (!selectedReport) return;
     fetchData();
-  }, [selectedReport, selectedType, query]);
+  }, [selectedScanner, selectedReport, selectedType, query]);
 
   const handleClick = async () => {
     setShowConfirmationDialog(true)

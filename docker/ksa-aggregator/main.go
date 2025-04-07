@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"database/sql"
 	"encoding/json"
 	"fmt"
@@ -11,6 +12,7 @@ import (
 	"ksa-aggregator/runner"
 	"net/http"
 	"os"
+	"strconv"
 	"sync"
 )
 
@@ -43,6 +45,18 @@ func main() {
 	if trivyJobName == "" {
 		trivyJobName = "trivy-runner"
 	}
+	kubeBenchJobName := os.Getenv("KUBEBENCH_JOB_NAME")
+	if kubeBenchJobName == "" {
+		kubeBenchJobName = "kube-bench-runner"
+	}
+	prowlerJobName := os.Getenv("PROWLER_JOB_NAME")
+	if prowlerJobName == "" {
+		prowlerJobName = "prowler-runner"
+	}
+	parserApiUrl := os.Getenv("PARSER_API_URL")
+	if parserApiUrl == "" {
+		panic("PARSER_API_URL environment variable not set")
+	}
 
 	// Open a database connection
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", dbHost, dbPort, dbUser, dbPassword, dbName)
@@ -64,8 +78,12 @@ func main() {
 	}
 
 	trivyRunner := runner.NewTrivyRunner(clientset, namespace, trivyJobName)
+	kubeBenchRunner := runner.NewKubeBenchRunner(clientset, namespace, kubeBenchJobName)
+	prowlerRunner := runner.NewProwlerRunner(clientset, namespace, prowlerJobName)
 	runners := map[string]runner.Runner{
-		"trivy": trivyRunner,
+		"trivy":      trivyRunner,
+		"kube-bench": kubeBenchRunner,
+		"prowler":    prowlerRunner,
 	}
 
 	// Websocket stuff
@@ -145,8 +163,31 @@ func main() {
 		broadcastMessage(fmt.Sprintf("@job:%s:start", scanner))
 
 		go func() {
-			broadcastMessage(rnr.Watch(con))
+			reportId, message := rnr.Watch(con)
+			broadcastMessage(message)
 			broadcastMessage(fmt.Sprintf("@job:%s:end", scanner))
+			if reportId != 0 {
+				data := map[string]string{
+					"report_id": strconv.Itoa(reportId),
+				}
+
+				jsonBytes, err := json.Marshal(data)
+				if err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					return
+				}
+
+				resp, err := http.Post(fmt.Sprintf("%s/parse", parserApiUrl), "application/json", bytes.NewBuffer(jsonBytes))
+				if err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					return
+				}
+				defer resp.Body.Close()
+				if err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					return
+				}
+			}
 		}()
 	})
 

@@ -1,4 +1,9 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{aquasec-kubernetes-vulnerability-database-misconfigurations}
+Aquasec kubernetes vulnerability database - misconfigurations.
+\newblock \url{https://avd.aquasec.com/misconfig/kubernetes/}, Accessed:
+  7.3.2025.
 
 \bibitem{defects}
 D.~B. Bose, A.~Rahman, and S.~I. Shamim.
@@ -43,6 +48,13 @@ V.~B. Mahajan and S.~B. Mane.
   misconfiguration using docker and kubernetes.
 \newblock In {\em 2022 International Conference on Computing, Communication,
   Security and Intelligent Systems (IC3SIS)}. IEEE, 2022.
+
+\bibitem{aquasec-security-best-practices}
+Rani Osnat.
+\newblock Kubernetes security basics and 10 essential best practices.
+\newblock
+  \url{https://www.aquasec.com/cloud-native-academy/kubernetes-in-production/kubernetes-security-best-practices-10-steps-to-securing-k8s/},
+  Accessed: 7.3.2025.
 
 \bibitem{ibm-containerization}
 Stephanie Susnjara and Ian Smalley.

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"ksa-parser/parser"
+	"strings"
 )
 
 type DB struct {
@@ -128,10 +129,26 @@ func (db *DB) GetVulnerabilities(reportId string, searchTerm string) ([]parser.V
 	return vulnerabilities, nil
 }
 
-func (db *DB) GetMisconfigurations(reportId string, searchTerm string) ([]parser.Misconfiguration, error) {
-	rows, err := db.connection.Query(`SELECT type, mid, title, description, resolution, severity, target 
-													FROM misconfiguration WHERE report_id = $1 
-											        		AND ($2 = '' OR search_vector @@ plainto_tsquery($2))`, reportId, searchTerm)
+func (db *DB) GetMisconfigurations(reports []string, searchTerm string) ([]parser.Misconfiguration, error) {
+	size := len(reports)
+	placeholders := make([]string, size)
+	args := make([]interface{}, size+1)
+	for i, r := range reports {
+		placeholders[i] = fmt.Sprintf("$%d", i+1)
+		args[i] = r
+	}
+
+	args[size] = searchTerm
+	searchTermPlaceholder := fmt.Sprintf("$%d", size+1)
+
+	query := fmt.Sprintf(`
+		SELECT type, mid, title, description, resolution, severity, target
+		FROM misconfiguration
+		WHERE report_id IN (%s)
+		  AND (%s = '' OR search_vector @@ plainto_tsquery(%s))
+	`, strings.Join(placeholders, ", "), searchTermPlaceholder, searchTermPlaceholder)
+
+	rows, err := db.connection.Query(query, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +180,7 @@ func (db *DB) GetReports(scanner string) ([]Report, error) {
 		if err != nil {
 			return nil, fmt.Errorf("row scan failed: %v", err)
 		}
-		rows, err = db.connection.Query("SELECT id, filename FROM report where scanner_id=$1", id)
+		rows, err = db.connection.Query("SELECT id, filename FROM report where scanner_id=$1 order by generated_at desc", id)
 		if err != nil {
 			return nil, fmt.Errorf("query failed: %v", err)
 		}
@@ -215,6 +232,39 @@ func (db *DB) GetLastParsedReportId(scanner string) (int, error) {
 	}
 
 	return 0, nil
+}
+
+func (db *DB) GetScannerNameByReportId(reportId string) (string, error) {
+	rows, err := db.connection.Query("SELECT scanner_id FROM report where id=$1", reportId)
+	if err != nil {
+		return "", fmt.Errorf("query failed: %v", err)
+	}
+	defer rows.Close()
+
+	if rows.Next() {
+		var id int
+		err = rows.Scan(&id)
+		if err != nil {
+			return "", fmt.Errorf("row scan failed: %v", err)
+		}
+		rows, err = db.connection.Query("SELECT name FROM scanner where id=$1", id)
+		if err != nil {
+			return "", fmt.Errorf("query failed: %v", err)
+		}
+		defer rows.Close()
+
+		if rows.Next() {
+			var name string
+			err = rows.Scan(&name)
+			if err != nil {
+				return "", fmt.Errorf("row scan failed: %v", err)
+			}
+
+			return name, nil
+		}
+	}
+
+	return "", nil
 }
 
 func (db *DB) GetVulnerabilityStatistics(reportId int) (map[string]int, error) {

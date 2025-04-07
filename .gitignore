@@ -4,5 +4,4 @@ web/public
 web/.env.development
 node_modules
 notes*
-prowler
 .DS_Store

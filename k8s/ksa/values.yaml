@@ -7,6 +7,21 @@ trivy:
     name: trivy-scan-results
     size: 200Mi
 
+kubescape:
+  deploy: false
+  image: ksa/kubescape:latest
+
+openclarity:
+  deploy: false
+  image: ksa/openclarity:latest
+
+prowler:
+  deploy: false
+  image: ksa/prowler:latest
+  storage:
+    name: prowler-scan-results
+    size: 200Mi
+
 kubebench:
   deploy: false
   image: docker.io/aquasec/kube-bench:v0.9.3
@@ -41,11 +56,13 @@ parser:
   volumes:
     basepath: /opt/scan
     trivy:
-      name: trivy-data
       path: /opt/scan/trivy
     kubebench:
-      name: kubebench-data
-      path: /opt/scan/kubebench
+      path: /opt/scan/kube-bench
+    kubescape:
+      path: /opt/scan/kubescape
+    prowler:
+      path: /opt/scan/prowler
 
 aggregator:
   image: ksa/aggregator:latest
