@@ -1,9 +1,11 @@
 export interface Misconfiguration {
+    ID: number;
     Type: string;
-    ID: string;
+    MisconfigurationID: string;
     Title: string;
     Description: string;
     Resolution: string;
     Severity: string;
     Target: string;
+    Status: string;
 }

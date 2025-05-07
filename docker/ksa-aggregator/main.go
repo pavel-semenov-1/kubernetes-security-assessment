@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/websocket"
 	_ "github.com/lib/pq"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
@@ -13,7 +12,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"sync"
 )
 
 func main() {
@@ -86,49 +84,19 @@ func main() {
 		"prowler":    prowlerRunner,
 	}
 
-	// Websocket stuff
-	var upgrader = websocket.Upgrader{
-		CheckOrigin: func(r *http.Request) bool { return true },
-	}
-	var clients = make(map[*websocket.Conn]bool)
-	var mutex = sync.Mutex{}
+	broadcastMessage := func(message string) {
+		data := map[string]string{
+			"message": message,
+		}
 
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		conn, err := upgrader.Upgrade(w, r, nil)
+		jsonBytes, err := json.Marshal(data)
 		if err != nil {
-			fmt.Println("WebSocket upgrade failed:", err)
+			fmt.Printf("Error marshalling broadcast message: %v\n", err)
 			return
 		}
-		defer conn.Close()
-
-		// Register the client
-		mutex.Lock()
-		clients[conn] = true
-		mutex.Unlock()
-
-		// Listen for disconnects
-		for {
-			_, _, err := conn.ReadMessage()
-			if err != nil {
-				mutex.Lock()
-				delete(clients, conn)
-				mutex.Unlock()
-				break
-			}
-		}
-	})
-
-	broadcastMessage := func(message string) {
-		mutex.Lock()
-		defer mutex.Unlock()
-
-		for client := range clients {
-			err := client.WriteMessage(websocket.TextMessage, []byte(message))
-			if err != nil {
-				fmt.Println("Failed to send message to client:", err)
-				client.Close()
-				delete(clients, client)
-			}
+		_, err = http.Post(fmt.Sprintf("%s/broadcast", parserApiUrl), "application/json", bytes.NewBuffer(jsonBytes))
+		if err != nil {
+			fmt.Printf("Error posting broadcast message: %v\n", err)
 		}
 	}
 
@@ -177,12 +145,11 @@ func main() {
 					return
 				}
 
-				resp, err := http.Post(fmt.Sprintf("%s/parse", parserApiUrl), "application/json", bytes.NewBuffer(jsonBytes))
+				_, err = http.Post(fmt.Sprintf("%s/parse", parserApiUrl), "application/json", bytes.NewBuffer(jsonBytes))
 				if err != nil {
 					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
-				defer resp.Body.Close()
 				if err != nil {
 					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return

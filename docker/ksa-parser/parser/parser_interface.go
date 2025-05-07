@@ -9,6 +9,7 @@ type Parser interface {
 }
 
 type Vulnerability struct {
+	ID               int    `json:"ID"`
 	VulnerabilityID  string `json:"VulnerabilityID"`
 	PkgName          string `json:"PkgName"`
 	InstalledVersion string `json:"InstalledVersion"`
@@ -20,13 +21,15 @@ type Vulnerability struct {
 }
 
 type Misconfiguration struct {
-	Type        string `json:"Type"`
-	ID          string `json:"ID"`
-	Title       string `json:"Title"`
-	Description string `json:"Description"`
-	Resolution  string `json:"Resolution"`
-	Severity    string `json:"Severity"`
-	Target      string `json:"Target"`
+	ID                 int    `json:"ID"`
+	Type               string `json:"Type"`
+	MisconfigurationID string `json:"MisconfigurationID"`
+	Title              string `json:"Title"`
+	Description        string `json:"Description"`
+	Resolution         string `json:"Resolution"`
+	Severity           string `json:"Severity"`
+	Target             string `json:"Target"`
+	Status             string `json:"Status"`
 }
 
 func RemoveDuplicates[T any](ss []T, extractor func(T) string) (ret []T) {

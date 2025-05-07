@@ -1,18 +1,14 @@
 'use client';
-import React, { useState } from "react";
+import React from "react";
 import { ItemListProps } from "../types/ItemListProps";
-import { Plus, Minus, CircleCheck, Trash2, Download } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 import { Misconfiguration } from "../types/Misconfiguration";
-import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import MisconfigurationCard from "./MisconfigurationCard";
+import { AnimatePresence } from "framer-motion";
+import { ITEM_STATUS_FAIL, ITEM_STATUS_MANUAL } from "../constants";
 
-const MisconfigurationList = ({ data }: ItemListProps<Misconfiguration>) => {
-    const maximumTitleLength = 165;
+const MisconfigurationList = ({ data, onClickDelete, onClickResolve, openCategory, setOpenCategory, openItem, setOpenItem }: ItemListProps<Misconfiguration>) => {
     const emptyDataMessage = "No data. Run a new scan or a select a different object type.";
-    const [openCategory, setOpenCategory] = useState<number | null>(null);
-    const [openItem, setOpenItem] = useState<number | null>(null);
-    const truncated = (text: string, maxLength: number) => 
-        text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 
     return (
         <div className="p-4 flex-auto">
@@ -25,75 +21,17 @@ const MisconfigurationList = ({ data }: ItemListProps<Misconfiguration>) => {
                         }
                     >
                         <div className="grow flex flex-row">{openCategory === index ? (<Minus className="mr-2"/>) : (<Plus className="mr-2"/>)}{category}</div>
-                        <p>{items.length }</p>
+                        <p>{items.filter(i => i.Status == ITEM_STATUS_FAIL || i.Status == ITEM_STATUS_MANUAL).length}/{items.length}</p>
                     </button>
 
                     {openCategory === index && (
                         <ul className="mt-2 bg-gray-100 p-2 rounded-md shadow text-gray-900">
-                            {items.length == 0 ?
-                             (<div className="text-gray-500">No data</div>) : 
-                             items.map((item, id) => (
-                                <li
-                                    key={id}
-                                    className={`flex flex-col w-full px-4 border-transparent border-2 rounded-md last:border-b-0 hover:border-blue-500 ${openItem === id && 'bg-slate-300'}`}
-                                >
-                                        <a className="flex flex-row items-center block py-3" onClick={() =>
-                                            setOpenItem(openItem === id ? null : id)
-                                        }>
-                                            <span
-                                                className={`transform transition-transform duration-300 ${
-                                                    openItem === id ? 'rotate-90' : ''
-                                                }`}
-                                                >
-                                                <svg
-                                                    className="w-4 h-4"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth="2"
-                                                    viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
-                                                </svg>
-                                            </span>
-                                            <span className="font-semibold">{truncated(item?.Target, maximumTitleLength - item.Title.length)}</span>: {item.Title}
-                                        </a>
-                                        {openItem === id && (
-                                            <div className="text-gray-900 flex flex-col mt-1 px-4 pb-2">
-                                                <div><p className="font-semibold inline">Misconfiguration ID:</p> {item?.ID}</div>
-                                                <div><p className="font-semibold inline">Type:</p> {item?.Type}</div>
-                                                <div><p className="font-semibold inline">Description:</p> {item?.Description}</div>
-                                                <div><p className="font-semibold inline">Resolution:</p> {item?.Resolution || "No resolution available."}</div>
-                                                <div className="my-3 flex flex-row-reverse gap-2">
-                                                    <Tooltip>
-                                                        <TooltipTrigger asChild>
-                                                            <Button className="w-10 bg-green-800 hover:bg-green-700"><CircleCheck/></Button>
-                                                        </TooltipTrigger>
-                                                        <TooltipContent>
-                                                            Resolve
-                                                        </TooltipContent>
-                                                    </Tooltip>
-                                                    <Tooltip>
-                                                        <TooltipTrigger asChild>
-                                                            <Button className="w-10 bg-red-800 hover:bg-red-700"><Trash2/></Button>
-                                                        </TooltipTrigger>
-                                                        <TooltipContent>
-                                                            Delete
-                                                        </TooltipContent>
-                                                    </Tooltip>
-                                                    <Tooltip>
-                                                        <TooltipTrigger asChild>
-                                                            <Button className="w-10 bg-blue-800 hover:bg-blue-700"><Download/></Button>
-                                                        </TooltipTrigger>
-                                                        <TooltipContent>
-                                                            Download
-                                                        </TooltipContent>
-                                                    </Tooltip>
-                                                </div>
-                                            </div>
-                                        )}
-                                </li>
-                            ))}
+                            <AnimatePresence>
+                                {items.length == 0 ?
+                                (<div className="text-gray-500">No data</div>) : 
+                                items.map((item, id) => <MisconfigurationCard key={id} id={id} item={item} openItem={openItem} setOpenItem={setOpenItem} onClickDelete={() => 
+                                 onClickDelete(category, id, item)} onClickResolve={() => onClickResolve ? onClickResolve(category, id, item) : {}}/>)}
+                            </AnimatePresence>
                         </ul>
                     )}
                 </div>

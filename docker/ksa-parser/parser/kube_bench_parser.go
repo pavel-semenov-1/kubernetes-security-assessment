@@ -75,14 +75,19 @@ func (p *KubeBenchParser) GetMisconfigurations() []Misconfiguration {
 	for _, ctrl := range p.data {
 		for _, test := range ctrl.Tests {
 			for _, result := range test.Results {
+				status := result.Status
+				if status == "WARN" {
+					status = "MANUAL"
+				}
 				misconfigurations = append(misconfigurations, Misconfiguration{
-					Type:        "Kubernetes security check",
-					ID:          result.TestNumber,
-					Title:       fmt.Sprintf("%s. %s - %s", result.TestNumber, ctrl.Text, test.Desc),
-					Description: result.TestDesc,
-					Resolution:  result.Remediation,
-					Severity:    result.Status,
-					Target:      "Security Check",
+					Type:               "Kubernetes security check",
+					MisconfigurationID: result.TestNumber,
+					Title:              fmt.Sprintf("%s. %s - %s", result.TestNumber, ctrl.Text, test.Desc),
+					Description:        result.TestDesc,
+					Resolution:         result.Remediation,
+					Severity:           "HIGH",
+					Target:             "Security Check",
+					Status:             status,
 				})
 			}
 		}

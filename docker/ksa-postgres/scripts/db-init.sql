@@ -56,7 +56,8 @@ create table misconfiguration
     description varchar not null,
     resolution varchar not null,
     severity varchar not null,
-    target varchar not null
+    target varchar not null,
+    status varchar not null
 );
 
 alter table vulnerability add column search_vector tsvector;

@@ -10,5 +10,5 @@ spec:
   - Ingress
   ingress:
   - from:
-  # 1.3. Network Policies
+  # 1.3. Misconfigured Network Policies
     - podSelector: {}

@@ -3,11 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/websocket"
 	"ksa-parser/parser"
 	"ksa-parser/pdb"
 	"net/http"
 	"os"
-	"strconv"
+	"sync"
 )
 
 func main() {
@@ -78,6 +79,98 @@ func main() {
 		return nil
 	}
 
+	queryDBMiscVulnData := func(reportId string, search string, resolved bool, w *http.ResponseWriter) ([]parser.Misconfiguration, []parser.Vulnerability, error) {
+		var reportIds []string
+
+		if reportId == "" {
+			reportIds, err = dbcon.GetLastParsedReportIds()
+			if err != nil {
+				return nil, nil, fmt.Errorf("error getting the last parsed report id %v", err)
+			}
+			if len(reportIds) == 0 {
+				return []parser.Misconfiguration{}, []parser.Vulnerability{}, nil
+			}
+		} else {
+			reportIds = []string{reportId}
+		}
+
+		misconfigurations, err := dbcon.GetMisconfigurations(reportIds, search, resolved)
+		if err != nil {
+			return nil, nil, fmt.Errorf("error getting misconfigurations %v", err)
+		}
+		vulnerabilities, err := dbcon.GetVulnerabilities(reportIds, search)
+		if err != nil {
+			return nil, nil, fmt.Errorf("error getting vulnerabilities %v", err)
+		}
+
+		return misconfigurations, vulnerabilities, nil
+	}
+
+	// Websocket stuff
+	var upgrader = websocket.Upgrader{
+		CheckOrigin: func(r *http.Request) bool { return true },
+	}
+	var clients = make(map[*websocket.Conn]bool)
+	var mutex = sync.Mutex{}
+
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		conn, err := upgrader.Upgrade(w, r, nil)
+		if err != nil {
+			fmt.Println("WebSocket upgrade failed:", err)
+			return
+		}
+		defer conn.Close()
+
+		// Register the client
+		mutex.Lock()
+		clients[conn] = true
+		mutex.Unlock()
+
+		// Listen for disconnects
+		for {
+			_, _, err := conn.ReadMessage()
+			if err != nil {
+				mutex.Lock()
+				delete(clients, conn)
+				mutex.Unlock()
+				break
+			}
+		}
+	})
+
+	broadcastMessage := func(message string) {
+		mutex.Lock()
+		defer mutex.Unlock()
+
+		for client := range clients {
+			err := client.WriteMessage(websocket.TextMessage, []byte(message))
+			if err != nil {
+				fmt.Println("Failed to send message to client:", err)
+				client.Close()
+				delete(clients, client)
+			}
+		}
+	}
+
+	http.HandleFunc("/broadcast", func(w http.ResponseWriter, r *http.Request) {
+		var req struct {
+			Message string `json:"message"`
+		}
+
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			http.Error(w, "Invalid JSON body", http.StatusBadRequest)
+			return
+		}
+		defer r.Body.Close()
+
+		if req.Message == "" {
+			http.Error(w, "Empty message", http.StatusBadRequest)
+			return
+		}
+
+		broadcastMessage(req.Message)
+	})
+
 	http.HandleFunc("/parse", func(w http.ResponseWriter, r *http.Request) {
 		var req struct {
 			ReportId string `json:"report_id"`
@@ -94,53 +187,38 @@ func main() {
 			return
 		}
 
+		broadcastMessage(fmt.Sprintf("@parse:%s:start", req.ReportId))
+
 		err := parseAndPopulate(req.ReportId, &w)
 		if err != nil {
+			broadcastMessage(fmt.Sprintf("Error parsing the report: %s", err.Error()))
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			panic(err)
 		}
+		broadcastMessage(fmt.Sprintf("Report with id %s has been successfully parsed", req.ReportId))
+		broadcastMessage(fmt.Sprintf("@parse:%s:end", req.ReportId))
+	})
+
+	// HTTP handler to query scanners
+	http.HandleFunc("/scanners", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		scanners, err := dbcon.GetScannerNames()
+		if err != nil {
+			http.Error(w, "Error getting scanners", http.StatusInternalServerError)
+			panic(err)
+		}
+		json.NewEncoder(w).Encode(scanners)
 	})
 
 	// HTTP handler to query vulnerabilities
 	http.HandleFunc("/vulnerabilities", func(w http.ResponseWriter, r *http.Request) {
-		scanner := r.URL.Query().Get("scanner")
 		reportId := r.URL.Query().Get("reportId")
 		search := r.URL.Query().Get("search")
 
 		fmt.Printf("Querying vulnerabilities for reportId=%s and search=%s\n", reportId, search)
-
-		prsr := parsers[scanner]
-
-		if scanner == "" || prsr == nil {
-			http.Error(w, "Missing scanner parameter", http.StatusBadRequest)
-			return
-		}
-		if reportId == "" {
-			http.Error(w, "Missing reportId parameter", http.StatusBadRequest)
-			return
-		}
-
-		fmt.Println("Checking if this report already parsed...")
-		parsed, err := dbcon.Parsed(reportId)
+		_, vulnerabilities, err := queryDBMiscVulnData(reportId, search, false, &w)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
-			panic(err)
-		}
-		if !parsed {
-			fmt.Println("Report not parsed, parsing...")
-			err = parseAndPopulate(reportId, &w)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				panic(err)
-			}
-		}
-		fmt.Println("Report parsed.")
-
-		w.Header().Set("Content-Type", "application/json")
-		fmt.Println("Querying vulnerabilities from the database...")
-		vulnerabilities, err := dbcon.GetVulnerabilities(reportId, search)
-		if err != nil {
-			http.Error(w, "Error getting vulnerabilities from the database", http.StatusInternalServerError)
 			panic(err)
 		}
 
@@ -149,44 +227,96 @@ func main() {
 			vulnMap[vuln.Severity] = append(vulnMap[vuln.Severity], vuln)
 		}
 
+		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(vulnMap)
 	})
 
 	// HTTP handler to query misconfigurations
 	http.HandleFunc("/misconfigurations", func(w http.ResponseWriter, r *http.Request) {
-		reportId := r.URL.Query().Get("reportId")
-		search := r.URL.Query().Get("search")
+		switch r.Method {
+		case http.MethodGet:
+			reportId := r.URL.Query().Get("reportId")
+			search := r.URL.Query().Get("search")
+			resolved := r.URL.Query().Get("resolved")
 
-		fmt.Printf("Querying misconfigurations for reportId=%s and search=%s\n", reportId, search)
+			fmt.Printf("Querying misconfigurations for reportId=%s, search=%s and resolved=%s\n", reportId, search, resolved)
 
-		var reports []string
+			misconfigurations, _, err := queryDBMiscVulnData(reportId, search, resolved == "true", &w)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				panic(err)
+			}
 
-		if reportId == "" {
-			for scn, _ := range parsers {
-				rid, err := dbcon.GetLastParsedReportId(scn)
+			miscMap := make(map[string][]parser.Misconfiguration)
+			for _, misc := range misconfigurations {
+				miscMap[misc.Severity] = append(miscMap[misc.Severity], misc)
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(miscMap)
+		case http.MethodDelete:
+			reportId := r.URL.Query().Get("reportId")
+			id := r.URL.Query().Get("id")
+			search := r.URL.Query().Get("search")
+
+			fmt.Printf("Deleting misconfigurations for reportId=%s, id=%s and search=%s\n", reportId, id, search)
+
+			if id == "" {
+				var reportIds []string
+				if reportId == "" {
+					reportIds, err = dbcon.GetLastParsedReportIds()
+					if err != nil {
+						http.Error(w, err.Error(), http.StatusInternalServerError)
+						panic(err)
+					}
+				} else {
+					reportIds = []string{reportId}
+				}
+				err = dbcon.DeleteMisconfigurationsBySearchTerm(reportIds, search)
 				if err != nil {
-					http.Error(w, "Error getting reports from the database", http.StatusInternalServerError)
+					http.Error(w, err.Error(), http.StatusInternalServerError)
 					panic(err)
 				}
-				reports = append(reports, strconv.Itoa(rid))
+			} else {
+				err = dbcon.DeleteMisconfigurationById(id)
+				if err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					panic(err)
+				}
 			}
-		} else {
-			reports = append(reports, reportId)
-		}
+		case http.MethodPatch:
+			reportId := r.URL.Query().Get("reportId")
+			id := r.URL.Query().Get("id")
+			search := r.URL.Query().Get("search")
 
-		misconfigurations, err := dbcon.GetMisconfigurations(reports, search)
-		if err != nil {
-			http.Error(w, "Error getting misconfigurations from the database", http.StatusInternalServerError)
-			panic(err)
-		}
+			fmt.Printf("Resolving misconfigurations for reportId=%s, id=%s and search=%s\n", reportId, id, search)
 
-		miscMap := make(map[string][]parser.Misconfiguration)
-		for _, misc := range misconfigurations {
-			miscMap[misc.Severity] = append(miscMap[misc.Severity], misc)
+			if id == "" {
+				var reportIds []string
+				if reportId == "" {
+					reportIds, err = dbcon.GetLastParsedReportIds()
+					if err != nil {
+						http.Error(w, err.Error(), http.StatusInternalServerError)
+						panic(err)
+					}
+				} else {
+					reportIds = []string{reportId}
+				}
+				err = dbcon.ResolveMisconfigurationsBySearchTerm(reportIds, search)
+				if err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					panic(err)
+				}
+			} else {
+				err = dbcon.ResolveMisconfigurationById(id)
+				if err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					panic(err)
+				}
+			}
+		default:
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		}
-
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(miscMap)
 	})
 
 	// HTTP handler to query scan reports

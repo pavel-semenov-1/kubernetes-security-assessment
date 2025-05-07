@@ -25,12 +25,23 @@ type TrivyResource struct {
 }
 
 type TrivyResult struct {
-	Target            string             `json:"Target"`
-	Class             string             `json:"Class"`
-	Type              string             `json:"Type"`
-	Vulnerabilities   []Vulnerability    `json:"Vulnerabilities,omitempty"`
-	MisconfSummary    MisconfSummary     `json:"MisconfSummary,omitempty"`
-	Misconfigurations []Misconfiguration `json:"Misconfigurations,omitempty"`
+	Target            string                  `json:"Target"`
+	Class             string                  `json:"Class"`
+	Type              string                  `json:"Type"`
+	Vulnerabilities   []Vulnerability         `json:"Vulnerabilities,omitempty"`
+	MisconfSummary    MisconfSummary          `json:"MisconfSummary,omitempty"`
+	Misconfigurations []TrivyMisconfiguration `json:"Misconfigurations,omitempty"`
+}
+
+type TrivyMisconfiguration struct {
+	Type               string `json:"Type"`
+	MisconfigurationID string `json:"ID"`
+	Title              string `json:"Title"`
+	Description        string `json:"Description"`
+	Resolution         string `json:"Resolution"`
+	Severity           string `json:"Severity"`
+	Target             string `json:"Target"`
+	Status             string `json:"Status"`
 }
 
 type MisconfSummary struct {
@@ -59,7 +70,7 @@ func (p *TrivyParser) Parse(filePath string) ([]Vulnerability, []Misconfiguratio
 		for resultIndex, rslt := range res.Results {
 			idExtractorVuln := func(v Vulnerability) string { return v.VulnerabilityID }
 			result.Resources[resourceIndex].Results[resultIndex].Vulnerabilities = RemoveDuplicates(rslt.Vulnerabilities, idExtractorVuln)
-			idExtractorMisc := func(m Misconfiguration) string { return m.ID }
+			idExtractorMisc := func(m TrivyMisconfiguration) string { return m.MisconfigurationID }
 			result.Resources[resourceIndex].Results[resultIndex].Misconfigurations = RemoveDuplicates(rslt.Misconfigurations, idExtractorMisc)
 			for vulnIndex, _ := range result.Resources[resourceIndex].Results[resultIndex].Vulnerabilities {
 				result.Resources[resourceIndex].Results[resultIndex].Vulnerabilities[vulnIndex].Target = rslt.Target
@@ -106,8 +117,17 @@ func (p *TrivyParser) GetMisconfigurations() []Misconfiguration {
 	var misconfigurations []Misconfiguration
 	for _, res := range p.data.Resources {
 		for _, rslt := range res.Results {
-			if rslt.Misconfigurations != nil {
-				misconfigurations = append(misconfigurations, rslt.Misconfigurations...)
+			for _, misconf := range rslt.Misconfigurations {
+				misconfigurations = append(misconfigurations, Misconfiguration{
+					Type:               misconf.Type,
+					MisconfigurationID: misconf.MisconfigurationID,
+					Title:              misconf.Title,
+					Description:        misconf.Description,
+					Resolution:         misconf.Resolution,
+					Severity:           misconf.Severity,
+					Target:             misconf.Target,
+					Status:             misconf.Status,
+				})
 			}
 		}
 	}

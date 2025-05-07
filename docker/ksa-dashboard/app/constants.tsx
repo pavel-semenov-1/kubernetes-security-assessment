@@ -1,0 +1,10 @@
+export const ITEM_TYPE_VULNERABILITY = 'Vulnerability';
+export const ITEM_TYPE_MISCONFIGURATION = 'Misconfiguration';
+export const ALL_SCANNERS = 'All scanners'
+export const ITEM_STATUS_RESOLVED = 'RESOLVED';
+export const ITEM_STATUS_MANUAL = 'MANUAL';
+export const ITEM_STATUS_FAIL = 'FAIL';
+export const ITEM_STATUS_PASS = 'PASS';
+export const RERUN_SCAN_CONFIRMATION = "This would run a Kubernetes job and generate a new report."
+export const DELETE_ALL_CONFIRMATION = "This would delete all displayed results for this search."
+export const RESOLVE_ALL_CONFIRMATION = "This would resolve all displayed results for this search."

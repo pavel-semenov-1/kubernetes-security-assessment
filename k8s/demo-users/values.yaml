@@ -23,10 +23,10 @@ podAnnotations: {}
 podLabels: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
+# fsGroup: 2000
 
 # 6.1 and 6.2
-securityContext: {}
+securityContext:
   capabilities:
     add:
     - ALL # Grants all capabilities to the container
@@ -43,6 +43,7 @@ backend:
     image: busybox
     name: wait-for-postgres-db
   service:
+    # 4.1 Unnecessary service exposure
     type: LoadBalancer
     port: 8080
     name: demo-backend

@@ -55,7 +55,7 @@ func (tr *TrivyRunner) Run() error {
 						{
 							Name:  "trivy-runner",
 							Image: "aquasec/trivy:latest",
-							Args:  []string{"kubernetes", "--format", "json", "--output", fmt.Sprintf("/var/scan/%s", tr.fileName)},
+							Args:  []string{"kubernetes", "--format", "json", "--output", fmt.Sprintf("/var/scan/%s", tr.fileName), "--exclude-namespaces", "ksa", "--include-non-failures"},
 							VolumeMounts: []corev1.VolumeMount{
 								{Name: "var-scan", MountPath: "/var/scan"},
 								{Name: "var-lib-cni", MountPath: "/var/lib/cni", ReadOnly: true},

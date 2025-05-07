@@ -13,7 +13,6 @@ const SidePanel: FC = () => {
     const [results, setResults] = useState<StatResult[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    // TODO: fetch scanners from the parser
     const scanners = ["trivy"]
 
     useEffect(() => {

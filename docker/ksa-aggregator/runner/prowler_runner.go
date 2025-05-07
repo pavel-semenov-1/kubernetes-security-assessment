@@ -56,7 +56,7 @@ func (tr *ProwlerRunner) Run() error {
 							Image:           "ksa/prowler",
 							ImagePullPolicy: corev1.PullIfNotPresent,
 							Command: []string{
-								"prowler", "kubernetes", "--output-formats", "json-ocsf", "--status", "FAIL", "MANUAL", "-F", fileNamePrefix, "-o", "/var/scan", "-z",
+								"prowler", "kubernetes", "--output-formats", "json-ocsf", "--status", "FAIL", "MANUAL", "PASS", "-F", fileNamePrefix, "-o", "/var/scan", "-z",
 							},
 							VolumeMounts: []corev1.VolumeMount{
 								{

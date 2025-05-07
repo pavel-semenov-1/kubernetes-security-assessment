@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"strings"
 	"sync"
 )
 
@@ -18,6 +19,7 @@ type ProwlerReport struct {
 	Remediation Remediation       `json:"remediation"`
 	Resources   []ProwlerResource `json:"resources"`
 	TypeName    string            `json:"type_name"`
+	Status      string            `json:"status_code"`
 }
 
 type FindingInfo struct {
@@ -47,6 +49,9 @@ func (p *ProwlerParser) Parse(filePath string) ([]Vulnerability, []Misconfigurat
 
 	var result []ProwlerReport
 	err = json.Unmarshal(byteValue, &result)
+	for i, v := range result {
+		result[i].Severity = strings.ToUpper(v.Severity)
+	}
 	if err != nil {
 		return nil, nil, fmt.Errorf("error unmarshaling JSON: %v", err)
 	}
@@ -87,13 +92,14 @@ func (p *ProwlerParser) GetMisconfigurations() []Misconfiguration {
 			target = fmt.Sprintf("%s%s/%s", target, rs.Namespace, rs.Name)
 		}
 		misconfigurations = append(misconfigurations, Misconfiguration{
-			Type:        res.TypeName,
-			ID:          res.FindingInfo.UID,
-			Title:       res.FindingInfo.Title,
-			Description: res.FindingInfo.Desc,
-			Resolution:  res.Remediation.Desc,
-			Severity:    res.Severity,
-			Target:      target,
+			Type:               res.TypeName,
+			MisconfigurationID: res.FindingInfo.UID,
+			Title:              res.FindingInfo.Title,
+			Description:        res.FindingInfo.Desc,
+			Resolution:         res.Remediation.Desc,
+			Severity:           res.Severity,
+			Target:             target,
+			Status:             res.Status,
 		})
 	}
 	return misconfigurations
