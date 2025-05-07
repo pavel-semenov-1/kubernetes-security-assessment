@@ -39,17 +39,29 @@
 \usepackage{amsmath}
 \usepackage{array}
 \usepackage{listings}
+\usepackage{enumitem}
+\usepackage{courier}
 
 \definecolor{darkorange}{rgb}{0.7, 0.3, 0}
 \definecolor{darkgreen}{rgb}{0.0, 0.4, 0.0}
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
 
 \lstdefinelanguage{Dockerfile}{
   keywords={FROM, RUN, CMD, EXPOSE, ENV, ADD, COPY, ENTRYPOINT, USER, WORKDIR, ARG},
 }
 
 \lstdefinelanguage{YAML}{
-    morekeywords={true, false, null, yes, no, on, off}, % Booleans
+    morekeywords={true, false, null, yes, no, on, off},
     keywordstyle=\color{blue}\bfseries,
+    sensitive=true,
+    morecomment=[l]{\#},
+    morestring=[b]',
+    morestring=[b]"
+}
+
+\lstdefinelanguage{CustomBash}{
+    morekeywords={true, false},
+    keywordstyle=\color{darkorange}\bfseries,
     sensitive=true,
     morecomment=[l]{\#},
     morestring=[b]',
@@ -58,11 +70,16 @@
 
 \lstset{
   captionpos=b,
-  basicstyle=\ttfamily\small,
+  basicstyle=\fontfamily{pcr}\selectfont\small,
   keywordstyle=\color{darkorange}\bfseries,
   commentstyle=\color{gray},
   stringstyle=\color{darkgreen},
 }
+
+\renewcommand{\lstlistlistingname}{List of Listings}
+
+\hyphenation{Ku-be-sca-pe}
+\hyphenation{spo-loč-no-stí}
 
 %\captionsetup[subfigure]{font=large}
 
@@ -261,9 +278,12 @@ First, I would like to express my gratitude to Mgr. Ľubomír Firment for his gu
 % -------------------
 % --- Zoznamy tabuliek, obrázkov - nepovinne
 % -------------------
-\newpage 
 \listoffigures
 \listoftables
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Listings}
+\lstlistoflistings
 % ---  Koniec Zoznamov
 
 \input{terminology}
@@ -281,6 +301,7 @@ First, I would like to express my gratitude to Mgr. Ľubomír Firment for his gu
 % \input{research/research}
 \input{results/results}
 \input{conclusion}
+\input{appendix}
 
 
 %main content 

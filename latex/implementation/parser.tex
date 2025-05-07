@@ -1,2 +1,27 @@
 \section{Parser}
 \label{sec:parser}
+
+To make the product extendable, parser service defines a common interface for all security scanner parsers and provides a common definition of vulerabilty and misconfiguration using Golang structures. Listing~\ref{lst:parser-interface} shows a code snippet of the definition. Golang does not support objects and classes in the traditional sense. Instead, it uses interfaces: any structure that implements the methods of the interface is considered to satisfy that interface.
+
+\begin{lstlisting}[language=Go, caption={[A common interface for parsers] A common interface for parsers.}, label={lst:parser-interface}]
+    /* Parser defines a common interface 
+    for all security scanner parsers */
+    type Parser interface {
+        Parse(filePath string) ([]Vulnerability, 
+            []Misconfiguration, error)
+        GetResults() interface{}
+        GetVulnerabilities() []Vulnerability
+        GetMisconfigurations() []Misconfiguration
+    }
+\end{lstlisting}
+
+We parse the JSON reports using the standard Go module \lstinline{encoding/json}. However, the structure of those reports varies significantly and sometimes is very complex. Some reports, like the ones produced by Kube-bench for instance, are missing some fields. Kube-bench does not specify the severity of its findings, neither it specifies the target. In this case we have to use default values: we set severity to \textbf{HIGH}, for example. Additionally, Kube-bench sets status to \textbf{WARN} for manual checks and those have to be remapped onto \textbf{MANUAL} to be consistent with the Prowler's notation.
+
+Go's \lstinline{net/http} library is used to expose a number of endpoints for other services to use. As the server creates a new goroutine for each incoming HTTP request, we have to be careful with our data. Instances of our parsers are static and shared by those goroutines. That is why each instance has a mutex, that is locked whenever a critical operation is performed on the data and unlocked afterwards.
+
+In order to extend the Parser with a new tool, there are three things to be considered:
+\begin{enumerate}[noitemsep]
+    \item A new implementation of the parser interface (see Listing~\ref{lst:parser-interface}) should be defined. It must have \lstinline{Parse()} method, which would define parsing process for the scanner.
+    \item This implementation should be added to the parser initialization inside the main function.
+    \item Parser should be added to the database.
+\end{enumerate}

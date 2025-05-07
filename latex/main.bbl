@@ -5,6 +5,34 @@ Aquasec kubernetes vulnerability database - misconfigurations.
 \newblock \url{https://avd.aquasec.com/misconfig/kubernetes/}, Accessed:
   7.3.2025.
 
+\bibitem{kubescape-github}
+Kubescape github page.
+\newblock \url{https://github.com/kubescape/kubescape}, Accessed: 20.4.2025.
+
+\bibitem{prowler-github}
+Prowler github page.
+\newblock \url{https://github.com/prowler-cloud/prowler}, Accessed: 20.4.2025.
+
+\bibitem{regolibrary-github}
+Regolibrary github page.
+\newblock \url{https://github.com/kubescape/regolibrary}, Accessed: 20.4.2025.
+
+\bibitem{trivy-github}
+Trivy github page.
+\newblock \url{https://github.com/aquasecurity/trivy}, Accessed: 20.4.2025.
+
+\bibitem{kube-bench-github}
+Trivy github page.
+\newblock \url{https://github.com/aquasecurity/kube-bench}, Accessed:
+  20.4.2025.
+
+\bibitem{nsa-kubernetes-hardening-guide}
+National~Security Agency, Cybersecurity, and Infrastructure~Security Agency.
+\newblock {\em Kubernetes Hardening Guide v1.2}.
+\newblock NSA, 2022.
+\newblock PDF available online at
+  https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR\_KUBERNETES\_HARDENING\_GUIDANCE\_1.2\_20220829.PDF.
+
 \bibitem{defects}
 D.~B. Bose, A.~Rahman, and S.~I. Shamim.
 \newblock `under-reported' security defects in kubernetes manifests.
@@ -26,10 +54,23 @@ D.~A. Castillo~Rivas and D.~Guamán.
 \newblock In {\em Communications in Computer and Information Science}, volume
   1388. Springer, 2021.
 
+\bibitem{cis-kubernetes-benchmark}
+Center for Internet~Security.
+\newblock {\em CIS Kubernetes Benchmark v1.11.0 - 04-01-2025}.
+\newblock CIS, 2025.
+\newblock PDF available online at \url{https://downloads.cisecurity.org/}.
+
 \bibitem{kubernetes}
 The~Linux Foundation.
 \newblock Kubernetes official webpage.
 \newblock \url{https://kubernetes.io/}, Accessed: 4.11.2024.
+
+\bibitem{pod-security-preemption}
+The~Linux Foundation.
+\newblock Pod priority and preemption.
+\newblock
+  \url{https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/},
+  Accessed: 20.4.2025.
 
 \bibitem{rancher-desktop}
 SUSE Rancher~Engineering group.
@@ -56,6 +97,12 @@ Rani Osnat.
   \url{https://www.aquasec.com/cloud-native-academy/kubernetes-in-production/kubernetes-security-best-practices-10-steps-to-securing-k8s/},
   Accessed: 7.3.2025.
 
+\bibitem{aqua-vulnerability-database}
+Aqua Security.
+\newblock Aqua vulnerability database.
+\newblock \url{https://avd.aquasec.com/misconfig/kubernetes}, Accessed:
+  20.4.2025.
+
 \bibitem{ibm-containerization}
 Stephanie Susnjara and Ian Smalley.
 \newblock What is containerization?
@@ -66,5 +113,12 @@ Stephanie Susnjara and Ian Smalley.
 Stephanie Susnjara and Ian Smalley.
 \newblock What is kubernetes?
 \newblock \url{https://www.ibm.com/topics/kubernetes}, Accessed: 4.11.2024.
+
+\bibitem{prowler-app-page}
+Prowler Team.
+\newblock Prowler open source documentation.
+\newblock
+  \url{https://docs.prowler.com/projects/prowler-open-source/en/latest/},
+  Accessed: 20.4.2025.
 
 \end{thebibliography}

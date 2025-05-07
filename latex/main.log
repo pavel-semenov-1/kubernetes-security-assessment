@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.22)  4 APR 2025 17:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.22)  6 MAY 2025 17:28
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -605,6 +605,19 @@ File: lstmisc.sty 2024/02/21 1.10 (Carsten Heinz)
 File: listings.cfg 2024/02/21 1.10 listings configuration
 ))
 Package: listings 2024/02/21 1.10 (Carsten Heinz)
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip64
+\enit@outerparindent=\dimen271
+\enit@toks=\toks33
+\enit@inbox=\box66
+\enit@count@id=\count349
+\enitdp@description=\count350
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/courier.sty
+Package: courier 2020/03/25 PSNFSS-v9.3 (WaS) 
+)
 runsystem(command -v pygmentize && touch main.aex)...executed.
 
 runsystem(rm main.aex)...executed.
@@ -612,30 +625,30 @@ runsystem(rm main.aex)...executed.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count349
-\l__pdf_internal_box=\box66
+\l__color_backend_stack_int=\count351
+\l__pdf_internal_box=\box67
 )
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -673,45 +686,45 @@ LaTeX Font Info:    ... okay on input line 94.
 
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count350
-\scratchdimen=\dimen271
-\scratchbox=\box67
-\nofMPsegments=\count351
-\nofMParguments=\count352
-\everyMPshowfont=\toks33
-\MPscratchCnt=\count353
-\MPscratchDim=\dimen272
-\MPnumerator=\count354
-\makeMPintoPDFobject=\count355
-\everyMPtoPDFconversion=\toks34
+\scratchcounter=\count352
+\scratchdimen=\dimen272
+\scratchbox=\box68
+\nofMPsegments=\count353
+\nofMParguments=\count354
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count355
+\MPscratchDim=\dimen273
+\MPnumerator=\count356
+\makeMPintoPDFobject=\count357
+\everyMPtoPDFconversion=\toks35
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 94.
+Package hyperref Info: Link coloring OFF on input line 111.
  (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
-\c@lstlisting=\count356
-LaTeX Font Info:    Trying to load font information for U+msa on input line 109
+\c@lstlisting=\count358
+LaTeX Font Info:    Trying to load font information for U+msa on input line 126
 .
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 109
+LaTeX Font Info:    Trying to load font information for U+msb on input line 126
 .
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<images/FMFI_logo_BP.png, id=132, 284.7438pt x 284.7438pt>
+<images/FMFI_logo_BP.png, id=205, 284.7438pt x 284.7438pt>
 File: images/FMFI_logo_BP.png Graphic file (type png)
 <use images/FMFI_logo_BP.png>
-Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 114.
+Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 131.
 (pdftex.def)             Requested size: 176.40439pt x 176.40898pt.
  [1
 
@@ -721,46 +734,46 @@ al/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./images/
 FMFI_logo_BP.png>]
 File: images/FMFI_logo_BP.png Graphic file (type png)
 <use images/FMFI_logo_BP.png>
-Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 146.
+Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 163.
 (pdftex.def)             Requested size: 176.40439pt x 176.40898pt.
  [2
 
 ]
-<assignment_en.PDF, id=149, page=1, 597.50731pt x 845.04607pt>
+<assignment_en.PDF, id=222, page=1, 597.50731pt x 845.04607pt>
 File: assignment_en.PDF Graphic file (type pdf)
 <use assignment_en.PDF, page 1>
-Package pdftex.def Info: assignment_en.PDF , page1 used on input line 185.
+Package pdftex.def Info: assignment_en.PDF , page1 used on input line 202.
 (pdftex.def)             Requested size: 485.1222pt x 686.09537pt.
 
-Overfull \hbox (4.82378pt too wide) in paragraph at lines 185--186
+Overfull \hbox (4.82378pt too wide) in paragraph at lines 202--203
 [] [] 
  []
 
 [3
 
  <./assignment_en.PDF>]
-<assignment_sk.PDF, id=178, page=2, 597.50731pt x 845.04607pt>
+<assignment_sk.PDF, id=251, page=2, 597.50731pt x 845.04607pt>
 File: assignment_sk.PDF Graphic file (type pdf)
 <use assignment_sk.PDF, page 2>
-Package pdftex.def Info: assignment_sk.PDF , page2 used on input line 189.
+Package pdftex.def Info: assignment_sk.PDF , page2 used on input line 206.
 (pdftex.def)             Requested size: 485.1222pt x 686.09537pt.
 
-Overfull \hbox (4.82378pt too wide) in paragraph at lines 189--190
+Overfull \hbox (4.82378pt too wide) in paragraph at lines 206--207
 [] [] 
  []
 
 [4 <./assignment_sk.PDF>]
-Underfull \hbox (badness 10000) in paragraph at lines 204--206
+Underfull \hbox (badness 10000) in paragraph at lines 221--223
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 204--206
+Underfull \hbox (badness 10000) in paragraph at lines 221--223
 
  []
 
 
-Overfull \hbox (5.22096pt too wide) in paragraph at lines 200--207
+Overfull \hbox (5.22096pt too wide) in paragraph at lines 217--224
 $[]$  $[]$ 
  []
 
@@ -769,13 +782,7 @@ $[]$  $[]$
 
 ] (./abstract.tex) [7
 
-] (./abstrakt.tex)
-Overfull \hbox (19.66112pt too wide) in paragraph at lines 1--245
-\T1/cmr/m/n/12 Kubernetes v posled-ných rokoch rýchlo získava na pop-u-lar-ite,
- pre-toºe £o-raz viac spolo£ností
- []
-
-[8
+] (./abstrakt.tex) [8
 
 ] (./main.toc [9
 
@@ -783,7 +790,8 @@ Overfull \hbox (19.66112pt too wide) in paragraph at lines 1--245
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
- [10] (./main.lof)
+ [10]
+(./main.lof)
 \tf@lof=\write7
 \openout7 = `main.lof'.
 
@@ -793,282 +801,476 @@ Overfull \hbox (19.66112pt too wide) in paragraph at lines 1--245
 \tf@lot=\write8
 \openout8 = `main.lot'.
 
- (./terminology.tex
-[12
+ [12
 
-] [13
+] (./main.lol)
+\tf@lol=\write9
+\openout9 = `main.lol'.
+
+ (./terminology.tex [13
+
+]
+[14
 
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-) [14] (./motivation.tex
-
-LaTeX Warning: Reference `chap:conclusion' on page 1 undefined on input line 9.
+ [15]) [16] (./motivation.tex) (./introduction/introduction.tex [1
 
 
-) (./introduction/introduction.tex [1
-
-
-]
+] [2]
 Chapter 1.
-(./introduction/containerization.tex [2
+(./introduction/containerization.tex [3
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
-9.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 19
+.
 
-(/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+) [4{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 23.
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 24.
- [3]
-<images/containers-vs-virtual-machines.jpg, id=358, 1927.2pt x 975.645pt>
+<images/containers-vs-virtual-machines.jpg, id=518, 1927.2pt x 975.645pt>
 File: images/containers-vs-virtual-machines.jpg Graphic file (type jpg)
 <use images/containers-vs-virtual-machines.jpg>
 Package pdftex.def Info: images/containers-vs-virtual-machines.jpg  used on inp
 ut line 45.
 (pdftex.def)             Requested size: 330.76329pt x 167.43549pt.
- [4 <./images/containers-vs-virtual-machines.jpg>] [5]) (./introduction/kuberne
-tes.tex
-[6]
-<images/components-of-kubernetes.pdf, id=380, 942.66823pt x 440.42018pt>
+ [5] [6 <./images/containers-vs-virtual-machines.jpg>]) (./introduction/kuberne
+tes.tex [7]
+<images/components-of-kubernetes.pdf, id=548, 942.66823pt x 440.42018pt>
 File: images/components-of-kubernetes.pdf Graphic file (type pdf)
 <use images/components-of-kubernetes.pdf>
 Package pdftex.def Info: images/components-of-kubernetes.pdf  used on input lin
 e 19.
 (pdftex.def)             Requested size: 374.86775pt x 175.13675pt.
- [7 <./images/components-of-kubernetes.pdf>] [8] [9] [10]
-<images/cloud-security.png, id=430, 776.9025pt x 448.074pt>
-File: images/cloud-security.png Graphic file (type png)
-<use images/cloud-security.png>
-Package pdftex.def Info: images/cloud-security.png  used on input line 116.
-(pdftex.def)             Requested size: 330.76329pt x 190.76735pt.
-
-Underfull \hbox (badness 1629) in paragraph at lines 133--133
-[]|\T1/cmr/bx/n/12 Area of Con-
+ [8 <./images/components-of-kubernetes.pdf>] [9] [10] [11] [12] [13]
+Overfull \hbox (5.74173pt too wide) in paragraph at lines 157--158
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
  []
 
-
-Underfull \hbox (badness 3769) in paragraph at lines 133--133
-\T1/cmr/bx/n/12 cern for Ku-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 133--133
-\T1/cmr/bx/n/12 ber-netes In-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 135--135
-[]|\T1/cmr/m/n/12 Network ac-cess
- []
-
-
-Underfull \hbox (badness 8056) in paragraph at lines 135--135
-\T1/cmr/m/n/12 to API Server
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
-[]|\T1/cmr/m/n/12 Network ac-cess
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 139--139
-[]|\T1/cmr/m/n/12 Kubernetes ac-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 139--139
-\T1/cmr/m/n/12 cess to Cloud
- []
-
-
-Overfull \hbox (25.19997pt too wide) in paragraph at lines 131--146
- [] 
- []
-
-[11] [12 <./images/cloud-security.png (PNG copy)>]
-Underfull \hbox (badness 1629) in paragraph at lines 172--172
-[]|\T1/cmr/bx/n/12 Area of Con-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 174--174
-[]|\T1/cmr/m/n/12 Container Vul-
- []
-
-
-Underfull \hbox (badness 5119) in paragraph at lines 174--174
-\T1/cmr/m/n/12 ner-a-bil-ity Scan-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 174--174
-\T1/cmr/m/n/12 ning and OS
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 174--174
-\T1/cmr/m/n/12 De-pen-dency
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--176
-[]|\T1/cmr/m/n/12 Image Sign-ing
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 178--178
-[]|\T1/cmr/m/n/12 Disallow priv-i-
- []
-
-
-Overfull \hbox (25.19997pt too wide) in paragraph at lines 170--181
- [] 
- []
-
-[13]
-Underfull \hbox (badness 1629) in paragraph at lines 193--193
-[]|\T1/cmr/bx/n/12 Area of Con-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
-[]|\T1/cmr/m/n/12 Limiting port
- []
-
-
-Underfull \hbox (badness 4013) in paragraph at lines 197--197
-\T1/cmr/m/n/12 ranges of com-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 201--201
-[]|\T1/cmr/m/n/12 Static Code
- []
-
-
-Overfull \hbox (25.19997pt too wide) in paragraph at lines 191--206
- [] 
- []
-
-[14] [15]
-Overfull \hbox (26.23177pt too wide) in paragraph at lines 266--267
-[][][][][][][][][][][][][][][][][][][][][][][][][]\T1/cmr/m/n/12 . 
- []
-
-<images/openshift-dashboard.png, id=474, 3011.25pt x 2541.495pt>
+<images/openshift-dashboard.png, id=619, 3011.25pt x 2541.495pt>
 File: images/openshift-dashboard.png Graphic file (type png)
 <use images/openshift-dashboard.png>
-Package pdftex.def Info: images/openshift-dashboard.png  used on input line 272
+Package pdftex.def Info: images/openshift-dashboard.png  used on input line 163
 .
 (pdftex.def)             Requested size: 374.86775pt x 316.36757pt.
-[16]
-<images/rancher-desktop.png, id=485, 960.58875pt x 540.51938pt>
+[14 <./images/openshift-dashboard.png>]
+<images/rancher-desktop.png, id=627, 960.58875pt x 540.51938pt>
 File: images/rancher-desktop.png Graphic file (type png)
 <use images/rancher-desktop.png>
-Package pdftex.def Info: images/rancher-desktop.png  used on input line 292.
+Package pdftex.def Info: images/rancher-desktop.png  used on input line 183.
 (pdftex.def)             Requested size: 374.86775pt x 210.93367pt.
-)) (./research/research.tex [17 <./images/openshift-dashboard.png>]
-[18 <./images/rancher-desktop.png>]
-Chapter 2.
-(./research/security_automation.tex [19
+)
+(./introduction/security_frameworks.tex [15 <./images/rancher-desktop.png>]
+[16]
+<images/cloud-security.png, id=642, 776.9025pt x 448.074pt>
+File: images/cloud-security.png Graphic file (type png)
+<use images/cloud-security.png>
+Package pdftex.def Info: images/cloud-security.png  used on input line 17.
+(pdftex.def)             Requested size: 330.76329pt x 190.76735pt.
 
-] [20]) (./research/methodology.tex
-[21]) (./research/vulnerability_classification.tex
-Underfull \hbox (badness 10000) in paragraph at lines 12--12
+Overfull \hbox (3.14774pt too wide) in paragraph at lines 32--48
+ [] 
+ []
+
+[17 <./images/cloud-security.png (PNG copy)>] [18]
+Overfull \hbox (3.14774pt too wide) in paragraph at lines 72--84
+ [] 
+ []
+
+
+Overfull \hbox (3.14774pt too wide) in paragraph at lines 94--110
+ [] 
+ []
+
+[19] [20] [21]
+<images/hardened-container-build-workflow.png, id=681, 939.51pt x 709.65125pt>
+File: images/hardened-container-build-workflow.png Graphic file (type png)
+<use images/hardened-container-build-workflow.png>
+Package pdftex.def Info: images/hardened-container-build-workflow.png  used on 
+input line 144.
+(pdftex.def)             Requested size: 396.91325pt x 299.80568pt.
+ [22 <./images/hardened-container-build-workflow.png>]
+<images/mitre-attack-matrix.png, id=688, 1048.91875pt x 386.44376pt>
+File: images/mitre-attack-matrix.png Graphic file (type png)
+<use images/mitre-attack-matrix.png>
+Package pdftex.def Info: images/mitre-attack-matrix.png  used on input line 158
+.
+(pdftex.def)             Requested size: 441.01773pt x 162.47627pt.
+))
+(./research/research.tex [23 <./images/mitre-attack-matrix.png>]
+Chapter 2.
+(./research/security_automation.tex [24
+
+] [25] [26]
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+) [27]
+<images/prowler-dashboard.png, id=726, 3468.96pt x 1810.765pt>
+File: images/prowler-dashboard.png Graphic file (type png)
+<use images/prowler-dashboard.png>
+Package pdftex.def Info: images/prowler-dashboard.png  used on input line 89.
+(pdftex.def)             Requested size: 374.86775pt x 195.67575pt.
+
+[28 <./images/prowler-dashboard.png>] [29] [30]
+Overfull \hbox (5.05875pt too wide) in paragraph at lines 136--154
+ [] 
+ []
+
+) (./research/methodology.tex [31])
+(./research/vulnerability_classification.tex
+Underfull \hbox (badness 10000) in paragraph at lines 13--13
 []|\T1/cmr/m/n/12 1.1 Mis-con-fig-ured
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--16
-[]|\T1/cmr/m/n/12 Undefined pre-emp-tion poli-
+Underfull \hbox (badness 1484) in paragraph at lines 17--17
+[]|\T1/cmr/m/n/12 Undefined pre-emp-tion poli-cies/pri-or-i-
+ []
+
+
+Underfull \hbox (badness 1789) in paragraph at lines 24--24
+[]\T1/cmr/m/n/12 3. Ku-ber-netes
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/12 3.2 In-gress/Egress
+\T1/cmr/m/n/12 Server Vul-ner-a-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 26--26
+Overfull \vbox (8.2647pt too high) detected at line 24
+ []
+
+
+Underfull \hbox (badness 1052) in paragraph at lines 25--25
+[]|\T1/cmr/m/n/12 3.1 API Server Ex-po-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--29
+\T1/cmr/m/n/12 Communication
+ []
+
+
+Overfull \vbox (8.26468pt too high) detected at line 29
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 33--33
+\T1/cmr/m/n/12 Execution Vul-
+ []
+
+
+Overfull \vbox (8.26468pt too high) detected at line 33
+ []
+
+
+Overfull \hbox (11.13997pt too wide) in paragraph at lines 8--37
+ [] 
+ []
+
+) (./research/experimental_environment.tex [32] [33]
+<images/demo-users.png, id=778, 1227.58624pt x 677.53125pt>
+File: images/demo-users.png Graphic file (type png)
+<use images/demo-users.png>
+Package pdftex.def Info: images/demo-users.png  used on input line 9.
+(pdftex.def)             Requested size: 218.30348pt x 120.48232pt.
+
+Overfull \hbox (19.84686pt too wide) in paragraph at lines 9--10
+[][] 
+ []
+
+<images/demo-subjects.png, id=779, 1198.4775pt x 640.3925pt>
+File: images/demo-subjects.png Graphic file (type png)
+<use images/demo-subjects.png>
+Package pdftex.def Info: images/demo-subjects.png  used on input line 15.
+(pdftex.def)             Requested size: 218.30348pt x 116.64346pt.
+
+Overfull \hbox (19.84686pt too wide) in paragraph at lines 15--16
+[][] 
+ []
+
+[34 <./images/demo-users.png> <./images/demo-subjects.png>] [35]))
+(./implementation/implementation.tex [36]
+Chapter 3.
+(./implementation/architecture_and_software_design.tex [37
+
+]
+<images/ksa-component-diagram.png, id=852, 917.4275pt x 373.395pt>
+File: images/ksa-component-diagram.png Graphic file (type png)
+<use images/ksa-component-diagram.png>
+Package pdftex.def Info: images/ksa-component-diagram.png  used on input line 2
+3.
+(pdftex.def)             Requested size: 396.91325pt x 161.54239pt.
+ [38 <./images/ksa-component-diagram.png>]
+<images/ksa-schematic.png, id=859, 1196.47pt x 2002.48125pt>
+File: images/ksa-schematic.png Graphic file (type png)
+<use images/ksa-schematic.png>
+Package pdftex.def Info: images/ksa-schematic.png  used on input line 33.
+(pdftex.def)             Requested size: 220.50887pt x 369.04768pt.
+) (./implementation/data_design.tex
+<images/er-diagram.png, id=861, 927.465pt x 1373.13pt>
+File: images/er-diagram.png Graphic file (type png)
+<use images/er-diagram.png>
+Package pdftex.def Info: images/er-diagram.png  used on input line 8.
+(pdftex.def)             Requested size: 220.50887pt x 326.457pt.
+
+Overfull \hbox (4.22763pt too wide) in paragraph at lines 14--15
+[]\T1/cmr/m/n/12 Notice that both \T1/cmr/bx/n/12 vul-ner-a-bil-ity \T1/cmr/m/n
+/12 and \T1/cmr/bx/n/12 mis-con-fig-u-ra-tion \T1/cmr/m/n/12 ta-bles have \T1/c
+mr/bx/n/12 search_vector
+ []
+
+[39 <./images/ksa-schematic.png>]
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+)
+LaTeX Font Info:    Trying to load font information for TS1+pcr on input line 2
+5.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1pcr.fd
+File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
+) [40 <./images/er-diagram.png (PNG copy)>]) (./implementation/parser.tex
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2024/02/21 1.10 listings language file
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2024/02/21 1.10 listings language file
+) [41])
+(./implementation/aggregator.tex) (./implementation/dashboard.tex [42]
+<images/ksa-dashboard-ui.png, id=928, 1385.175pt x 824.07875pt>
+File: images/ksa-dashboard-ui.png Graphic file (type png)
+<use images/ksa-dashboard-ui.png>
+Package pdftex.def Info: images/ksa-dashboard-ui.png  used on input line 10.
+(pdftex.def)             Requested size: 396.91325pt x 236.1349pt.
+ [43 <./images/ksa-dashboard-ui.png>]
+<images/ksa-dashboard-statistics.png, id=935, 1551.7975pt x 990.70125pt>
+File: images/ksa-dashboard-statistics.png Graphic file (type png)
+<use images/ksa-dashboard-statistics.png>
+Package pdftex.def Info: images/ksa-dashboard-statistics.png  used on input lin
+e 22.
+(pdftex.def)             Requested size: 396.91325pt x 253.38887pt.
+) (./implementation/build_and_deployment.tex
+[44 <./images/ksa-dashboard-statistics.png>])) (./results/results.tex [45]
+Chapter 4.
+[46
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[]|\T1/cmr/m/n/12 Kube-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[]|\T1/cmr/m/n/12 Kube-
+ []
+
+
+Underfull \hbox (badness 2065) in paragraph at lines 24--24
+[]|[] \T1/cmr/m/n/12 1. Con-fig-u-ra-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--24
+[]|\T1/cmr/m/n/12 1.1 Mis-con-fig-ured
+ []
+
+
+Underfull \hbox (badness 1622) in paragraph at lines 30--30
+[]|\T1/cmr/m/n/12 2.2 Out-dated Pack-
+ []
+
+
+Underfull \hbox (badness 1881) in paragraph at lines 35--35
+[]|[] \T1/cmr/m/n/12 4. Net-work and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--36
+[]|\T1/cmr/m/n/12 4.2 In-gress/Egress
+ []
+
+
+Underfull \hbox (badness 4556) in paragraph at lines 37--37
+[]|\T1/cmr/m/n/12 5.1 Run-time Priv-i-
+ []
+
+
+Underfull \hbox (badness 1360) in paragraph at lines 38--38
 []|\T1/cmr/m/n/12 5.2 Con-tain-ers with
  []
 
 
-Overfull \hbox (11.13995pt too wide) in paragraph at lines 8--28
+Overfull \hbox (30.70892pt too wide) in paragraph at lines 20--40
  [] 
  []
 
-) (./research/experimental_environment.tex [22]
-Overfull \vbox (50.37431pt too high) has occurred while \output is active []
+[47] [48]
+<images/trivy-misconfigurations.png, id=1000, 642.4pt x 481.8pt>
+File: images/trivy-misconfigurations.png Graphic file (type png)
+<use images/trivy-misconfigurations.png>
+Package pdftex.def Info: images/trivy-misconfigurations.png  used on input line
+ 53.
+(pdftex.def)             Requested size: 220.50887pt x 165.38309pt.
+<images/success-rate.png, id=1003, 642.4pt x 481.8pt>
+File: images/success-rate.png Graphic file (type png)
+<use images/success-rate.png>
+Package pdftex.def Info: images/success-rate.png  used on input line 67.
+(pdftex.def)             Requested size: 176.40439pt x 132.30058pt.
+<images/success-rate-no-manual.png, id=1004, 642.4pt x 481.8pt>
+File: images/success-rate-no-manual.png Graphic file (type png)
+<use images/success-rate-no-manual.png>
+Package pdftex.def Info: images/success-rate-no-manual.png  used on input line 
+73.
+(pdftex.def)             Requested size: 176.40439pt x 132.30058pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--74
+\T1/cmr/m/n/14.4 ex-clud-ing man-u-ally per-
+ []
 
 
-[23])) (./implementation/implementation.tex [24]
-Chapter 3.
-(./implementation/parser.tex) (./implementation/aggregator.tex)
-(./implementation/dashboard.tex)) (./results/results.tex [25
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-]
-Chapter 4.
-) (./conclusion.tex [26
+<images/number-of-checks.png, id=1005, 642.4pt x 481.8pt>
+File: images/number-of-checks.png Graphic file (type png)
+<use images/number-of-checks.png>
+Package pdftex.def Info: images/number-of-checks.png  used on input line 85.
+(pdftex.def)             Requested size: 220.50887pt x 165.38309pt.
+[49 <./images/trivy-misconfigurations.png>]
+<images/vulnerabilities-by-severity.png, id=1012, 642.4pt x 481.8pt>
+File: images/vulnerabilities-by-severity.png Graphic file (type png)
+<use images/vulnerabilities-by-severity.png>
+Package pdftex.def Info: images/vulnerabilities-by-severity.png  used on input 
+line 97.
+(pdftex.def)             Requested size: 176.40439pt x 132.30058pt.
+<images/vulnerabilities-by-application-type.png, id=1013, 642.4pt x 481.8pt>
+File: images/vulnerabilities-by-application-type.png Graphic file (type png)
+<use images/vulnerabilities-by-application-type.png>
+Package pdftex.def Info: images/vulnerabilities-by-application-type.png  used o
+n input line 103.
+(pdftex.def)             Requested size: 176.40439pt x 132.30058pt.
 
-]) [27
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[50 <./images/success-rate.png> <./images/success-rate-no-manual.png> <./images
+/number-of-checks.png>]) (./conclusion.tex [51 <./images/vulnerabilities-by-sev
+erity.png> <./images/vulnerabilities-by-application-type.png>]) (./appendix.tex
+[52
+
+]) [53
 
 ] (./main.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 53--58
-\T1/cmtt/m/n/12 / / www . aquasec . com / cloud-[]native-[]academy / kubernetes
--[]in-[]production /
+Underfull \hbox (badness 10000) in paragraph at lines 17--19
+[]\T1/cmr/m/n/12 Regolibrary github page.  []$\T1/pcr/m/n/12 https : / / github
+ . com / kubescape /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 53--58
-\T1/cmtt/m/n/12 kubernetes-[]security-[]best-[]practices-[]10-[]steps-[]to-[]se
-curing-[]k8s/$[]\T1/cmr/m/n/12 , Ac-
+Underfull \hbox (badness 10000) in paragraph at lines 30--35
+[]\T1/cmr/m/n/12 National Se-cu-rity Agency, Cy-ber-se-cu-rity, and In-fras-tru
+c-ture Se-cu-rity
  []
 
-[28
+
+Underfull \hbox (badness 1824) in paragraph at lines 30--35
+\T1/cmr/m/n/12 Agency.  \T1/cmr/m/it/12 Ku-ber-netes Hard-en-ing Guide v1.2\T1/
+cmr/m/n/12 .  NSA, 2022.  PDF avail-
+ []
 
 
-])
+Underfull \hbox (badness 10000) in paragraph at lines 30--35
+\T1/cmr/m/n/12 able on-line at https://media.defense.gov/2022/Aug/29/2003066362
+/-1/-
+ []
 
-Package caption Warning: Unused \captionsetup[sub] on input line 34.
-See the caption package documentation for explanation.
+[54
 
-[29] (./main.aux)
+
+]
+Underfull \hbox (badness 8189) in paragraph at lines 69--74
+[]\T1/cmr/m/n/12 The Linux Foun-da-tion.  Pod pri-or-ity and pre-emp-tion.  []$
+\T1/pcr/m/n/12 https :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--74
+\T1/pcr/m/n/12 / / kubernetes . io / docs / concepts / scheduling-[]eviction /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--99
+[]\T1/cmr/m/n/12 Rani Os-nat.  Ku-ber-netes se-cu-rity ba-sics and 10 es-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--99
+\T1/cmr/m/n/12 sen-tial best prac-tices.  []$\T1/pcr/m/n/12 https : / / www . a
+quasec . com /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--99
+\T1/pcr/m/n/12 cloud-[]native-[]academy / kubernetes-[]in-[]production /
+ []
+
+
+Overfull \hbox (22.39339pt too wide) in paragraph at lines 94--99
+\T1/pcr/m/n/12 kubernetes-[]security-[]best-[]practices-[]10-[]steps-[]to-[]sec
+uring-[]k8s/$[]\T1/cmr/m/n/12 ,
+ []
+
+
+Underfull \hbox (badness 1694) in paragraph at lines 118--123
+[]\T1/cmr/m/n/12 Prowler Team.  Prowler open source doc-u-men-ta-tion.  []$\T1/
+pcr/m/n/12 https : / / docs .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--123
+\T1/pcr/m/n/12 prowler . com / projects / prowler-[]open-[]source / en / latest
+/$[]\T1/cmr/m/n/12 , Ac-
+ []
+
+) [55] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 036CCE3EE8D014332D49A76B767DF048;4207.
+(rerunfilecheck)             Checksum: 8A105F31C5F60371D8508E7F36F79BBB;6862.
  ) 
 Here is how much of TeX's memory you used:
- 19015 strings out of 474116
- 319368 string characters out of 5743681
- 1945187 words of memory out of 5000000
- 40889 multiletter control sequences out of 15000+600000
- 570536 words of font info for 66 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 77i,11n,79p,1686b,1170s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 20464 strings out of 474116
+ 344590 string characters out of 5743681
+ 1983187 words of memory out of 5000000
+ 42068 multiletter control sequences out of 15000+600000
+ 576828 words of font info for 83 fonts, out of 8000000 for 9000
+ 1143 hyphenation exceptions out of 8191
+ 77i,15n,79p,1784b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></
 usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></us
 r/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/
-local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/lo
-cal/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/loca
-l/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/
-texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (43 pages, 2078855 bytes).
+local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/lo
+cal/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/loca
+l/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/
+texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/te
+xlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texl
+ive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texliv
+e/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/t
+exmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on main.pdf (71 pages, 5082663 bytes).
 PDF statistics:
- 636 PDF objects out of 1000 (max. 8388607)
- 530 compressed objects within 6 object streams
- 142 named destinations out of 1000 (max. 500000)
- 297 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1208 PDF objects out of 1440 (max. 8388607)
+ 1030 compressed objects within 11 object streams
+ 356 named destinations out of 1000 (max. 500000)
+ 521 words of extra memory for PDF output out of 10000 (max. 10000000)
 

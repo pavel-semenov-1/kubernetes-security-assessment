@@ -1,8 +1,11 @@
 \chapter{Implementation}
 \label{chap:implementation}
 
-This chapter focuses on the implementation aspects of the KSA Dashboard. 
+To achieve the most precise results it was necessary to run different scanners multiple times. JSON reports had to be then manually parsed to extract the data on a number of occassions. In order to automate this process and develop an application that would vastly improve the monitoring possibilities inside a Kubernetes cluster, we needed a tool that aggregates multiple scanners into one solution, automatically parses the results and visualizes them. Thus, KSA dashboard has emerged, comrised of the three components, two backend ones and one frontend: \textbf{ksa-aggregator}, \textbf{ksa-parser} and \textbf{ksa-dashboard}, respectively. Since the microservices are developed specifically for the Kubernetes environment and need to be closely integrated with it, Go was chosen as the primary language for the backend microservices. ReactJS was chosen for the frontend as one of the simplest yet very powerful JavaScripts frameworks (though we used Typescript). This chapter focuses on some of the implementation aspects of the KSA Dashboard. 
 
+\input{implementation/architecture_and_software_design}
+\input{implementation/data_design}
 \input{implementation/parser}
 \input{implementation/aggregator}
 \input{implementation/dashboard}
+\input{implementation/build_and_deployment}

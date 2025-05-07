@@ -1,9 +1,11 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1.1}{\ignorespaces Security recommendations for the Cloud layer.}}{12}{table.caption.24}%
-\contentsline {table}{\numberline {1.2}{\ignorespaces Security recommendations for the Container layer.}}{13}{table.caption.25}%
-\contentsline {table}{\numberline {1.3}{\ignorespaces Security recommendations for the Code layer.}}{14}{table.caption.26}%
+\contentsline {table}{\numberline {1.1}{\ignorespaces Security recommendations for the cloud layer.}}{18}{table.caption.29}%
+\contentsline {table}{\numberline {1.2}{\ignorespaces Security recommendations for the Container layer.}}{19}{table.caption.30}%
+\contentsline {table}{\numberline {1.3}{\ignorespaces Security recommendations for the Code layer.}}{20}{table.caption.31}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Kubernetes security threat classification.}}{23}{table.caption.33}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Kubernetes security scanners preliminary comparison.}}{31}{table.caption.35}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Kubernetes security threat classification.}}{33}{table.caption.36}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Secuirty threats detected by the scanners.}}{48}{table.caption.43}%

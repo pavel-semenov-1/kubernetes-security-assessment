@@ -1,2 +1,24 @@
 \section{Aggregator}
 \label{sec:aggregator}
+
+Aggregator service defines a common interface for all security scanner runners and provides a common interface for job tracking. Listing~\ref{lst:runner-interface} shows a code snippet of the definition.
+
+\begin{lstlisting}[language=Go, caption={[A common inteface for runners] A common inteface for runners.}, label={lst:runner-interface}]
+    /* Runner defines a common interface 
+    for all security scanner runners */
+    type Runner interface {
+        Run() error
+        GetStatus() JobStatus
+        CleanUp() error
+        Watch(*sql.DB) (int, string)
+    }
+\end{lstlisting}
+
+Aggregator uses Kubernetes API to create and delete jobs and watch for their completion. Each runner is provided with the same Kubernetes clientset. It is a set of generated Go clients that allow us to interact with the Kubernetes API programmatically. It handles authentication, API requests, version negotiation, and resource management. Runner then defines a job as a Golang struct and sends it to the Kubernetes API for creation.
+
+To extend Aggregator with a new scanner, the following steps should be considered:
+\begin{enumerate}[noitemsep,nosep]
+    \item If the scanner does not provide a Docker image, a custom Docker image should be defined and built.
+    \item A new Runner implementation should be created. \lstinline{Run()} method should define and run the Kubernetes job for the scanner.
+    \item Runner should be initiated inside the main Go function.
+\end{enumerate}
