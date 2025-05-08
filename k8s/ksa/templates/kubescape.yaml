@@ -44,43 +44,24 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-      # volumes:
-      # - name: kube-config
-      #   hostPath:
-      #     path: /Users/pavel/.kube/config
-      #     type: File
       containers:
         - name: kubescape
           image: {{ .Values.kubescape.image }}
           imagePullPolicy: IfNotPresent
-          # volumeMounts:
-          # - name: kube-config
-          #   mountPath: /home/.kube/config
-          # env:
-          # - name: KUBECONFIG
-          #   value: /home/.kube/config
           command:
-          - sleep
-          - inf
-          # args: 
-          # - -l
-          # - debug
-          # - operator
-          # - scan
-          # - configurations
-          # command:
-          #   - sh
-          #   - -c
-          #   - |
-          #     kubescape operator scan configurations
-          #     kubescape operator scan vulnerabilities
-          #     echo "Waiting for scan completion..."
-          #     while true; do
-          #       STATUS=$(kubectl get VulnerabilityManifestSummary -n {{ .Release.Namespace }} -o jsonpath="{.items[0].metadata.annotations.kubescape\.io/status}" 2>/dev/null)
-          #       if [ "$STATUS" = "ready" ]; then
-          #         echo "Scan finished!"
-          #         break
-          #       fi
-          #       sleep 10
-          #     done
+            - sh
+            - -c
+            - |
+              kubescape scan --format json
 {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.kubescape.storage.name }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.kubescape.storage.size }}

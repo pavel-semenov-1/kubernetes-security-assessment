@@ -7,13 +7,31 @@ import MisconfigurationBarChart from './MisconfigurationBarChart';
 
 const SidePanel: FC = () => {
     const [isPanelOpen, setIsPanelOpen] = useState<boolean>(false);
+    const [scanners, setScanners] = useState<string[]>([]);
     const togglePanel = () => {
         setIsPanelOpen((prev) => !prev);
     };
     const [results, setResults] = useState<StatResult[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const scanners = ["trivy"]
+    
+    useEffect(() => {
+      const fetchScanners = async () => {
+          try {
+              const response = await fetch(`/api/scanners`)
+              if (!response.ok) throw new Error(`Failed to fetch scanners`)
+              const data: string[] = await response.json()
+              if (data === null || Object.keys(data).length === 0) {
+                  setScanners([])
+              } else {
+                  setScanners(data)
+              }
+          } catch (err: any) {
+              console.error(err)
+          } 
+      }
+      fetchScanners();
+    }, [])
 
     useEffect(() => {
       const fetchStats = async () => {
@@ -40,7 +58,7 @@ const SidePanel: FC = () => {
       };
   
       fetchStats();
-    }, []); 
+    }, [scanners]); 
 
     return (
     <div>

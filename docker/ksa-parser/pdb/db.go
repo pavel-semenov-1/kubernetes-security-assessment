@@ -301,6 +301,41 @@ func (db *DB) DeleteMisconfigurationsBySearchTerm(reports []string, searchTerm s
 	return nil
 }
 
+func (db *DB) DeleteVulnerabilityById(id string) error {
+	query := `DELETE FROM vulnerability WHERE id=$1`
+	_, err := db.connection.Exec(query, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (db *DB) DeleteVulnerabilitiesBySearchTerm(reports []string, searchTerm string) error {
+	size := len(reports)
+	placeholders := make([]string, size)
+	args := make([]interface{}, size+1)
+	for i, r := range reports {
+		placeholders[i] = fmt.Sprintf("$%d", i+1)
+		args[i] = r
+	}
+
+	args[size] = searchTerm
+	searchTermPlaceholder := fmt.Sprintf("$%d", size+1)
+
+	query := fmt.Sprintf(`
+		DELETE FROM vulnerability 
+		WHERE report_id IN (%s)
+		  AND (%s = '' OR search_vector @@ plainto_tsquery(%s))
+	`, strings.Join(placeholders, ", "), searchTermPlaceholder, searchTermPlaceholder)
+
+	_, err := db.connection.Exec(query, args...)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (db *DB) ResolveMisconfigurationById(id string) error {
 	query := `
 		UPDATE misconfiguration
@@ -308,7 +343,7 @@ func (db *DB) ResolveMisconfigurationById(id string) error {
 		  WHEN 'FAIL' THEN 'RESOLVED'
 		  WHEN 'MANUAL' THEN 'RESOLVED'
 		  WHEN 'RESOLVED' THEN 'FAIL'
-		  ELSE status
+		  ELSE misconfiguration.status
 		END
 		FROM (
 		  SELECT mid, target, status
@@ -520,7 +555,7 @@ func (db *DB) GetMisconfigurationStatistics(reportId int) (map[string]int, error
 		"LOW":      0,
 	}
 
-	rows, err := db.connection.Query("SELECT severity, count(*) FROM misconfiguration where report_id=$1 GROUP BY severity;", reportId)
+	rows, err := db.connection.Query("SELECT severity, count(*) FROM misconfiguration where report_id=$1 and status in ('FAIL', 'MANUAL') GROUP BY severity;", reportId)
 	if err != nil {
 		return nil, fmt.Errorf("query failed: %v", err)
 	}

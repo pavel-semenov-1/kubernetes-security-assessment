@@ -50,11 +50,13 @@ func main() {
 	trivyParser := parser.NewTrivyParser()
 	kubeBenchParser := parser.NewKubeBenchParser()
 	prowlerParser := parser.NewProwlerParser()
+	kubescapeParser := parser.NewKubescapeParser()
 
 	parsers := map[string]parser.Parser{
 		"trivy":      trivyParser,
 		"kube-bench": kubeBenchParser,
 		"prowler":    prowlerParser,
+		"kubescape":  kubescapeParser,
 	}
 
 	parseAndPopulate := func(reportId string, w *http.ResponseWriter) error {
@@ -212,23 +214,56 @@ func main() {
 
 	// HTTP handler to query vulnerabilities
 	http.HandleFunc("/vulnerabilities", func(w http.ResponseWriter, r *http.Request) {
-		reportId := r.URL.Query().Get("reportId")
-		search := r.URL.Query().Get("search")
+		switch r.Method {
+		case http.MethodGet:
+			reportId := r.URL.Query().Get("reportId")
+			search := r.URL.Query().Get("search")
 
-		fmt.Printf("Querying vulnerabilities for reportId=%s and search=%s\n", reportId, search)
-		_, vulnerabilities, err := queryDBMiscVulnData(reportId, search, false, &w)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			panic(err)
+			fmt.Printf("Querying vulnerabilities for reportId=%s and search=%s\n", reportId, search)
+			_, vulnerabilities, err := queryDBMiscVulnData(reportId, search, false, &w)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				panic(err)
+			}
+
+			vulnMap := make(map[string][]parser.Vulnerability)
+			for _, vuln := range vulnerabilities {
+				vulnMap[vuln.Severity] = append(vulnMap[vuln.Severity], vuln)
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(vulnMap)
+		case http.MethodDelete:
+			reportId := r.URL.Query().Get("reportId")
+			id := r.URL.Query().Get("id")
+			search := r.URL.Query().Get("search")
+
+			fmt.Printf("Deleting vulnerabilities for reportId=%s, id=%s and search=%s\n", reportId, id, search)
+
+			if id == "" {
+				var reportIds []string
+				if reportId == "" {
+					reportIds, err = dbcon.GetLastParsedReportIds()
+					if err != nil {
+						http.Error(w, err.Error(), http.StatusInternalServerError)
+						panic(err)
+					}
+				} else {
+					reportIds = []string{reportId}
+				}
+				err = dbcon.DeleteVulnerabilitiesBySearchTerm(reportIds, search)
+				if err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					panic(err)
+				}
+			} else {
+				err = dbcon.DeleteVulnerabilityById(id)
+				if err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					panic(err)
+				}
+			}
 		}
-
-		vulnMap := make(map[string][]parser.Vulnerability)
-		for _, vuln := range vulnerabilities {
-			vulnMap[vuln.Severity] = append(vulnMap[vuln.Severity], vuln)
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(vulnMap)
 	})
 
 	// HTTP handler to query misconfigurations

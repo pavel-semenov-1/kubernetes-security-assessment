@@ -40,6 +40,9 @@ spec:
         - name: {{ .Values.prowler.storage.name }}
           mountPath: {{ .Values.parser.volumes.prowler.path }}
           readOnly: true
+        - name: {{ .Values.kubescape.storage.name }}
+          mountPath: {{ .Values.parser.volumes.kubescape.path }}
+          readOnly: true
       volumes:
       - name: {{ .Values.trivy.storage.name }}
         persistentVolumeClaim:
@@ -50,6 +53,9 @@ spec:
       - name: {{ .Values.prowler.storage.name }}
         persistentVolumeClaim:
           claimName: {{ .Values.prowler.storage.name }}
+      - name: {{ .Values.kubescape.storage.name }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.kubescape.storage.name }}
 ---
 apiVersion: v1
 kind: Service

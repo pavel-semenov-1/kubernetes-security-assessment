@@ -7,16 +7,15 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
-	"strings"
 	"time"
 )
 
-type ProwlerRunner struct {
+type KubescapeRunner struct {
 	JobRunner
 }
 
-func NewProwlerRunner(clientset *kubernetes.Clientset, namespace string, jobName string, scannerName string) *ProwlerRunner {
-	return &ProwlerRunner{
+func NewKubescapeRunner(clientset *kubernetes.Clientset, namespace string, jobName string, scannerName string) *KubescapeRunner {
+	return &KubescapeRunner{
 		JobRunner: JobRunner{
 			clientset:   clientset,
 			namespace:   namespace,
@@ -26,10 +25,9 @@ func NewProwlerRunner(clientset *kubernetes.Clientset, namespace string, jobName
 	}
 }
 
-func (tr *ProwlerRunner) Run() error {
-	tr.fileName = fmt.Sprintf("prowler-%s.ocsf.json", time.Now().Format(TimeFormat))
-	index := strings.Index(tr.fileName, ".")
-	var fileNamePrefix = tr.fileName[:index]
+func (tr *KubescapeRunner) Run() error {
+	tr.fileName = fmt.Sprintf("kubescape-%s.json", time.Now().Format(TimeFormat))
+
 	job := &batchv1.Job{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      tr.jobName,
@@ -38,10 +36,10 @@ func (tr *ProwlerRunner) Run() error {
 		Spec: batchv1.JobSpec{
 			Template: corev1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
-					Name: "prowler",
+					Name: "kubescape",
 				},
 				Spec: corev1.PodSpec{
-					ServiceAccountName: "prowler",
+					ServiceAccountName: "kubescape-discovery",
 					RestartPolicy:      corev1.RestartPolicyOnFailure,
 					SecurityContext: &corev1.PodSecurityContext{
 						SeccompProfile: &corev1.SeccompProfile{
@@ -50,29 +48,21 @@ func (tr *ProwlerRunner) Run() error {
 					},
 					Containers: []corev1.Container{
 						{
-							Name:            "prowler",
-							Image:           "ksa/prowler",
+							Name:            "kubescape",
+							Image:           "ksa/kubescape:latest",
 							ImagePullPolicy: corev1.PullIfNotPresent,
 							Command: []string{
-								"prowler", "kubernetes", "--output-formats", "json-ocsf", "--status", "FAIL", "MANUAL", "PASS", "-F", fileNamePrefix, "-o", "/var/scan", "-z",
+								"sh",
+								"-c",
+								"kubescape scan --format json --output " + fmt.Sprintf("/var/scan/%s", tr.fileName),
 							},
 							VolumeMounts: []corev1.VolumeMount{
-								{
-									Name:      "var-scan",
-									MountPath: "/var/scan",
-								},
+								{Name: "var-scan", MountPath: "/var/scan"},
 							},
 						},
 					},
 					Volumes: []corev1.Volume{
-						{
-							Name: "var-scan",
-							VolumeSource: corev1.VolumeSource{
-								PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{
-									ClaimName: "prowler-scan-results",
-								},
-							},
-						},
+						{Name: "var-scan", VolumeSource: corev1.VolumeSource{PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{ClaimName: "kubescape-scan-results"}}},
 					},
 				},
 			},

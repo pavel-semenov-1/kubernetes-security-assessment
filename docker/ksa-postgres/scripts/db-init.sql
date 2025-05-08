@@ -6,7 +6,7 @@ create table scanner
             primary key,
     name varchar(32) not null
 );
-insert into scanner (name) values ('trivy'), ('prowler'), ('kube-bench');
+insert into scanner (name) values ('trivy'), ('prowler'), ('kube-bench'), ('kubescape');
 
 drop table if exists report;
 create table report

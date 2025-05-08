@@ -10,6 +10,9 @@ trivy:
 kubescape:
   deploy: false
   image: ksa/kubescape:latest
+  storage:
+    name: kubescape-scan-results
+    size: 200Mi
 
 openclarity:
   deploy: false

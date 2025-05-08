@@ -228,6 +228,26 @@ export default function Home() {
             method: "PATCH",
           });
           if (!response.ok) throw new Error("Failed to resolve misconfigurations");
+          setMisconfigurations(prev => {
+            if (prev == null || Object.keys(prev).length == 0) return prev;
+
+            const newData = Object.fromEntries(
+              Object.entries(prev).map(([category, misconfigs]) => [
+                category,
+                misconfigs.map((m) => ({
+                  ...m,
+                  Status:
+                    m.Status === "RESOLVED"
+                      ? "FAIL"
+                      : m.Status === "FAIL" || m.Status === "MANUAL"
+                      ? "RESOLVED"
+                      : m.Status,
+                })),
+              ])
+            );
+
+            return newData
+          })
         }
         setShowConfirmationDialog(false)
       })

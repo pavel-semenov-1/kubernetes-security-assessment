@@ -2,28 +2,26 @@ package runner
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes"
 	"time"
 )
 
 type KubeBenchRunner struct {
-	clientset *kubernetes.Clientset
-	namespace string
-	jobName   string
-	fileName  string
+	JobRunner
 }
 
-func NewKubeBenchRunner(clientset *kubernetes.Clientset, namespace string, jobName string) *KubeBenchRunner {
+func NewKubeBenchRunner(clientset *kubernetes.Clientset, namespace string, jobName string, scannerName string) *KubeBenchRunner {
 	return &KubeBenchRunner{
-		clientset: clientset,
-		namespace: namespace,
-		jobName:   jobName,
+		JobRunner: JobRunner{
+			clientset:   clientset,
+			namespace:   namespace,
+			jobName:     jobName,
+			scannerName: scannerName,
+		},
 	}
 }
 
@@ -89,103 +87,6 @@ func (tr *KubeBenchRunner) Run() error {
 	_, err := tr.clientset.BatchV1().Jobs(tr.namespace).Create(context.TODO(), job, metav1.CreateOptions{})
 	if err != nil {
 		return fmt.Errorf("failed to create job %s: %w", tr.jobName, err)
-	}
-
-	return nil
-}
-
-func (tr *KubeBenchRunner) Watch(db *sql.DB) (int, string) {
-	fieldSelector := fmt.Sprintf("metadata.name=%s", tr.jobName)
-	listOptions := metav1.ListOptions{FieldSelector: fieldSelector}
-	watcher, err := tr.clientset.BatchV1().Jobs(tr.namespace).Watch(context.TODO(), listOptions)
-	if err != nil {
-		panic(err)
-	}
-	defer watcher.Stop()
-
-	for event := range watcher.ResultChan() {
-		job, ok := event.Object.(*batchv1.Job)
-		if !ok {
-			continue
-		}
-
-		for _, condition := range job.Status.Conditions {
-			if condition.Type == batchv1.JobComplete && condition.Status == "True" {
-				rows, err := db.Query("SELECT id FROM scanner where name=$1", "kube-bench")
-				if err != nil {
-					panic(err)
-				}
-				defer rows.Close()
-
-				if rows.Next() {
-					var id int
-					err = rows.Scan(&id)
-					if err != nil {
-						panic(err)
-					}
-					var reportId int
-					err := db.QueryRow(
-						"INSERT INTO report (scanner_id, filename, parsed, generated_at) VALUES ($1, $2, false, CURRENT_TIMESTAMP) RETURNING id",
-						id, tr.fileName,
-					).Scan(&reportId)
-					if err != nil {
-						panic(err)
-					}
-					return reportId, "Job has successfully finished"
-				}
-				return 0, "No such scanner"
-			} else if condition.Type == batchv1.JobFailed && condition.Status == "True" {
-				return 0, "Job has failed"
-			}
-		}
-	}
-
-	return 0, "Unexpected error occurred"
-}
-
-func (tr *KubeBenchRunner) GetStatus() JobStatus {
-	job, err := tr.clientset.BatchV1().Jobs(tr.namespace).Get(context.TODO(), tr.jobName, metav1.GetOptions{})
-	if err != nil {
-		return JobStatus{
-			ActivePods:    0,
-			SucceededPods: 0,
-			FailedPods:    0,
-		}
-	}
-
-	return JobStatus{
-		ActivePods:    job.Status.Active,
-		SucceededPods: job.Status.Succeeded,
-		FailedPods:    job.Status.Failed,
-	}
-}
-
-func (tr *KubeBenchRunner) CleanUp() error {
-	propagationPolicy := metav1.DeletePropagationForeground
-	err := tr.clientset.BatchV1().Jobs(tr.namespace).Delete(context.TODO(), tr.jobName, metav1.DeleteOptions{
-		PropagationPolicy: &propagationPolicy,
-	})
-	if err != nil {
-		return fmt.Errorf("failed to delete job %s: %w", tr.jobName, err)
-	}
-
-	// Wait for the job to be deleted
-	watchInterface, err := tr.clientset.BatchV1().Jobs(tr.namespace).Watch(context.TODO(), metav1.ListOptions{
-		FieldSelector: fmt.Sprintf("metadata.name=%s", tr.jobName),
-	})
-	if err != nil {
-		return fmt.Errorf("failed to watch job %s: %w", tr.jobName, err)
-	}
-	defer watchInterface.Stop()
-
-	for event := range watchInterface.ResultChan() {
-		switch event.Type {
-		case watch.Deleted:
-			fmt.Printf("Job %s and its pods have been deleted\n", tr.jobName)
-			return nil
-		case watch.Error:
-			return fmt.Errorf("error watching job %s: %v", tr.jobName, event.Object)
-		}
 	}
 
 	return nil

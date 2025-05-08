@@ -51,6 +51,10 @@ func main() {
 	if prowlerJobName == "" {
 		prowlerJobName = "prowler-runner"
 	}
+	kubescapeJobName := os.Getenv("KUBESCAPE_JOB_NAME")
+	if kubescapeJobName == "" {
+		kubescapeJobName = "kubescape-runner"
+	}
 	parserApiUrl := os.Getenv("PARSER_API_URL")
 	if parserApiUrl == "" {
 		panic("PARSER_API_URL environment variable not set")
@@ -75,13 +79,15 @@ func main() {
 		panic("Failed to create Kubernetes client: " + err.Error())
 	}
 
-	trivyRunner := runner.NewTrivyRunner(clientset, namespace, trivyJobName)
-	kubeBenchRunner := runner.NewKubeBenchRunner(clientset, namespace, kubeBenchJobName)
-	prowlerRunner := runner.NewProwlerRunner(clientset, namespace, prowlerJobName)
+	trivyRunner := runner.NewTrivyRunner(clientset, namespace, trivyJobName, "trivy")
+	kubeBenchRunner := runner.NewKubeBenchRunner(clientset, namespace, kubeBenchJobName, "kube-bench")
+	prowlerRunner := runner.NewProwlerRunner(clientset, namespace, prowlerJobName, "prowler")
+	kubescapeRunner := runner.NewKubescapeRunner(clientset, namespace, kubescapeJobName, "kubescape")
 	runners := map[string]runner.Runner{
 		"trivy":      trivyRunner,
 		"kube-bench": kubeBenchRunner,
 		"prowler":    prowlerRunner,
+		"kubescape":  kubescapeRunner,
 	}
 
 	broadcastMessage := func(message string) {
