@@ -27,6 +27,12 @@ Warning--empty year in trivy-github
 Warning--empty author in kube-bench-github
 Warning--empty journal in kube-bench-github
 Warning--empty year in kube-bench-github
+Warning--empty journal in datacamp-kubernetes-vs-docker
+Warning--empty year in datacamp-kubernetes-vs-docker
+Warning--empty journal in mitre-attack-framework
+Warning--empty year in mitre-attack-framework
+Warning--empty journal in kubernetes-components
+Warning--empty year in kubernetes-components
 Warning--empty journal in kubernetes
 Warning--empty year in kubernetes
 Warning--empty journal in pod-security-preemption
@@ -43,45 +49,45 @@ Warning--empty journal in ibm-kubernetes
 Warning--empty year in ibm-kubernetes
 Warning--empty journal in prowler-app-page
 Warning--empty year in prowler-app-page
-You've used 21 entries,
+You've used 24 entries,
             2118 wiz_defined-function locations,
-            584 strings with 7376 characters,
-and the built_in function-call counts, 4715 in all, are:
-= -- 437
-> -- 173
+            595 strings with 7821 characters,
+and the built_in function-call counts, 5339 in all, are:
+= -- 494
+> -- 194
 < -- 1
-+ -- 73
-- -- 52
-* -- 290
-:= -- 792
-add.period$ -- 63
-call.type$ -- 21
-change.case$ -- 86
++ -- 82
+- -- 58
+* -- 323
+:= -- 906
+add.period$ -- 72
+call.type$ -- 24
+change.case$ -- 98
 chr.to.int$ -- 0
-cite$ -- 61
-duplicate$ -- 226
-empty$ -- 413
-format.name$ -- 52
-if$ -- 962
+cite$ -- 70
+duplicate$ -- 256
+empty$ -- 464
+format.name$ -- 58
+if$ -- 1082
 int.to.chr$ -- 0
-int.to.str$ -- 21
-missing$ -- 20
-newline$ -- 104
-num.names$ -- 30
-pop$ -- 151
+int.to.str$ -- 24
+missing$ -- 23
+newline$ -- 119
+num.names$ -- 36
+pop$ -- 172
 preamble$ -- 1
-purify$ -- 68
+purify$ -- 77
 quote$ -- 0
-skip$ -- 127
+skip$ -- 145
 stack$ -- 0
-substring$ -- 105
+substring$ -- 120
 swap$ -- 13
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 82
-warning$ -- 40
-while$ -- 30
-width$ -- 23
-write$ -- 197
-(There were 40 warnings)
+type$ -- 94
+warning$ -- 46
+while$ -- 36
+width$ -- 26
+write$ -- 224
+(There were 46 warnings)

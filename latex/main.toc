@@ -31,8 +31,8 @@
 \contentsline {subsection}{\numberline {2.1.4}Kube-bench}{27}{subsection.2.1.4}%
 \contentsline {subsection}{\numberline {2.1.5}Prowler}{28}{subsection.2.1.5}%
 \contentsline {subsection}{\numberline {2.1.6}Kubescape}{29}{subsection.2.1.6}%
-\contentsline {subsection}{\numberline {2.1.7}Preliminary Comparison}{29}{subsection.2.1.7}%
-\contentsline {section}{\numberline {2.2}Methodology}{31}{section.2.2}%
+\contentsline {subsection}{\numberline {2.1.7}Preliminary Comparison}{30}{subsection.2.1.7}%
+\contentsline {section}{\numberline {2.2}Methodology}{32}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Security Threats Classification}{32}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Experimental Environment}{34}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Cluster and Namespaces}{34}{subsection.2.4.1}%
@@ -45,7 +45,7 @@
 \contentsline {section}{\numberline {3.4}Aggregator}{42}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Dashboard}{43}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Build and Deployment}{44}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Results}{46}{chapter.4}%
-\contentsline {chapter}{Conclusion}{52}{chapter*.48}%
-\contentsline {chapter}{Appendix}{53}{chapter*.49}%
-\contentsline {chapter}{Bibliography}{54}{chapter*.50}%
+\contentsline {chapter}{\numberline {4}Results}{47}{chapter.4}%
+\contentsline {chapter}{Conclusion}{55}{chapter*.49}%
+\contentsline {chapter}{Bibliography}{56}{chapter*.50}%
+\contentsline {chapter}{Appendix}{59}{chapter*.51}%

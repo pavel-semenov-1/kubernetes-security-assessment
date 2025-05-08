@@ -16,17 +16,17 @@ From the feature perspective, the tool was designed to help DevSecOps engineer m
     \item Dashboard should be able to generate graphic visualisation of the scan results.
 \end{itemize}
 
-The component diagram on the Fig~\ref{img:ksa-component-diagram} illustrates the architecture of a Kubernetes-native security scanning system. The process begins with the Dashboard component, which allows users to trigger scans and query results. Scan requests are forwarded to the Aggregator, which continues the process by initiating and watching for the scan job through the Kubernetes API. The Kubernetes API is responsible for scheduling the execution of containerized scanner jobs (such as Trivy, Kube-bench, and Prowler) within the cluster. Once the scanners complete their tasks, Aggregator component initiates parsing by sending a request to the Parser component, results are then stored in the Database component, which supports query operations for both the Dashboard and Aggregator. Additionally, the Parser exposes a WebSocket endpoint that enables real-time updates to the Dashboard—notifying it asynchronously when scan results are available. This decoupled, event-driven approach improves system responsiveness and user experience.
+The component diagram on the Fig~\ref{img:ksa-component-diagram} illustrates the architecture of a Kubernetes-native security scanning system. The process begins with the Dashboard component, which allows users to trigger scans and query results. Scan requests are forwarded to the Aggregator, which continues the process by initiating and watching for the scan job through the Kubernetes API. The Kubernetes API is responsible for scheduling the execution of containerized scanner jobs (such as Trivy, Kube-bench, Prowler and Kubescape) within the cluster. Once the scanners complete their tasks, Aggregator component initiates parsing by sending a request to the Parser component, results are then stored in the Database component, which supports query operations for both the Dashboard and Aggregator. Additionally, the Parser exposes a WebSocket endpoint that enables real-time updates to the Dashboard—notifying it asynchronously when scan results are available. This decoupled, event-driven approach improves system responsiveness and user experience.
 
 \begin{figure}[!hbt]
 	\begin{center}
-		\includegraphics[width=0.9\textwidth]{images/ksa-component-diagram.png}
+		\includegraphics[width=0.95\textwidth]{images/ksa-component-diagram.png}
         \caption{Component diagram of the dashboard.}
 		\label{img:ksa-component-diagram}
 	\end{center}
 \end{figure}
 
-As seen on the Fig~\ref{img:ksa-schematic-overview}, both Parser and scanner Jobs mount the same PVC, where the results of the scan are stored. Each scanner has its own PersistentVolumeClaim, so that they can perform simultaneous writing uninterrupted. Those PVCs are mounted into specific directories on the Parser pod, that reads reports created by the scan jobs from these directories.
+As it can be seen on the Fig~\ref{img:ksa-schematic-overview}, both Parser and scanner Jobs mount the same PVC, where the results of the scan are stored. Each scanner has its own PersistentVolumeClaim, so that they can perform simultaneous writing uninterrupted. Those PVCs are mounted into specific directories on the Parser pod, that reads reports created by the scan jobs from these directories.
 
 \begin{figure}[!hbt]
 	\begin{center}

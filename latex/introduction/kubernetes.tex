@@ -4,9 +4,9 @@ In this section we will dive into the topic of Kubernetes. We start by shortly o
 
 \subsection{Overview}
 
-Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon 15 years of experience of running production workloads at Google, combined with best-of-breed ideas and practices from the community. \cite{kubernetes}
+Kubernetes, also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon 15 years of experience of running production workloads at Google, combined with best-of-breed ideas and practices from the community \cite{kubernetes}.
 
-IBM defines Kubernetes as an open source \textbf{container orchestration platform} for scheduling and automating the deployment, management and scaling of containerized applications. Today, Kubernetes and the broader ecosystem of container-related technologies have merged to form the building blocks of modern cloud infrastructure. This ecosystem enables organizations to deliver a highly productive hybrid multicloud computing environment to perform complex tasks surrounding infrastructure and operations. It also supports cloud-native development by enabling a build-once-and-deploy-anywhere approach to building applications. \cite{ibm-kubernetes}
+IBM defines Kubernetes as an open source \textbf{container orchestration platform} for scheduling and automating the deployment, management and scaling of containerized applications. Today, Kubernetes and the broader ecosystem of container-related technologies have merged to form the building blocks of modern cloud infrastructure. This ecosystem enables organizations to deliver a highly productive hybrid multicloud computing environment to perform complex tasks surrounding infrastructure and operations. It also supports cloud-native development by enabling a build-once-and-deploy-anywhere approach to building applications \cite{ibm-kubernetes}.
 
 It is important to emphasize that the Kubernetes abstracts the actual machines (nodes) from the user. Nodes can be physical on-premises servers, or VMs that reside either on-premises or at a cloud provider. Kubernetes takes on the responsibilty of figuring out the deployment target for a particular application. That is, user only defines the desired state of the infrastructure using YAML or JSON configuration files. Kubernetes then creates all the workloads based on the applied configuration.
 
@@ -17,7 +17,7 @@ While Kubernetes requires at least three nodes to run, there are some implementa
 \begin{figure}[!hbt]
 	\begin{center}
 		\includegraphics[width=0.85\textwidth]{images/components-of-kubernetes.pdf}
-        \caption{Kubernetes cluster architecure overview with its main components.}
+        \caption{Kubernetes cluster architecure overview with its main components \cite{kubernetes-components}.}
 		\label{img:kubernetes-architecture}
 	\end{center}
 \end{figure}
@@ -98,7 +98,7 @@ At its core, a volume is a directory, possibly with some data in it, which is ac
 PersistentVolumes and PersistentVolumeClaims are the resources kinds most important to understand here.
 \begin{itemize}
 \item A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual Pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
-\item A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory). Claims can request specific size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany or ReadWriteMany). Once and Many here refer to a number of Pods that can perform the read or write simultaneously.
+\item A PersistentVolumeClaim (PVC) is a request for storage by a user. In some ways, is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory). Claims can request specific size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany or ReadWriteMany). Once and Many here refer to a number of Pods that can perform the read or write simultaneously.
 \end{itemize}
 
 \subsection{Role Based Access Control}
@@ -168,7 +168,7 @@ The OpenShift dashboard, part of the OpenShift Web Console, provides a graphical
 
 \subsubsection*{Rancher Desktop}
 
-Rancher Desktop is ``an open-source application that provides all the essentials to work with containers and Kubernetes on the desktop''. \cite{rancher-desktop}
+Rancher Desktop is ``an open-source application that provides all the essentials to work with containers and Kubernetes on the desktop'' \cite{rancher-desktop}.
 
 Basically, it provides a local Kubernetes cluster with convenient GUI and a dashboard by default. It is widely used by developers to test their application in cloud environments without commiting the changes. 
 

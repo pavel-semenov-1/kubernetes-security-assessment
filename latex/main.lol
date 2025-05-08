@@ -10,5 +10,5 @@
 \contentsline {lstlisting}{\numberline {3.1}{\ignorespaces Search vector definition for misconfiguration inside the database initial script}}{40}{lstlisting.3.1}%
 \contentsline {lstlisting}{\numberline {3.2}{\ignorespaces A common interface for parsers}}{41}{lstlisting.3.2}%
 \contentsline {lstlisting}{\numberline {3.3}{\ignorespaces A common inteface for runners}}{42}{lstlisting.3.3}%
-\contentsline {lstlisting}{\numberline {3.4}{\ignorespaces Dockerfile definition of Prowler image}}{44}{lstlisting.3.4}%
+\contentsline {lstlisting}{\numberline {3.4}{\ignorespaces Dockerfile definition of Prowler image}}{45}{lstlisting.3.4}%
 \contentsline {lstlisting}{\numberline {3.5}{\ignorespaces Kubernetes workloads for the KSA Dashboard}}{45}{lstlisting.3.5}%

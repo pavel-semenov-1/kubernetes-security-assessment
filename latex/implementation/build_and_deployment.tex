@@ -1,7 +1,7 @@
 \section{Build and Deployment}
 \label{sec:build-and-deployment}
 
-Each of the components of the dashboard has a separate Dockerfile, which allows us to containerize the application. Some of the scanners, which do not have a publicly available Docker image, have to be containerized separately. For instance, we build Prowler on a Python base as shown on the Listing~\ref{lst:prowler-dockerfile}.
+Each of the components of the dashboard has a separate Dockerfile, which allows us to containerize the application. Some of the scanners, which do not have a publicly available Docker image, have to be containerized separately. For instance, we build Prowler image on a Python base as shown on the Listing~\ref{lst:prowler-dockerfile}.
 
 \begin{lstlisting}[language=Dockerfile, caption={[Dockerfile definition of Prowler image] Dockerfile definition of Prowler image.}, label={lst:prowler-dockerfile}]
     FROM python:3.12-slim
@@ -11,13 +11,15 @@ Each of the components of the dashboard has a separate Dockerfile, which allows 
     CMD ["prowler"]    
 \end{lstlisting}
 
-In order to make it easier to build different components of the application, we define a Bash script that does all of the work for us. 
+In order to make it easier to build different components of the application, we define a Bash script that does all of the work for us.
 
 Deployment of the whole application is done via the Helm Chart. It defines all of the Kubernetes resources for the application that are deployed inside the cluster. The deployment can be configured using \lstinline{values.yaml} file, that defines the Helm values, which are then substituted into the Helm templates. Installation is done with 
 \begin{center}
     \lstinline{helm -n ksa upgrade --install ksa .}
 \end{center} 
 command, that creates Deployments, StatefulSet, Services and PVCs. There are also \lstinline{reinstall.sh} and \lstinline{redeploy.sh} Bash scripts defined to automate the installation and redeployment processes, respectively. Listing~\ref{lst:ksa-kubernetes-resources} shows the workloads created by the Helm chart and the Jobs created by the dashboard itself.
+
+When a new scanner is added to the dashboard, the only thing we need to do from the deployment perspective is to define an additional PVC that would hold the reports from the new scanner and mount it to the Parser pod. While it is only a copy-pasting of a few lines, this requires some basic knowledge of Helm. Additional knowledge of Docker would be necessary if an extra image is required for the new scanner.
 
 \begin{lstlisting}[language=CustomBash, caption={[Kubernetes workloads for the KSA Dashboard] Kubernetes workloads for the KSA Dashboard.}, label={lst:ksa-kubernetes-resources}]
 $ k get deployments,sts,jobs,pods

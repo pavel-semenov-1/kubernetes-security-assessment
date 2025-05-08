@@ -12,6 +12,14 @@ Aggregator service defines a common interface for all security scanner runners a
         CleanUp() error
         Watch(*sql.DB) (int, string)
     }
+    
+    type JobRunner struct {
+        clientset   kubernetes.Interface
+        namespace   string
+        jobName     string
+        scannerName string
+        fileName    string
+    }
 \end{lstlisting}
 
 Aggregator uses Kubernetes API to create and delete jobs and watch for their completion. Each runner is provided with the same Kubernetes clientset. It is a set of generated Go clients that allow us to interact with the Kubernetes API programmatically. It handles authentication, API requests, version negotiation, and resource management. Runner then defines a job as a Golang struct and sends it to the Kubernetes API for creation.

@@ -117,6 +117,8 @@ Scan configuration is again passed with multiple flags. There are flags allowing
         --output kubescape-scan.json
 \end{lstlisting}
 
+Unfortunately, when executed in this mode, Kubescape performs only a few checks. In order to perform complete vulnerability and misconfiguration scan, Kubescape requires Kubescape Operator installed in the cluster. 
+
 Kubescape's repository shows ongoing development with regular update releases.
 
 \subsection{Preliminary Comparison}
@@ -129,7 +131,7 @@ When we compare the tools by the supported cloud providers, simplicity of Kube-b
 
 All of the presented tools declare full CIS Benchmark coverage, which is the only supported framework for Kube-bench. Trivy additionally declares NSA and MITRE ATT\&CK coverage. Kubescape further extends the set with NIST 800-53 and SOC 2 frameworks, which are more specialized frameworks, the former developed by the U.S. government and focuses on technical and administrative controls, while the latter focuses on the customer data security and compliance. Prowler mixes the CIS Benchmark checks with the four major security and privacy frameworks or regulations relevant to organizations handling sensitive data (PCI-DSS, GDPR, HIPAA, ISO27001).
 
-From the user perspective we can compare the scanners by the ease of installation and execution. Trivy's binary is available for download using most of the popular package managers (like Brew for MacOS and apt-get, yum, pacman and others for various Linux distros). Less secure but more convenient way of installation is by using a script. Additionally, Trivy has a Docker image available in Docker Hub, GitHub Container Registry and AWS Elastic Container Registry. Trivy can be executed against an active Kubernetes context using the binary or installed as an operator inside the cluster for automatic scanning every six hours. Kube-bench is similar in installation process to the Trivy. However, Kube-bench Docker image is compiled for linux-x86-64 only. Kube-bench also provides a \textbf{job.yaml} file, which can be used to run it inside the cluster as a Kubernetes Job. Kube-bench runs checks specified in controls files that are a YAML representation of the CIS Kubernetes Benchmark checks. Kubescape supports the usual installation channels. Additionally, users are able to download scan artifacts (frameworks) separately. Kubescape Operator can be installed inside the using a Helm chart. Unfortunately, Kubescape Operator must be installed in the cluster for the Kubescape CLI to be able to scan for vulnerabilities. Prowler CLI can be installed only as a Python module, but there are also Docker images available to download from the Docker Hub and AWS Public ECR. Prowler also provides an applciation, which displays scan results in a graphical format. Table~\ref{tab:preliminary-scanner-comparison} summarizes our preliminary comparison findings.
+From the user perspective we can compare the scanners by the ease of installation and execution. Trivy's binary is available for download using most of the popular package managers (like Brew for MacOS and apt-get, yum, pacman and others for various Linux distros). Less secure but more convenient way of installation is by using a script. Additionally, Trivy has a Docker image available in Docker Hub, GitHub Container Registry and AWS Elastic Container Registry. Trivy can be executed against an active Kubernetes context using the binary or installed as an operator inside the cluster for automatic scanning every six hours. Kube-bench can only be run from inside the container. Kube-bench provides a \textbf{job.yaml} file, which can be used to run it inside the cluster as a Kubernetes Job. Kube-bench runs checks specified in controls files that are a YAML representation of the CIS Kubernetes Benchmark checks. Kubescape supports the usual installation channels. Additionally, users are able to download scan artifacts (frameworks) separately. Kubescape Operator can be installed inside the using a Helm chart. Unfortunately, Kubescape Operator must be installed in the cluster for the Kubescape CLI to be able to scan for vulnerabilities. Prowler CLI can be installed only as a Python module, but there are also Docker images available to download from the Docker Hub and AWS Public ECR. Prowler also provides an applciation, which displays scan results in a graphical format. Table~\ref{tab:preliminary-scanner-comparison} summarizes our preliminary comparison findings.
 
 \begin{table}[H]
     \begin{center}
@@ -144,7 +146,7 @@ From the user perspective we can compare the scanners by the ease of installatio
         \hline\hline
         Trivy & Vulnerability scan, Misconfiguration scan, IaC scan, SBOM generation, Operator & AWS, Azure, GCP & CIS, NSA, MITRE ATT\&CK & CLI tool \\
         \hline
-        Kube-bench & CIS Benchmark audit & cloud agnostic & CIS & CLI tool \\
+        Kube-bench & CIS Benchmark audit & cloud agnostic & CIS & Kubernetes Job \\
         \hline
         Prowler & Cloud audit, misconfiguration scan, compliance scan, Operator & AWS, Azure, GCP & CIS, PCI-DSS, GDPR, HIPAA & CLI tool, UI app \\
         \hline

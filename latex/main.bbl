@@ -33,6 +33,12 @@ National~Security Agency, Cybersecurity, and Infrastructure~Security Agency.
 \newblock PDF available online at
   https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR\_KUBERNETES\_HARDENING\_GUIDANCE\_1.2\_20220829.PDF.
 
+\bibitem{datacamp-kubernetes-vs-docker}
+Moez Ali.
+\newblock Kubernetes vs docker: Differences every developer should know.
+\newblock \url{https://www.datacamp.com/blog/kubernetes-vs-docker}, Accessed:
+  16.12.2024.
+
 \bibitem{defects}
 D.~B. Bose, A.~Rahman, and S.~I. Shamim.
 \newblock `under-reported' security defects in kubernetes manifests.
@@ -54,11 +60,23 @@ D.~A. Castillo~Rivas and D.~Guamán.
 \newblock In {\em Communications in Computer and Information Science}, volume
   1388. Springer, 2021.
 
+\bibitem{mitre-attack-framework}
+The~MITRE Corporation.
+\newblock Containers matrix.
+\newblock \url{https://attack.mitre.org/matrices/enterprise/containers/},
+  Accessed: 20.4.2024.
+
 \bibitem{cis-kubernetes-benchmark}
 Center for Internet~Security.
 \newblock {\em CIS Kubernetes Benchmark v1.11.0 - 04-01-2025}.
 \newblock CIS, 2025.
 \newblock PDF available online at \url{https://downloads.cisecurity.org/}.
+
+\bibitem{kubernetes-components}
+The~Linux Foundation.
+\newblock Kubernetes components.
+\newblock \url{https://kubernetes.io/docs/concepts/overview/components/},
+  Accessed: 16.12.2024.
 
 \bibitem{kubernetes}
 The~Linux Foundation.

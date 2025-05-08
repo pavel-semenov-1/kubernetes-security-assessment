@@ -2,7 +2,7 @@
 \label{chap:conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
 
-On a dedicated Kubernetes test environment pre-planted with vulnerabilities a selection of security scanners were executed and compared. We exclusively selected free and open source tools that are designated for the Kubernetes and are actively supported to this day. Upon comparison none of the tools were able to detect all of the security threats that we have prepared. However, Kubescape achieved the best result recognizing all but two misconfigurations. It has no ability to detect exposed secrets inside the container nor can it detect missing or misconfigured pod preemption policies. Trivy was also able to find the majority of misconfigurations, but it lacks checks in networking and policies domains. Kube-bench and Prowler showed distinctly bad performance and were able to detect only a few threats.
+A selection of security scanners were executed against a dedicated Kubernetes test environment pre-planted with vulnerabilities. We exclusively selected free and open source tools that are designated for the Kubernetes and are actively supported to this day. Scan results of those tools were analysed and compared. Upon comparison none of the tools were able to detect all of the security threats that we have prepared. However, Kubescape achieved the best result recognizing all but two misconfigurations. It has no ability to detect exposed secrets inside the container nor can it detect missing or misconfigured pod preemption policies. Trivy was also able to find the majority of misconfigurations, but it lacks checks in networking and policies domains. Kube-bench and Prowler showed distinctly bad performance and were able to detect only a few threats.
 
 Kubescape would be the recommended tool for the best security coverage. At this moment, however, Kubescape cannot be extended with custom user-defined checks. Therefore, it would be better to use Kubescape in conjuction with another security scanner, which would complement the results. To aggregate multiple scanners and automate scanning and parsing processes we have developed an extendable Kubernetes security dashboard. The dashboard integrates directly with the Kubernetes API and allows users to trigger scan jobs and browse through their findings. Additionally, users are able to search through the findings, manage them and generate reports. These features make it very useful for the DevSecOps specialist at his job in securing the infrastructure.
 
@@ -12,5 +12,6 @@ The dashboard can be further extended with such features as:
     \item filtering out of the duplicated results from the different scanners using AI,
     \item charts illustrating the trend in vulnerability counts over time,
     \item generation of reports in other formats (PDF, CSV, text summary),
+    \item itegration with Kubescape Operator,
     \item automatic failure mitigation.
 \end{itemize}
