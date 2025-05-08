@@ -6,6 +6,7 @@ interface BarChartProps {
   data: StatResult[];
 }
 
+// Bar chart for misconfigurations
 const MisconfigurationBarChart: React.FC<BarChartProps> = ({ data }) => {
   const formattedData = data.map((item) => ({
     tool: item.scanner,

@@ -14,6 +14,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { Item } from "./types/Item";
 import { ITEM_STATUS_FAIL, ITEM_STATUS_PASS, ITEM_STATUS_RESOLVED, ITEM_STATUS_MANUAL, RERUN_SCAN_CONFIRMATION, RESOLVE_ALL_CONFIRMATION, DELETE_ALL_CONFIRMATION, ITEM_TYPE_MISCONFIGURATION, ALL_SCANNERS } from "./constants";
 
+// Main component
 export default function Home() { 
   // Filter Panel
   const [selectedScanner, setSelectedScanner] = useState("Trivy");

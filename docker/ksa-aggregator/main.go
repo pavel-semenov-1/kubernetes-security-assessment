@@ -79,6 +79,7 @@ func main() {
 		panic("Failed to create Kubernetes client: " + err.Error())
 	}
 
+	// Initialize runners
 	trivyRunner := runner.NewTrivyRunner(clientset, namespace, trivyJobName, "trivy")
 	kubeBenchRunner := runner.NewKubeBenchRunner(clientset, namespace, kubeBenchJobName, "kube-bench")
 	prowlerRunner := runner.NewProwlerRunner(clientset, namespace, prowlerJobName, "prowler")

@@ -17,6 +17,7 @@ interface MisconfigurationCardProps {
     onClickDelete: () => void;
 }
 
+// A single misconfiguration representation
 const MisconfigurationCard = ({ id, item, openItem, setOpenItem, onClickDelete, onClickResolve }: MisconfigurationCardProps) => {
     const maximumTitleLength = 165;
     const [opaque, setOpaque] = useState<boolean>(item.Status == ITEM_STATUS_RESOLVED || item.Status == ITEM_STATUS_PASS);

@@ -6,6 +6,7 @@ interface ToastProps {
   duration?: number;
 }
 
+// Toast for notifications
 export default function Toast({ message, onClose, duration = 3000 }: ToastProps) {
   useEffect(() => {
     const timer = setTimeout(onClose, duration);

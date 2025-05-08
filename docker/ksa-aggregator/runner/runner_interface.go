@@ -18,6 +18,7 @@ type Runner interface {
 	Watch(*sql.DB) (int, string)
 }
 
+// JobRunner is base struct for all runners
 type JobRunner struct {
 	clientset   kubernetes.Interface
 	namespace   string
@@ -26,6 +27,7 @@ type JobRunner struct {
 	fileName    string
 }
 
+// JobStatus is used to track the status of the Kubernetes jobs
 type JobStatus struct {
 	ActivePods    int32 `json:"active_pods"`
 	SucceededPods int32 `json:"succeeded_pods"`
@@ -46,6 +48,7 @@ func (js *JobStatus) Failed() bool {
 
 var TimeFormat = "2006-01-02-15-04-05"
 
+// GetStatus returns the JobStatus object, which represents the status of the Kubernetes job for this runner
 func (jr *JobRunner) GetStatus() JobStatus {
 	job, err := jr.clientset.BatchV1().Jobs(jr.namespace).Get(context.TODO(), jr.jobName, metav1.GetOptions{})
 	if err != nil {
@@ -63,6 +66,7 @@ func (jr *JobRunner) GetStatus() JobStatus {
 	}
 }
 
+// CleanUp removes Kubernetes job and its pods
 func (jr *JobRunner) CleanUp() error {
 	propagationPolicy := metav1.DeletePropagationForeground
 	err := jr.clientset.BatchV1().Jobs(jr.namespace).Delete(context.TODO(), jr.jobName, metav1.DeleteOptions{
@@ -94,6 +98,7 @@ func (jr *JobRunner) CleanUp() error {
 	return nil
 }
 
+// Watch method waits for the job to finish and then returns the generated reportId
 func (jr *JobRunner) Watch(db *sql.DB) (int, string) {
 	fieldSelector := fmt.Sprintf("metadata.name=%s", jr.jobName)
 	listOptions := metav1.ListOptions{FieldSelector: fieldSelector}

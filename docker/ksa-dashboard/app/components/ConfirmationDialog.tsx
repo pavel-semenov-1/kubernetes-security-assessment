@@ -11,6 +11,7 @@ interface ConfirmationDialogProps {
   onCancel: () => void;
 }
 
+// Custom confirmation dialog component
 export default function ConfirmationDialog({ open, title, description, onConfirm, onCancel }: ConfirmationDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onCancel}>

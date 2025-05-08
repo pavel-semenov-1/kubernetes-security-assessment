@@ -7,6 +7,7 @@ import MisconfigurationCard from "./MisconfigurationCard";
 import { AnimatePresence } from "framer-motion";
 import { ITEM_STATUS_FAIL, ITEM_STATUS_MANUAL } from "../constants";
 
+// List of misconfigurations
 const MisconfigurationList = ({ data, onClickDelete, onClickResolve, openCategory, setOpenCategory, openItem, setOpenItem }: ItemListProps<Misconfiguration>) => {
     const emptyDataMessage = "No data. Run a new scan or a select a different object type.";
 

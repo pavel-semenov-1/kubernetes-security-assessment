@@ -26,6 +26,7 @@ interface FilterPanelProps {
     onClickResolve: () => void;
 };
 
+// A panel with filters and search on the top of the page
 const FilterPanel = ({ valueSelectedScanner, onChangeSelectedScanner, valueSelectedType, onChangeSelectedType, valueSelectedReport, onChangeSelectedReport, valueReports, showResolved, setShowResolved, onClickRescan, jobInProgress, setLoading, onChangeSearchValue, onClickDownload, onClickDelete, onClickResolve }: FilterPanelProps) => {
     const types = [ITEM_TYPE_MISCONFIGURATION, ITEM_TYPE_VULNERABILITY];
     const [scanners, setScanners] = useState<string[]>([]);

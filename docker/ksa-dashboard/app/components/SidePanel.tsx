@@ -5,6 +5,7 @@ import { Stats } from '../types/Stats';
 import VulnerabilityBarChart from './VulnerabilityBarChart';
 import MisconfigurationBarChart from './MisconfigurationBarChart';
 
+// Sliding side panel
 const SidePanel: FC = () => {
     const [isPanelOpen, setIsPanelOpen] = useState<boolean>(false);
     const [scanners, setScanners] = useState<string[]>([]);

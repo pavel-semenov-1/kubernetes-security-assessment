@@ -7,6 +7,7 @@ interface SearchInputProps {
     setQuery: (query: string) => void;
 };
 
+// Custom search input textbox
 const SearchInput = ({ className, setLoading, setQuery }: SearchInputProps) => {
   const [input, setInput] = useState("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
