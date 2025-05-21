@@ -1,5 +1,5 @@
 ---
-title: Kube-hunter
+title: Trivy
 author: Pavel Semenov
 date: February 7, 2023
 geometry: margin=1cm
