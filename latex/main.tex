@@ -41,6 +41,7 @@
 \usepackage{listings}
 \usepackage{enumitem}
 \usepackage{courier}
+\usepackage{pdfpages}
 
 \definecolor{darkorange}{rgb}{0.7, 0.3, 0}
 \definecolor{darkgreen}{rgb}{0.0, 0.4, 0.0}
@@ -95,13 +96,13 @@
 % -------------------
 % --- Definicia zakladnych pojmov
 % -------------------
-\def\mfrok{2024}
+\def\mfrok{2025}
 \def\mftitle{Kubernetes security assessment}
 \def\mfthesistype{Master thesis}
 \def\mfauthor{Bc. Pavel Semenov}
 \def\mfskolitel{prof. RNDr. Richard Ostertág, PhD.}
 \def\mfkonzultant{Mgr. Ľubomír Firment} 
-\def\mfplacedate{Bratislava, 2024}
+\def\mfplacedate{Bratislava, 2025}
 \def\mfuniversity{COMENIUS UNIVERSITY IN BRATISLAVA}
 \def\mffaculty{FACULTY OF MATHEMATICS PHYSICS AND INFORMATICS}
 \def\mfodbor{Applied informatics}
@@ -197,13 +198,13 @@ Consultant: & \mfkonzultant \\
 % v elektronickej verzii sa zverejňuje zadanie bez podpisov
 % v pracach v aglictine anglicke aj slovenske zadanie
 
-\newpage 
+\newpage
 \thispagestyle{empty}
-\hspace{-2cm}\includegraphics[page=1,width=1.1\textwidth]{assignment_en.PDF}
+\includepdf[pages=-]{assignment_en.PDF}
 
-\newpage 
+\newpage
 \thispagestyle{empty}
-\hspace{-2cm}\includegraphics[page=2,width=1.1\textwidth]{assignment_sk.PDF}
+\includepdf[pages=-]{assignment_sk.PDF}
 
 % --- Koniec zadania
 

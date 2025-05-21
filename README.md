@@ -5,7 +5,7 @@ Clone the repository and follow the instructions below to deploy KSA dashboard.
 
 ## Rancher Desktop 
 
-Rancher Desktop is simple to install. Just download the installation package for your OS from the official page: https://rancherdesktop.io/. Depending on the platform 
+Rancher Desktop is simple to install. Just download the installation package for your OS from the official page: https://rancherdesktop.io/. Depending on the platform, the installation process might be different. 
 
 ## Demo applications (optional)
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.22)  8 MAY 2025 23:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.22)  9 MAY 2025 01:24
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -618,6 +618,43 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/courier.sty
 Package: courier 2020/03/25 PSNFSS-v9.3 (WaS) 
 )
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2024/01/21 v0.5y Insert pages of external PDF documents (AM)
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count351
+\calc@Bcount=\count352
+\calc@Adimen=\dimen272
+\calc@Bdimen=\dimen273
+\calc@Askip=\skip65
+\calc@Bskip=\skip66
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count353
+\calc@Cskip=\skip67
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2023/05/03 v3.0c eso-pic (RN)
+\ESO@tempdima=\dimen274
+\ESO@tempdimb=\dimen275
+)
+\AM@pagewidth=\dimen276
+\AM@pageheight=\dimen277
+\AM@fboxrule=\dimen278
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2024/01/21 v0.5y Pdfpages driver for pdfTeX (AM)
+)
+\pdfpages@includegraphics@status=\count354
+\AM@pagebox=\box67
+\AM@global@opts=\toks34
+\AM@pagecnt=\count355
+\AM@toc@title=\toks35
+\AM@lof@heading=\toks36
+\c@AM@survey=\count356
+\AM@templatesizebox=\box68
+)
 runsystem(command -v pygmentize && touch main.aex)...executed.
 
 runsystem(rm main.aex)...executed.
@@ -625,8 +662,8 @@ runsystem(rm main.aex)...executed.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count351
-\l__pdf_internal_box=\box67
+\l__color_backend_stack_int=\count357
+\l__pdf_internal_box=\box69
 )
 (./main.aux
 
@@ -646,24 +683,24 @@ ned.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -701,36 +738,49 @@ LaTeX Font Info:    ... okay on input line 111.
 
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count352
-\scratchdimen=\dimen272
-\scratchbox=\box68
-\nofMPsegments=\count353
-\nofMParguments=\count354
-\everyMPshowfont=\toks34
-\MPscratchCnt=\count355
-\MPscratchDim=\dimen273
-\MPnumerator=\count356
-\makeMPintoPDFobject=\count357
-\everyMPtoPDFconversion=\toks35
+\scratchcounter=\count358
+\scratchdimen=\dimen279
+\scratchbox=\box70
+\nofMPsegments=\count359
+\nofMParguments=\count360
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count361
+\MPscratchDim=\dimen280
+\MPnumerator=\count362
+\makeMPintoPDFobject=\count363
+\everyMPtoPDFconversion=\toks38
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 111.
+Package hyperref Info: Link coloring OFF on input line 112.
  (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
-\c@lstlisting=\count358
-LaTeX Font Info:    Trying to load font information for U+msa on input line 126
+\c@lstlisting=\count364
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.st
+y
+Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PD
+F (HO)
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+))
+LaTeX Font Info:    Trying to load font information for U+msa on input line 127
 .
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 126
+LaTeX Font Info:    Trying to load font information for U+msb on input line 127
 .
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -739,7 +789,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <images/FMFI_logo_BP.png, id=205, 284.7438pt x 284.7438pt>
 File: images/FMFI_logo_BP.png Graphic file (type png)
 <use images/FMFI_logo_BP.png>
-Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 131.
+Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 132.
 (pdftex.def)             Requested size: 176.40439pt x 176.40898pt.
  [1
 
@@ -749,86 +799,161 @@ al/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./images/
 FMFI_logo_BP.png>]
 File: images/FMFI_logo_BP.png Graphic file (type png)
 <use images/FMFI_logo_BP.png>
-Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 163.
+Package pdftex.def Info: images/FMFI_logo_BP.png  used on input line 164.
 (pdftex.def)             Requested size: 176.40439pt x 176.40898pt.
  [2
 
 ]
-<assignment_en.PDF, id=222, page=1, 597.50731pt x 845.04607pt>
+<assignment_en.PDF, id=222, 597.50731pt x 845.04607pt>
+File: assignment_en.PDF Graphic file (type pdf)
+<use assignment_en.PDF>
+Package pdftex.def Info: assignment_en.PDF  used on input line 203.
+(pdftex.def)             Requested size: 597.50584pt x 845.044pt.
+File: assignment_en.PDF Graphic file (type pdf)
+<use assignment_en.PDF>
+Package pdftex.def Info: assignment_en.PDF  used on input line 203.
+(pdftex.def)             Requested size: 597.50584pt x 845.044pt.
+<assignment_en.PDF, id=225, page=1, 597.50731pt x 845.04607pt>
 File: assignment_en.PDF Graphic file (type pdf)
 <use assignment_en.PDF, page 1>
-Package pdftex.def Info: assignment_en.PDF , page1 used on input line 202.
-(pdftex.def)             Requested size: 485.1222pt x 686.09537pt.
+Package pdftex.def Info: assignment_en.PDF , page1 used on input line 203.
+(pdftex.def)             Requested size: 597.50584pt x 845.044pt.
+File: assignment_en.PDF Graphic file (type pdf)
+<use assignment_en.PDF, page 1>
+Package pdftex.def Info: assignment_en.PDF , page1 used on input line 203.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_en.PDF Graphic file (type pdf)
+<use assignment_en.PDF, page 1>
+Package pdftex.def Info: assignment_en.PDF , page1 used on input line 203.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_en.PDF Graphic file (type pdf)
+<use assignment_en.PDF, page 1>
+Package pdftex.def Info: assignment_en.PDF , page1 used on input line 203.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_en.PDF Graphic file (type pdf)
+<use assignment_en.PDF, page 1>
+Package pdftex.def Info: assignment_en.PDF , page1 used on input line 203.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+ [3
 
-Overfull \hbox (4.82378pt too wide) in paragraph at lines 202--203
-[] [] 
- []
-
-[3
 
  <./assignment_en.PDF>]
-<assignment_sk.PDF, id=251, page=2, 597.50731pt x 845.04607pt>
+<assignment_en.PDF, id=254, page=2, 597.50731pt x 845.04607pt>
+File: assignment_en.PDF Graphic file (type pdf)
+<use assignment_en.PDF, page 2>
+Package pdftex.def Info: assignment_en.PDF , page2 used on input line 203.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_en.PDF Graphic file (type pdf)
+<use assignment_en.PDF, page 2>
+Package pdftex.def Info: assignment_en.PDF , page2 used on input line 203.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_en.PDF Graphic file (type pdf)
+<use assignment_en.PDF, page 2>
+Package pdftex.def Info: assignment_en.PDF , page2 used on input line 203.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+ [4
+
+ <./assignment_en.PDF>]
+<assignment_sk.PDF, id=259, 597.50731pt x 845.04607pt>
+File: assignment_sk.PDF Graphic file (type pdf)
+<use assignment_sk.PDF>
+Package pdftex.def Info: assignment_sk.PDF  used on input line 207.
+(pdftex.def)             Requested size: 597.50584pt x 845.044pt.
+File: assignment_sk.PDF Graphic file (type pdf)
+<use assignment_sk.PDF>
+Package pdftex.def Info: assignment_sk.PDF  used on input line 207.
+(pdftex.def)             Requested size: 597.50584pt x 845.044pt.
+<assignment_sk.PDF, id=262, page=1, 597.50731pt x 845.04607pt>
+File: assignment_sk.PDF Graphic file (type pdf)
+<use assignment_sk.PDF, page 1>
+Package pdftex.def Info: assignment_sk.PDF , page1 used on input line 207.
+(pdftex.def)             Requested size: 597.50584pt x 845.044pt.
+File: assignment_sk.PDF Graphic file (type pdf)
+<use assignment_sk.PDF, page 1>
+Package pdftex.def Info: assignment_sk.PDF , page1 used on input line 207.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_sk.PDF Graphic file (type pdf)
+<use assignment_sk.PDF, page 1>
+Package pdftex.def Info: assignment_sk.PDF , page1 used on input line 207.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_sk.PDF Graphic file (type pdf)
+<use assignment_sk.PDF, page 1>
+Package pdftex.def Info: assignment_sk.PDF , page1 used on input line 207.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_sk.PDF Graphic file (type pdf)
+<use assignment_sk.PDF, page 1>
+Package pdftex.def Info: assignment_sk.PDF , page1 used on input line 207.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+ [5
+
+ <./assignment_sk.PDF>]
+<assignment_sk.PDF, id=300, page=2, 597.50731pt x 845.04607pt>
 File: assignment_sk.PDF Graphic file (type pdf)
 <use assignment_sk.PDF, page 2>
-Package pdftex.def Info: assignment_sk.PDF , page2 used on input line 206.
-(pdftex.def)             Requested size: 485.1222pt x 686.09537pt.
+Package pdftex.def Info: assignment_sk.PDF , page2 used on input line 207.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_sk.PDF Graphic file (type pdf)
+<use assignment_sk.PDF, page 2>
+Package pdftex.def Info: assignment_sk.PDF , page2 used on input line 207.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+File: assignment_sk.PDF Graphic file (type pdf)
+<use assignment_sk.PDF, page 2>
+Package pdftex.def Info: assignment_sk.PDF , page2 used on input line 207.
+(pdftex.def)             Requested size: 597.53319pt x 845.08269pt.
+ [6
 
-Overfull \hbox (4.82378pt too wide) in paragraph at lines 206--207
-[] [] 
+ <./assignment_sk.PDF>]
+Underfull \hbox (badness 10000) in paragraph at lines 222--224
+
  []
 
-[4 <./assignment_sk.PDF>]
-Underfull \hbox (badness 10000) in paragraph at lines 221--223
+
+Underfull \hbox (badness 10000) in paragraph at lines 222--224
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 221--223
-
- []
-
-
-Overfull \hbox (5.22096pt too wide) in paragraph at lines 217--224
+Overfull \hbox (5.22096pt too wide) in paragraph at lines 218--225
 $[]$  $[]$ 
  []
 
-[5] [6
+[7] [8
 
 
-] (./abstract.tex) [7
+] (./abstract.tex) [9
 
-] (./abstrakt.tex) [8
+] (./abstrakt.tex) [10
 
-] (./main.toc [9
+] (./main.toc [11
 
 ])
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
- [10]
+ [12]
 (./main.lof)
 \tf@lof=\write7
 \openout7 = `main.lof'.
 
- [11
+ [13
 
 ] (./main.lot)
 \tf@lot=\write8
 \openout8 = `main.lot'.
 
- [12
+ [14
 
 ] (./main.lol)
 \tf@lol=\write9
 \openout9 = `main.lol'.
 
- (./terminology.tex [13
+ (./terminology.tex [15
 
 ]
-[14
+[16
 
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
- [15]) [16] (./motivation.tex) (./introduction/introduction.tex [1
+ [17]) [18] (./motivation.tex) (./introduction/introduction.tex [1
 
 
 ] [2]
@@ -844,7 +969,7 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 ) [4{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 23.
-<images/containers-vs-virtual-machines.jpg, id=526, 1927.2pt x 975.645pt>
+<images/containers-vs-virtual-machines.jpg, id=542, 1927.2pt x 975.645pt>
 File: images/containers-vs-virtual-machines.jpg Graphic file (type jpg)
 <use images/containers-vs-virtual-machines.jpg>
 Package pdftex.def Info: images/containers-vs-virtual-machines.jpg  used on inp
@@ -852,7 +977,7 @@ ut line 45.
 (pdftex.def)             Requested size: 330.76329pt x 167.43549pt.
  [5] [6 <./images/containers-vs-virtual-machines.jpg>]) (./introduction/kuberne
 tes.tex [7]
-<images/components-of-kubernetes.pdf, id=558, 942.66823pt x 440.42018pt>
+<images/components-of-kubernetes.pdf, id=575, 942.66823pt x 440.42018pt>
 File: images/components-of-kubernetes.pdf Graphic file (type pdf)
 <use images/components-of-kubernetes.pdf>
 Package pdftex.def Info: images/components-of-kubernetes.pdf  used on input lin
@@ -863,14 +988,14 @@ Overfull \hbox (5.74173pt too wide) in paragraph at lines 157--158
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
  []
 
-<images/openshift-dashboard.png, id=631, 3011.25pt x 2541.495pt>
+<images/openshift-dashboard.png, id=648, 3011.25pt x 2541.495pt>
 File: images/openshift-dashboard.png Graphic file (type png)
 <use images/openshift-dashboard.png>
 Package pdftex.def Info: images/openshift-dashboard.png  used on input line 163
 .
 (pdftex.def)             Requested size: 374.86775pt x 316.36757pt.
 [14 <./images/openshift-dashboard.png>]
-<images/rancher-desktop.png, id=639, 960.58875pt x 540.51938pt>
+<images/rancher-desktop.png, id=656, 960.58875pt x 540.51938pt>
 File: images/rancher-desktop.png Graphic file (type png)
 <use images/rancher-desktop.png>
 Package pdftex.def Info: images/rancher-desktop.png  used on input line 183.
@@ -878,7 +1003,7 @@ Package pdftex.def Info: images/rancher-desktop.png  used on input line 183.
 )
 (./introduction/security_frameworks.tex [15 <./images/rancher-desktop.png>]
 [16]
-<images/cloud-security.png, id=654, 776.9025pt x 448.074pt>
+<images/cloud-security.png, id=670, 776.9025pt x 448.074pt>
 File: images/cloud-security.png Graphic file (type png)
 <use images/cloud-security.png>
 Package pdftex.def Info: images/cloud-security.png  used on input line 17.
@@ -899,14 +1024,14 @@ Overfull \hbox (3.14774pt too wide) in paragraph at lines 94--110
  []
 
 [19] [20] [21]
-<images/hardened-container-build-workflow.png, id=693, 939.51pt x 709.65125pt>
+<images/hardened-container-build-workflow.png, id=709, 939.51pt x 709.65125pt>
 File: images/hardened-container-build-workflow.png Graphic file (type png)
 <use images/hardened-container-build-workflow.png>
 Package pdftex.def Info: images/hardened-container-build-workflow.png  used on 
 input line 144.
 (pdftex.def)             Requested size: 396.91325pt x 299.80568pt.
  [22 <./images/hardened-container-build-workflow.png>]
-<images/mitre-attack-matrix.png, id=700, 1048.91875pt x 386.44376pt>
+<images/mitre-attack-matrix.png, id=716, 1048.91875pt x 386.44376pt>
 File: images/mitre-attack-matrix.png Graphic file (type png)
 <use images/mitre-attack-matrix.png>
 Package pdftex.def Info: images/mitre-attack-matrix.png  used on input line 158
@@ -924,7 +1049,7 @@ File: lstlang1.sty 2024/02/21 1.10 listings language file
 (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
 ) [27]
-<images/prowler-dashboard.png, id=740, 3468.96pt x 1810.765pt>
+<images/prowler-dashboard.png, id=756, 3468.96pt x 1810.765pt>
 File: images/prowler-dashboard.png Graphic file (type png)
 <use images/prowler-dashboard.png>
 Package pdftex.def Info: images/prowler-dashboard.png  used on input line 89.
@@ -989,7 +1114,7 @@ Overfull \hbox (11.13997pt too wide) in paragraph at lines 8--37
  []
 
 ) (./research/experimental_environment.tex [32] [33]
-<images/demo-users.png, id=792, 1227.58624pt x 677.53125pt>
+<images/demo-users.png, id=808, 1227.58624pt x 677.53125pt>
 File: images/demo-users.png Graphic file (type png)
 <use images/demo-users.png>
 Package pdftex.def Info: images/demo-users.png  used on input line 9.
@@ -999,7 +1124,7 @@ Overfull \hbox (19.84686pt too wide) in paragraph at lines 9--10
 [][] 
  []
 
-<images/demo-subjects.png, id=793, 1198.4775pt x 640.3925pt>
+<images/demo-subjects.png, id=809, 1198.4775pt x 640.3925pt>
 File: images/demo-subjects.png Graphic file (type png)
 <use images/demo-subjects.png>
 Package pdftex.def Info: images/demo-subjects.png  used on input line 15.
@@ -1015,20 +1140,20 @@ Chapter 3.
 (./implementation/architecture_and_software_design.tex [37
 
 ]
-<images/ksa-component-diagram.png, id=866, 913.4125pt x 376.40625pt>
+<images/ksa-component-diagram.png, id=883, 913.4125pt x 376.40625pt>
 File: images/ksa-component-diagram.png Graphic file (type png)
 <use images/ksa-component-diagram.png>
 Package pdftex.def Info: images/ksa-component-diagram.png  used on input line 2
 3.
 (pdftex.def)             Requested size: 418.96548pt x 172.64928pt.
  [38 <./images/ksa-component-diagram.png>]
-<images/ksa-schematic.png, id=873, 1196.47pt x 2002.48125pt>
+<images/ksa-schematic.png, id=890, 1196.47pt x 2002.48125pt>
 File: images/ksa-schematic.png Graphic file (type png)
 <use images/ksa-schematic.png>
 Package pdftex.def Info: images/ksa-schematic.png  used on input line 33.
 (pdftex.def)             Requested size: 220.50887pt x 369.04768pt.
 ) (./implementation/data_design.tex
-<images/er-diagram.png, id=875, 927.465pt x 1373.13pt>
+<images/er-diagram.png, id=892, 927.465pt x 1373.13pt>
 File: images/er-diagram.png Graphic file (type png)
 <use images/er-diagram.png>
 Package pdftex.def Info: images/er-diagram.png  used on input line 8.
@@ -1060,12 +1185,12 @@ File: lstlang2.sty 2024/02/21 1.10 listings language file
 File: lstlang3.sty 2024/02/21 1.10 listings language file
 ) [41])
 (./implementation/aggregator.tex [42]) (./implementation/dashboard.tex
-<images/ksa-dashboard-ui.png, id=947, 1592.95125pt x 801.99625pt>
+<images/ksa-dashboard-ui.png, id=963, 1592.95125pt x 801.99625pt>
 File: images/ksa-dashboard-ui.png Graphic file (type png)
 <use images/ksa-dashboard-ui.png>
 Package pdftex.def Info: images/ksa-dashboard-ui.png  used on input line 10.
 (pdftex.def)             Requested size: 396.91325pt x 199.8255pt.
-<images/ksa-dashboard-statistics.png, id=949, 1551.7975pt x 990.70125pt>
+<images/ksa-dashboard-statistics.png, id=965, 1551.7975pt x 990.70125pt>
 File: images/ksa-dashboard-statistics.png Graphic file (type png)
 <use images/ksa-dashboard-statistics.png>
 Package pdftex.def Info: images/ksa-dashboard-statistics.png  used on input lin
@@ -1129,18 +1254,18 @@ Overfull \hbox (30.70892pt too wide) in paragraph at lines 20--40
  []
 
 [48] [49]
-<images/trivy-misconfigurations.png, id=1026, 642.4pt x 481.8pt>
+<images/trivy-misconfigurations.png, id=1043, 642.4pt x 481.8pt>
 File: images/trivy-misconfigurations.png Graphic file (type png)
 <use images/trivy-misconfigurations.png>
 Package pdftex.def Info: images/trivy-misconfigurations.png  used on input line
  53.
 (pdftex.def)             Requested size: 220.50887pt x 165.38309pt.
-<images/success-rate.png, id=1029, 642.4pt x 481.8pt>
+<images/success-rate.png, id=1046, 642.4pt x 481.8pt>
 File: images/success-rate.png Graphic file (type png)
 <use images/success-rate.png>
 Package pdftex.def Info: images/success-rate.png  used on input line 67.
 (pdftex.def)             Requested size: 176.40439pt x 132.30058pt.
-<images/success-rate-no-manual.png, id=1030, 642.4pt x 481.8pt>
+<images/success-rate-no-manual.png, id=1047, 642.4pt x 481.8pt>
 File: images/success-rate-no-manual.png Graphic file (type png)
 <use images/success-rate-no-manual.png>
 Package pdftex.def Info: images/success-rate-no-manual.png  used on input line 
@@ -1155,18 +1280,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--74
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [50 <./images/trivy-misconfigurations.png>]
-<images/number-of-checks.png, id=1037, 642.4pt x 481.8pt>
+<images/number-of-checks.png, id=1054, 642.4pt x 481.8pt>
 File: images/number-of-checks.png Graphic file (type png)
 <use images/number-of-checks.png>
 Package pdftex.def Info: images/number-of-checks.png  used on input line 87.
 (pdftex.def)             Requested size: 220.50887pt x 165.38309pt.
-<images/vulnerabilities-by-severity.png, id=1038, 642.4pt x 481.8pt>
+<images/vulnerabilities-by-severity.png, id=1055, 642.4pt x 481.8pt>
 File: images/vulnerabilities-by-severity.png Graphic file (type png)
 <use images/vulnerabilities-by-severity.png>
 Package pdftex.def Info: images/vulnerabilities-by-severity.png  used on input 
 line 97.
 (pdftex.def)             Requested size: 176.40439pt x 132.30058pt.
-<images/vulnerabilities-by-application-type.png, id=1039, 642.4pt x 481.8pt>
+<images/vulnerabilities-by-application-type.png, id=1056, 642.4pt x 481.8pt>
 File: images/vulnerabilities-by-application-type.png Graphic file (type png)
 <use images/vulnerabilities-by-application-type.png>
 Package pdftex.def Info: images/vulnerabilities-by-application-type.png  used o
@@ -1179,13 +1304,13 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [51 <./images/success-rate.png> <./images/success-rate-no-manual.png> <./images
 /number-of-checks.png>] [52 <./images/vulnerabilities-by-severity.png> <./image
 s/vulnerabilities-by-application-type.png>]
-<images/ibm-cloud-count-comparison.png, id=1056, 1003.75pt x 602.25pt>
+<images/ibm-cloud-count-comparison.png, id=1072, 1003.75pt x 602.25pt>
 File: images/ibm-cloud-count-comparison.png Graphic file (type png)
 <use images/ibm-cloud-count-comparison.png>
 Package pdftex.def Info: images/ibm-cloud-count-comparison.png  used on input l
 ine 122.
 (pdftex.def)             Requested size: 198.45662pt x 119.06943pt.
-<images/ibm-cloud-success-rate-comparison.png, id=1057, 903.375pt x 501.875pt>
+<images/ibm-cloud-success-rate-comparison.png, id=1073, 903.375pt x 501.875pt>
 File: images/ibm-cloud-success-rate-comparison.png Graphic file (type png)
 <use images/ibm-cloud-success-rate-comparison.png>
 Package pdftex.def Info: images/ibm-cloud-success-rate-comparison.png  used on 
@@ -1281,13 +1406,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 3F2B5C5FBF0CF157159DCF92FB955DE9;6862.
  ) 
 Here is how much of TeX's memory you used:
- 20510 strings out of 474116
- 345906 string characters out of 5743681
+ 21332 strings out of 474116
+ 360651 string characters out of 5743681
  1967187 words of memory out of 5000000
- 42098 multiletter control sequences out of 15000+600000
+ 42894 multiletter control sequences out of 15000+600000
  576828 words of font info for 83 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 77i,15n,79p,1784b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 77i,17n,79p,1784b,2253s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></
 usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></us
@@ -1300,10 +1425,10 @@ xlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texl
 ive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texliv
 e/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/t
 exmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on main.pdf (75 pages, 5124854 bytes).
+Output written on main.pdf (77 pages, 5134761 bytes).
 PDF statistics:
- 1261 PDF objects out of 1440 (max. 8388607)
- 1072 compressed objects within 11 object streams
- 372 named destinations out of 1000 (max. 500000)
- 531 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1278 PDF objects out of 1440 (max. 8388607)
+ 1079 compressed objects within 11 object streams
+ 374 named destinations out of 1000 (max. 500000)
+ 571 words of extra memory for PDF output out of 10000 (max. 10000000)
 
